@@ -1,0 +1,169 @@
+/**
+ * ownCloud - Perlenbilanz
+ *
+ * @author Jörn Friedrich Dreyer
+ * @copyright 2013 Jörn Friedrich Dreyer jfd@butonic.de
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
+ * License as published by the Free Software Foundation; either
+ * version 3 of the License, or any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU AFFERO GENERAL PUBLIC LICENSE for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public
+ * License along with this library.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ */
+
+/**
+ * Create your custom styles in here
+ */
+#perlenbilanz {
+	width: 100%;
+	height: 100%;
+	box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	padding: 2em;
+}
+#perlenbilanz h1 {
+	font-size: 20px;
+	font-weight: bold;
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
+
+#perlenbilanz hr {
+	width: 16%;
+	height:1px;
+	border: none;
+	border-top: 1px solid dimgrey;
+	display: inline-block;
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
+#perlenbilanz .centered {
+	text-align: center;
+}
+
+#perlenbilanz label {
+	font-weight: normal;
+}
+
+#perlenbilanz h2 {
+	font-weight: bold;
+}
+
+#perlenbilanz table {
+	border-spacing: 1px 0px;
+}
+
+#perlenbilanz td, #perlenbilanz th {
+	padding-left: 5px;
+	padding-right: 5px;
+}
+
+tr:nth-child(even) {
+	background-color: #eee;
+}
+
+tr:nth-child(even):hover {
+	background-color: #e9e9e9;
+}
+tr:nth-child(odd) {
+	background-color: #ddd;
+}
+
+tr:nth-child(odd):hover {
+	background-color: #d9d9d9;
+}
+
+input.ng-invalid {
+	border: 1px solid #ec3f41;
+}
+
+th {
+	text-align: left;
+	font-variant: small-caps;
+	font-weight: normal;
+}
+
+table .count input {
+	width: 30px;
+}
+
+table .type select {
+	width: 200px;
+}
+
+.datum input, .wertstellung input {
+	width:70px;
+	text-align: center;
+}
+
+.name input {
+	width:300px;
+}
+
+.brutto, .mwst, .netto {
+	text-align: right;
+}
+
+.brutto input, .mwst input, .netto input {
+	width: 50px;
+}
+.mwst_status {
+	display: inline-block;
+	vertical-align: middle;
+}
+.mwst_prozent > input{
+	width: 20px;
+	vertical-align: middle;
+}
+
+.count input {
+	text-align: right;
+}
+
+.description textarea {
+	width: 270px;
+}
+#datum, #wertstellung {
+	width:70px;
+	text-align: center;
+}
+
+#perlenbilanz .notes {
+	width: 80%;
+	height: 100px;
+}
+
+.ui-datepicker .ui-datepicker-today a {
+	background: beige;
+}
+
+#perlenbilanz .select2-container .select2-choice span {
+	margin-right: 40px;
+}
+
+#perlenbilanz .select2-container .select2-choice abbr {
+	right: 23px;
+	top: 7px;
+}
+#perlenbilanz .select2-container {
+	width:300px;
+}
+#perlenbilanz #verkauf .type .select2-container {
+	width:110px;
+}
+
+#menu .ui-datepicker-calendar {
+	display: none;
+}
+
+#perlenbilanz #name, #perlenbilanz #account {
+	width:170px;
+}

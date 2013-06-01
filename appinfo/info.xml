@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<info>
+	<id>perlenbilanz</id>
+	<name>Perlenbilanz</name>
+	<description>Perlenbilanz für fancywork</description>
+	<licence>AGPL</licence>
+	<author>Jörn Dreyer</author>
+	<require>4.9</require>
+</info>
