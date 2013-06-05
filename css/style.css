@@ -27,7 +27,6 @@
 	height: 100%;
 	box-sizing: border-box;
 	-moz-box-sizing: border-box;
-	padding: 2em;
 }
 #perlenbilanz h1 {
 	font-size: 20px;
@@ -136,6 +135,12 @@ table .type select {
 	text-align: center;
 }
 
+#perlenbilanz #controls {
+	position: fixed;
+	height: auto;
+	top: 45px;
+}
+
 #perlenbilanz .notes {
 	width: 80%;
 	height: 100px;
@@ -160,10 +165,19 @@ table .type select {
 	width:110px;
 }
 
-#menu .ui-datepicker-calendar {
+#controls .ui-datepicker {
+	width: 14em;
+}
+#controls .ui-datepicker-calendar {
 	display: none;
 }
 
 #perlenbilanz #name, #perlenbilanz #account {
 	width:170px;
+}
+
+#perlenbilanz #view {
+	position: relative;
+	top: 40px;
+	margin: 20px;
 }

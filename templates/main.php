@@ -10,8 +10,29 @@
 
 <div id="perlenbilanz"
 	 ng-app="perlenbilanz">
+	<div id="controls" ng-controller="MenuCtrl">
+		<a class="button" href="#/">Übersicht</a>
 
-	<div ng-view></div>
+		&nbsp;&nbsp; | &nbsp;&nbsp;
+
+		<a class="button" href="#/einkauf">neuer EK</a>
+		<a class="button" href="#/verkauf">neuer VK</a>
+		
+		&nbsp;&nbsp; | &nbsp;&nbsp;
+
+		<a class="button" href="#/einkaeufe">EK schließen</a>
+		<a class="button" href="#/verkaeufe">VK schließen</a>
+		<a class="button" href="#/wertstellungen">Wertstellungen</a>
+		
+		&nbsp;&nbsp; | &nbsp;&nbsp;
+
+		<a class="button" ng-click="generateReport()">Bericht</a>
+		<div style="display:inline-block;" ui-date="{ defaultDate: '-1m', onChangeMonthYear: updateReportDate }" ></div>
+
+	</div>
+	
+	<div id="view" ng-view></div>
+	
 
 </div>
 

@@ -7,7 +7,7 @@ angular.module('perlenbilanz', ['perlenbilanzServices', 'ui.directives']).
 		$interpolateProvider.startSymbol('[[');
 		$interpolateProvider.endSymbol(']]');
 		$routeProvider.
-			when('/', {templateUrl: 'templates/partials/menu.php', controller: MenuCtrl}).
+			when('/', {templateUrl: 'templates/partials/uebersicht.php', controller: UebersichtCtrl}).
 			when('/einkauf', {templateUrl: 'templates/partials/einkauf.php', controller: EinkaufCtrl}).
 			when('/einkauf/:id', {templateUrl: 'templates/partials/einkauf.php', controller: EinkaufCtrl}).
 			when('/verkauf', {templateUrl: 'templates/partials/verkauf.php', controller: VerkaufCtrl}).
@@ -20,7 +20,7 @@ angular.module('perlenbilanz', ['perlenbilanzServices', 'ui.directives']).
 
 /* Controllers */
 
-function MenuCtrl($scope, NotesResource, $window, $timeout) {
+function MenuCtrl($scope, $window) {
 
 	$scope.reportDate = new Date();
 	$scope.reportDate.setDate(1);
@@ -36,7 +36,7 @@ function MenuCtrl($scope, NotesResource, $window, $timeout) {
 
 	$scope.generateReport = function () {
 		//FIXME this is a bad hack but I could not yet find an angular way of generating urls
-		$window.open('report?requesttotoken='+oc_requesttoken+'&year='+$scope.reportYear+'&month='+$scope.reportMonth);
+		$window.open('report?requesttoken='+oc_requesttoken+'&year='+$scope.reportYear+'&month='+$scope.reportMonth);
 	};
 	$scope.updateReportDate = function (year, month) {
 		$scope.reportYear = ''+year;
@@ -48,6 +48,11 @@ function MenuCtrl($scope, NotesResource, $window, $timeout) {
 		}
 	};
 
+
+}
+
+function UebersichtCtrl($scope, NotesResource, $timeout) {
+	
 	NotesResource.get(function(response){
 		$scope.notes = response.text;
 	});
@@ -60,9 +65,8 @@ function MenuCtrl($scope, NotesResource, $window, $timeout) {
 			NotesResource.save({text:$scope.notes},function(response){}, function(error){
 				alert('could not save notes');
 			});
-		}, 2000); //autosave after 2 sec
+		}, 1000); //autosave after 2 sec
 	};
-
 }
 
 function EinkaufCtrl($scope, $location, $filter, $routeParams, EinkaufResource, EinkaufPositionResource, accountNameRecommender, mwstCalculator) {
