@@ -37,7 +37,7 @@ use \OCA\Perlenbilanz\DependencyInjection\DIContainer;
  */
 $this->create('perlenbilanz_menu', '/')->get()->action(
 	function($params){
-        App::main('PageController', 'index', $params, new DIContainer());
+		App::main('PageController', 'index', $params, new DIContainer());
 	}
 );
 
