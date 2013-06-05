@@ -183,25 +183,28 @@ class ReportController extends Controller {
 		$sheet->getStyle('A'.$row)->getFont()->setBold(true);
 		$row++;
 		
-		$sumstartrow = $row + 1;
-		
-		$this->addSection($sheet, $row, $einkaeufe);
-		
-		$sumendrow = $row - 1;
-		
-		//add sum
-		$sheet->SetCellValue('A'.$row, 'Summe');
-		$sheet->getStyle('A'.$row)->getFont()->setBold(true);
-		$sheet->SetCellValue('F'.$row, '=SUM(F'.$sumstartrow.':F'.$sumendrow.')');
-		$sheet->getStyle('F'.$row)->getNumberFormat()->setFormatCode('#,##0.00€');
-		$sheet->getStyle('F'.$row)->getFont()->setBold(true);
-		$sheet->SetCellValue('G'.$row, '=SUM(G'.$sumstartrow.':G'.$sumendrow.')');
-		$sheet->getStyle('G'.$row)->getNumberFormat()->setFormatCode('#,##0.00€');
-		$sheet->getStyle('G'.$row)->getFont()->setBold(true);
-		$sheet->SetCellValue('H'.$row, '=SUM(H'.$sumstartrow.':H'.$sumendrow.')');
-		$sheet->getStyle('H'.$row)->getNumberFormat()->setFormatCode('#,##0.00€');
-		$sheet->getStyle('H'.$row)->getFont()->setBold(true);
-		
+		if (sizeof($einkaeufe)>0) {
+			$sumstartrow = $row + 1;
+
+			$this->addSection($sheet, $row, $einkaeufe);
+
+			$sumendrow = $row - 1;
+
+			//add sum
+			$sheet->SetCellValue('A'.$row, 'Summe');
+			$sheet->getStyle('A'.$row)->getFont()->setBold(true);
+			$sheet->SetCellValue('F'.$row, '=SUM(F'.$sumstartrow.':F'.$sumendrow.')');
+			$sheet->getStyle('F'.$row)->getNumberFormat()->setFormatCode('#,##0.00€');
+			$sheet->getStyle('F'.$row)->getFont()->setBold(true);
+			$sheet->SetCellValue('G'.$row, '=SUM(G'.$sumstartrow.':G'.$sumendrow.')');
+			$sheet->getStyle('G'.$row)->getNumberFormat()->setFormatCode('#,##0.00€');
+			$sheet->getStyle('G'.$row)->getFont()->setBold(true);
+			$sheet->SetCellValue('H'.$row, '=SUM(H'.$sumstartrow.':H'.$sumendrow.')');
+			$sheet->getStyle('H'.$row)->getNumberFormat()->setFormatCode('#,##0.00€');
+			$sheet->getStyle('H'.$row)->getFont()->setBold(true);
+		} else {
+			$sheet->SetCellValue('A'.$row, 'Keine Einkäufe');
+		}
 		
 		// add empty line
 		$row+=2;
@@ -214,25 +217,30 @@ class ReportController extends Controller {
 		$sheet->getStyle('A'.$row)->getFont()->setBold(true);
 		$row++;
 		
-		$sumstartrow = $row + 1;
+		if (sizeof($einkaeufe)>0) {
+			
+			$sumstartrow = $row + 1;
+
+			$this->addSection($sheet, $row, $verkaeufe);
+
+			$sumendrow = $row - 1;
+
+			//add sum
+			$sheet->SetCellValue('A'.$row, 'Summe');
+			$sheet->getStyle('A'.$row)->getFont()->setBold(true);
+			$sheet->SetCellValue('F'.$row, '=SUM(F'.$sumstartrow.':F'.$sumendrow.')');
+			$sheet->getStyle('F'.$row)->getNumberFormat()->setFormatCode('#,##0.00€');
+			$sheet->getStyle('F'.$row)->getFont()->setBold(true);
+			$sheet->SetCellValue('G'.$row, '=SUM(G'.$sumstartrow.':G'.$sumendrow.')');
+			$sheet->getStyle('G'.$row)->getNumberFormat()->setFormatCode('#,##0.00€');
+			$sheet->getStyle('G'.$row)->getFont()->setBold(true);
+			$sheet->SetCellValue('H'.$row, '=SUM(H'.$sumstartrow.':H'.$sumendrow.')');
+			$sheet->getStyle('H'.$row)->getNumberFormat()->setFormatCode('#,##0.00€');
+			$sheet->getStyle('H'.$row)->getFont()->setBold(true);
 		
-		$this->addSection($sheet, $row, $verkaeufe);
-		
-		$sumendrow = $row - 1;
-		
-		//add sum
-		$sheet->SetCellValue('A'.$row, 'Summe');
-		$sheet->getStyle('A'.$row)->getFont()->setBold(true);
-		$sheet->SetCellValue('F'.$row, '=SUM(F'.$sumstartrow.':F'.$sumendrow.')');
-		$sheet->getStyle('F'.$row)->getNumberFormat()->setFormatCode('#,##0.00€');
-		$sheet->getStyle('F'.$row)->getFont()->setBold(true);
-		$sheet->SetCellValue('G'.$row, '=SUM(G'.$sumstartrow.':G'.$sumendrow.')');
-		$sheet->getStyle('G'.$row)->getNumberFormat()->setFormatCode('#,##0.00€');
-		$sheet->getStyle('G'.$row)->getFont()->setBold(true);
-		$sheet->SetCellValue('H'.$row, '=SUM(H'.$sumstartrow.':H'.$sumendrow.')');
-		$sheet->getStyle('H'.$row)->getNumberFormat()->setFormatCode('#,##0.00€');
-		$sheet->getStyle('H'.$row)->getFont()->setBold(true);
-		
+		} else {
+			$sheet->SetCellValue('A'.$row, 'Keine Verkäufe');
+		}
 		
 		// calculate optimal column width
 		
