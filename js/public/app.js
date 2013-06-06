@@ -455,11 +455,13 @@ angular.module('perlenbilanz').directive('currencyInput', function() {
 				var keyCode = ('which' in event) ? event.which : event.keyCode;
 				if (event.ctrlKey && (keyCode === 67 || keyCode === 88 || keyCode === 86)) {
 					return true;
-				} else if ((keyCode >= 96 && keyCode <= 105) || keyCode === 109 || keyCode === 110) { /* numpad 0..9 - ,/. */
+				} else if ((keyCode >= 96 && keyCode <= 105) || keyCode === 109 || keyCode === 110) { /* numpad 0..9 DOM_VK_SUBTRACT(109,-) DOM_VK_DECIMAL(110,.) */
 					return true;
-				} else if (keyCode >= 188 && keyCode <= 190) { /* , - .	*/
+				} else if (keyCode >= 188 && keyCode <= 190) { /* , . DOM_VK_COMMA(188,-) DOM_VK_PERIOD(190,.) */ 
 					return true;
-				} else if (keyCode >= 58) {
+				} else if (keyCode === 173) { /* DOM_VK_HYPHEN_MINUS(173,-) */
+					return true;
+				} else if (keyCode >= 58) { /* DOM_VK_COLON(58,:) */
 					return false;
 				}
 				return true;
