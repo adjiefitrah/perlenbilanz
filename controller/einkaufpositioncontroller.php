@@ -86,10 +86,10 @@ class EinkaufPositionController extends Controller {
 	 */
 	public function listPositionen(){
 		$params = $this->getParams();
-		if ($params['ekId']) {
+		if (isset($params['ekId'])) {
 			$entities = $this->posMapper->findAll($params['ekId'], $this->api->getUserId());
 			return $this->renderRawJSON($entities, null, 0);
-		} else if ($params['geliefert'] == 'false') {
+		} else if (isset($params['geliefert']) && $params['geliefert'] == 'false') {
 			$entities = $this->posMapper->findOpen($this->api->getUserId());
 			return $this->renderRawJSON($entities, null, 0);
 		} else {

@@ -51,7 +51,37 @@ function MenuCtrl($scope, $window) {
 
 }
 
-function UebersichtCtrl($scope, NotesResource, $timeout) {
+function UebersichtCtrl($scope, $location, NotesResource, $timeout, VerkaufResource, EinkaufResource) {
+	$scope.verkaeufe = VerkaufResource.query({overview:'current'},function(response){
+		$scope.vkBrutto = 0;
+		$scope.vkMwSt = 0;
+		$scope.vkNetto = 0;
+		angular.forEach(response, function(entry) {
+			if (entry.wertstellung !== null) {
+				$scope.vkBrutto += entry.brutto;
+				$scope.vkMwSt += entry.mwst;
+				$scope.vkNetto += entry.netto;
+			}
+		});
+	});
+	$scope.einkaeufe = EinkaufResource.query({overview:'current'},function(response){
+		$scope.ekBrutto = 0;
+		$scope.ekMwSt = 0;
+		$scope.ekNetto = 0;
+		angular.forEach(response, function(entry) {
+			if (entry.wertstellung !== null) {
+				$scope.ekBrutto += entry.brutto;
+				$scope.ekMwSt += entry.mwst;
+				$scope.ekNetto += entry.netto;
+			}
+		});
+	});
+	$scope.editEinkauf = function (id) {
+		$location.path('/einkauf/'+id);
+	};
+	$scope.editVerkauf = function (id) {
+		$location.path('/verkauf/'+id);
+	};
 	
 	NotesResource.get(function(response){
 		$scope.notes = response.text;

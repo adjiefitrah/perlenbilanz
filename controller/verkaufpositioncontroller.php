@@ -86,7 +86,7 @@ class VerkaufPositionController extends Controller {
 	 */
 	public function listPositionen(){
 		$params = $this->getParams();
-		if ($params['vkId']) {
+		if (isset($params['vkId'])) {
 			$entities = $this->posMapper->findAll($params['vkId'],$this->api->getUserId());
 			return $this->renderRawJSON($entities, null);
 		} else {

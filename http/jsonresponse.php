@@ -15,10 +15,10 @@ class JSONResponse extends Response {
 
 
 	public function __construct() {
-		parent::__construct();
+		//parent::__construct();
 		$this->data = array();
-		$this->addHeader('X-Content-Type-Options: nosniff');
-		$this->addHeader('Content-type: application/json');
+		$this->addHeader('X-Content-Type-Options', 'nosniff');
+		$this->addHeader('Content-type', 'application/json');
 	}
 
 

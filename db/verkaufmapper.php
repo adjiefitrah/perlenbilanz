@@ -201,6 +201,54 @@ class VerkaufMapper extends Mapper {
 	}
 
 	/**
+	 * @return []
+	 */
+	public function overview($userid){
+		
+		$start = date('Y-m-01');
+		$d = new \DateTime( $start );
+		$end = $d->format( 'Y-m-t' );
+		
+		$sql = 'SELECT `' . $this->getTableName() .'`.`id`,'
+			. ' `' . $this->getTableName() .'`.`wertstellung`,'
+			. ' `' . $this->getTableName() .'`.`plattform`,'
+			. ' `' . $this->getTableName() .'`.`account`,'
+			. ' `' . $this->getTableName() .'`.`name`,'
+			. ' `' . $this->getTableName() .'`.`zahlweise`,'
+			. ' SUM(`brutto`) AS `brutto`,'
+			. ' SUM(`mwst`) AS `mwst`,'
+			. ' SUM(`netto`) AS `netto`'
+			. ' FROM `' . $this->getTableName() .'`'
+			. ' JOIN `*PREFIX*pb_vk_positionen`'
+			. ' ON `' . $this->getTableName() . '`.`id`=`*PREFIX*pb_vk_positionen`.`vk_id`'
+			. ' WHERE `' . $this->getTableName() . '`.`userid` = ?'
+			. ' AND (`' . $this->getTableName() . '`.`wertstellung` IS NULL'
+				.' OR `' . $this->getTableName() . '`.`wertstellung` BETWEEN ? AND ? )'
+			. ' GROUP BY `' . $this->getTableName() . '`.`id`'
+			. ' ORDER BY `' . $this->getTableName() . '`.`id` DESC';
+
+		$result = $this->execute($sql, array($userid,$start,$end));
+
+		$entityList = array();
+		while($row = $result->fetchRow()){
+			$entity = new Verkauf();
+			$entity->fromRow($row);
+			if ($entity->brutto != null) {
+				settype($entity->brutto,'float');
+			}
+			if ($entity->mwst != null) {
+				settype($entity->mwst,'float');
+			}
+			if ($entity->netto != null) {
+				settype($entity->netto,'float');
+			}
+			array_push($entityList, $entity);
+		}
+
+		return $entityList;
+	}
+	
+	/**
 	wertstellung,  brutto, mwst, netto, name, zahlweise (paypal, bar, konto)
 	 * positionstyp (wenn alle positionen gleich, sonst '#gemischt' in rot) witd später analysiert?
 	 * @return []

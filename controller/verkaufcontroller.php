@@ -101,6 +101,11 @@ class VerkaufController extends Controller {
 		} else if (isset($params['wertstellung'])) {
 			$entities = $this->mapper->missingWertstellung($this->api->getUserId());
 			return $this->renderRawJSON($entities, null);
+		} else if (isset($params['overview'])) {
+			if ($params['overview'] === 'current') {
+				$list = $this->mapper->overview($this->api->getUserId());
+				return $this->renderRawJSON($list);
+			} //TODO year and month. then without wertstellung = null
 		}
 		return new NotFoundResponse();
 	}
