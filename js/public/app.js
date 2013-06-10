@@ -749,6 +749,11 @@ angular.module('perlenbilanzServices', ['ngResource']).
 					if (typeof brutto === 'undefined') {
 						brutto = 0;
 					}
+					
+					if (position.typ === 'Rabatt' && brutto > 0) {
+						brutto = brutto * -1;
+						position.brutto = brutto;
+					}
 					bruttoTotal += brutto;
 					
 					var mwstProzent = 0;
