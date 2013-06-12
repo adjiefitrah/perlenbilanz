@@ -181,7 +181,7 @@ table .type select {
 	top: 40px;
 	margin: 20px;
 }
-#perlenbilanz .overview .sum td {
+#perlenbilanz .sum td {
 	border-top: black double;
 	font-weight: bold;
 }

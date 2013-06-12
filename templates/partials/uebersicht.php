@@ -69,6 +69,25 @@
 
 				</tr>
 
+				
+				<tr class="sum" ng-show="verkaeufe.length > 0">
+
+					<td class="id"></td>
+
+					<td class="plattform"></td>
+
+					<td class="account"></td>
+
+					<td class="name"></td>
+
+					<td class="brutto">[[calcBruttoSum(verkaeufe)|number_de]] €</td>
+
+					<td class="zahlweise"></td>
+
+					<td class="wertstellung"></td>
+
+				</tr>
+				
 			</table>
 		</div>
 		
@@ -105,6 +124,24 @@
 
 				</tr>
 
+				<tr class="sum" ng-show="einkaeufe.length > 0">
+
+					<td class="id"></td>
+
+					<td class="plattform"></td>
+
+					<td class="account"></td>
+
+					<td class="name"></td>
+
+					<td class="brutto">[[calcBruttoSum(einkaeufe)|number_de]] €</td>
+
+					<td class="zahlweise"></td>
+
+					<td class="wertstellung"></td>
+
+				</tr>
+				
 			</table>
 		</div>
 		

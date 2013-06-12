@@ -82,7 +82,13 @@ function UebersichtCtrl($scope, $location, NotesResource, $timeout, VerkaufResou
 	$scope.editVerkauf = function (id) {
 		$location.path('/verkauf/'+id);
 	};
-	
+	$scope.calcBruttoSum = function (positionen) {
+		var brutto = 0;
+		angular.forEach(positionen, function(entry) {
+			brutto += entry.brutto;
+		});
+		return brutto;
+	};
 	NotesResource.get(function(response){
 		$scope.notes = response.text;
 	});
