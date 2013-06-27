@@ -89,6 +89,20 @@ function UebersichtCtrl($scope, $location, NotesResource, $timeout, VerkaufResou
 		});
 		return brutto;
 	};
+	$scope.calcMwStSum = function (positionen) {
+		var mwst = 0;
+		angular.forEach(positionen, function(entry) {
+			mwst += entry.mwst;
+		});
+		return mwst;
+	};
+	$scope.calcNettoSum = function (positionen) {
+		var netto = 0;
+		angular.forEach(positionen, function(entry) {
+			netto += entry.netto;
+		});
+		return netto;
+	};
 	NotesResource.get(function(response){
 		$scope.notes = response.text;
 	});
@@ -587,7 +601,7 @@ angular.module('perlenbilanz').directive('autoComplete', function($filter, $time
 angular.module('perlenbilanz').filter('number_de', function() {
 	return function(input) {
 		if (typeof input === 'undefined' || input === null) {
-			input = '';
+			return '';
 		} else if (typeof input === 'number') {
 			input = ''+Math.round(input*100)/100;
 		}
@@ -613,13 +627,11 @@ angular.module('perlenbilanz').filter('number_de', function() {
 		}
 
 		if (decPart === undefined) {
-			decPart = '';
-		}
-		else {
+			decPart = ',00';
+		} else {
 			if (decPart.length > 2) {
 				decPart = decPart.substr(0,2);
-			}
-			if (decPart.length === 1) {
+			} else if (decPart.length === 1) {
 				decPart = decPart + '0';
 			}
 			decPart = ',' + decPart;

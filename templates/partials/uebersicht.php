@@ -19,21 +19,21 @@
 				</tr>
 				<tr>
 					<td>Verkäufe</td>
-					<td>[[vkBrutto|number_de]] €</td>
-					<td>[[vkMwSt|number_de]] €</td>
-					<td>[[vkNetto|number_de]] €</td>
+					<td style="text-align: right;">[[vkBrutto|number_de]] €</td>
+					<td style="text-align: right;">[[vkMwSt|number_de]] €</td>
+					<td style="text-align: right;">[[vkNetto|number_de]] €</td>
 				</tr>
 				<tr>
 					<td>Einkäufe</td>
-					<td>[[ekBrutto|number_de]] €</td>
-					<td>[[ekMwSt|number_de]] €</td>
-					<td>[[ekNetto|number_de]] €</td>
+					<td style="text-align: right;">[[ekBrutto|number_de]] €</td>
+					<td style="text-align: right;">[[ekMwSt|number_de]] €</td>
+					<td style="text-align: right;">[[ekNetto|number_de]] €</td>
 				</tr>
 				<tr class="sum">
 					<td>Summe</td>
-					<td>[[vkBrutto-ekBrutto|number_de]] €</td>
-					<td>[[vkMwSt-ekMwSt|number_de]] €</td>
-					<td>[[vkNetto-ekNetto|number_de]] €</td>
+					<td style="text-align: right;">[[vkBrutto-ekBrutto|number_de]] €</td>
+					<td style="text-align: right;">[[vkMwSt-ekMwSt|number_de]] €</td>
+					<td style="text-align: right;">[[vkNetto-ekNetto|number_de]] €</td>
 				</tr>
 			</table>
 		</div>
@@ -48,6 +48,8 @@
 					<th>Account</th>
 					<th>Name</th>
 					<th>Brutto</th>
+					<th>MwSt</th>
+					<th>Netto</th>
 					<th>Zahlweise</th>
 					<th>Wertstellung</th>
 				</tr>
@@ -62,6 +64,10 @@
 					<td class="name">[[verkauf.name]]</td>
 
 					<td class="brutto">[[verkauf.brutto|number_de]] €</td>
+					
+					<td class="mwst">[[verkauf.mwst|number_de]] €</td>
+					
+					<td class="netto">[[verkauf.netto|number_de]] €</td>
 
 					<td class="zahlweise">[[verkauf.zahlweise]]</td>
 
@@ -78,9 +84,13 @@
 
 					<td class="account"></td>
 
-					<td class="name"></td>
+					<td class="name" style="text-align: right;">Summe:</td>
 
 					<td class="brutto">[[calcBruttoSum(verkaeufe)|number_de]] €</td>
+					
+					<td class="brutto">[[calcMwStSum(verkaeufe)|number_de]] €</td>
+					
+					<td class="brutto">[[calcNettoSum(verkaeufe)|number_de]] €</td>
 
 					<td class="zahlweise"></td>
 
@@ -103,6 +113,8 @@
 					<th>Account</th>
 					<th>Name</th>
 					<th>Brutto</th>
+					<th>MwSt</th>
+					<th>Netto</th>
 					<th>Zahlweise</th>
 					<th>Wertstellung</th>
 				</tr>
@@ -118,6 +130,10 @@
 
 					<td class="brutto">[[einkauf.brutto|number_de]] €</td>
 
+					<td class="mwst">[[einkauf.mwst|number_de]] €</td>
+
+					<td class="netto">[[einkauf.netto|number_de]] €</td>
+
 					<td class="zahlweise">[[einkauf.zahlweise]]</td>
 
 					<td class="wertstellung">[[einkauf.wertstellung | date:'dd.MM.yyyy']]</td>
@@ -132,9 +148,13 @@
 
 					<td class="account"></td>
 
-					<td class="name"></td>
+					<td class="name" style="text-align: right;">Summe:</td>
 
 					<td class="brutto">[[calcBruttoSum(einkaeufe)|number_de]] €</td>
+
+					<td class="mwst">[[calcMwStSum(einkaeufe)|number_de]] €</td>
+
+					<td class="netto">[[calcNettoSum(einkaeufe)|number_de]] €</td>
 
 					<td class="zahlweise"></td>
 
