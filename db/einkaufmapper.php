@@ -190,6 +190,7 @@ class EinkaufMapper extends Mapper {
 			. ' `' . $this->getTableName() .'`.`account`,'
 			. ' `' . $this->getTableName() .'`.`name`,'
 			. ' `' . $this->getTableName() .'`.`zahlweise`,'
+			. ' AVG(`geliefert`) AS `geliefert`,'
 			. ' SUM(`brutto`) AS `brutto`,'
 			. ' SUM(`mwst`) AS `mwst`,'
 			. ' SUM(`netto`) AS `netto`'

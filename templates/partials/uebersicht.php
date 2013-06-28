@@ -51,7 +51,7 @@
 					<th>MwSt</th>
 					<th>Netto</th>
 					<th>Zahlweise</th>
-					<th>Wertstellung</th>
+					<th></th>
 				</tr>
 				<tr ng-repeat="verkauf in verkaeufe" ng-click="editVerkauf(verkauf.id)">
 
@@ -64,15 +64,25 @@
 					<td class="name">[[verkauf.name]]</td>
 
 					<td class="brutto">[[verkauf.brutto|number_de]] €</td>
-					
+
 					<td class="mwst">[[verkauf.mwst|number_de]] €</td>
-					
+
 					<td class="netto">[[verkauf.netto|number_de]] €</td>
 
 					<td class="zahlweise">[[verkauf.zahlweise]]</td>
 
-					<td class="wertstellung">[[verkauf.wertstellung | date:'dd.MM.yyyy']]</td>
-
+					<td class="status">
+						<div class="icon gezahlt" ng-hide="verkauf.wertstellung|empty"></div>
+						<div class="icon placeholder" ng-show="verkauf.wertstellung|empty"></div>
+						
+						<div class="icon rechnung" ng-hide="verkauf.rechnungsnummer|empty"></div>
+						<div class="icon placeholder" ng-show="verkauf.rechnungsnummer|empty"></div>
+						
+						<div class="icon placeholder" ng-show="verkauf.geliefert == 0"></div>
+						<div class="icon versand_teilweise" ng-show="verkauf.geliefert > 0 && verkauf.geliefert < 1"></div>
+						<div class="icon versand" ng-show="verkauf.geliefert == 1"></div>
+					</td>
+					
 				</tr>
 
 				
@@ -93,8 +103,8 @@
 					<td class="brutto">[[calcNettoSum(verkaeufe)|number_de]] €</td>
 
 					<td class="zahlweise"></td>
-
-					<td class="wertstellung"></td>
+					
+					<td class="status"></td>
 
 				</tr>
 				
@@ -116,7 +126,7 @@
 					<th>MwSt</th>
 					<th>Netto</th>
 					<th>Zahlweise</th>
-					<th>Wertstellung</th>
+					<th></th>
 				</tr>
 				<tr ng-repeat="einkauf in einkaeufe" ng-click="editEinkauf(einkauf.id)">
 
@@ -136,7 +146,14 @@
 
 					<td class="zahlweise">[[einkauf.zahlweise]]</td>
 
-					<td class="wertstellung">[[einkauf.wertstellung | date:'dd.MM.yyyy']]</td>
+					<td class="status">
+						<div class="icon gezahlt" ng-hide="einkauf.wertstellung|empty"></div>
+						<div class="icon placeholder" ng-show="einkauf.wertstellung|empty"></div>
+						
+						<div class="icon placeholder" ng-show="einkauf.geliefert == 0"></div>
+						<div class="icon versand_teilweise" ng-show="einkauf.geliefert > 0 && einkauf.geliefert < 1"></div>
+						<div class="icon versand" ng-show="einkauf.geliefert == 1"></div>
+					</td>
 
 				</tr>
 
@@ -158,7 +175,7 @@
 
 					<td class="zahlweise"></td>
 
-					<td class="wertstellung"></td>
+					<td class="status"></td>
 
 				</tr>
 				

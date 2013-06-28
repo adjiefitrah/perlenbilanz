@@ -215,6 +215,8 @@ class VerkaufMapper extends Mapper {
 			. ' `' . $this->getTableName() .'`.`account`,'
 			. ' `' . $this->getTableName() .'`.`name`,'
 			. ' `' . $this->getTableName() .'`.`zahlweise`,'
+			. ' `' . $this->getTableName() .'`.`rechnungsnummer`,'
+			. ' AVG(`geliefert`) AS `geliefert`,'
 			. ' SUM(`stueck`*`brutto`) AS `brutto`,'
 			. ' SUM(`mwst`) AS `mwst`,'
 			. ' SUM(`netto`) AS `netto`'

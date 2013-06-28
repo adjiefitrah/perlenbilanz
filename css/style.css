@@ -193,3 +193,34 @@ table .type select {
 	margin-left: auto;
 	margin-right: auto;
 }
+
+
+#perlenbilanz .uebersicht-vk table .status {
+	width:46px;
+}
+#perlenbilanz .uebersicht-ek table .status {
+	width:23px;
+}
+#perlenbilanz table .icon {
+	width:23px;
+	height:20px;
+	vertical-align: top;
+	display:inline-block;
+	background-size: contain;
+	background-repeat: no-repeat;
+}
+#perlenbilanz table .icon.placeholder {
+	background-image: none;
+}
+#perlenbilanz table .icon.gezahlt {
+	background-image: url('%appswebroot%/perlenbilanz/img/icons/gezahlt.png');
+}
+#perlenbilanz table .icon.rechnung {
+	background-image: url('%appswebroot%/perlenbilanz/img/icons/rechnung.png');
+}
+#perlenbilanz table .icon.versand {
+	background-image: url('%appswebroot%/perlenbilanz/img/icons/versand.png');
+}
+#perlenbilanz table .icon.versand_teilweise {
+	background-image: url('%appswebroot%/perlenbilanz/img/icons/versand_teilweise.png');
+}
