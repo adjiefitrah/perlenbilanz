@@ -30,7 +30,7 @@
 					<td style="text-align: right;">[[ekNetto|number_de]] €</td>
 				</tr>
 				<tr class="sum">
-					<td>Summe</td>
+					<td>+/-</td>
 					<td style="text-align: right;">[[vkBrutto-ekBrutto|number_de]] €</td>
 					<td style="text-align: right;">[[vkMwSt-ekMwSt|number_de]] €</td>
 					<td style="text-align: right;">[[vkNetto-ekNetto|number_de]] €</td>

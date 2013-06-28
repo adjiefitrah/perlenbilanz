@@ -83,6 +83,7 @@
 				<th>Positionsbezeichnung</th>
 				<th>Geliefert</th>
 				<th>Brutto</th>
+				<th>Brutto ∑</th>
 				<!--th>MwSt%</th-->
 				<th>MwSt</th>
 				<th>Netto</th>
@@ -97,7 +98,7 @@
 						 ui-date-format="yy-mm-dd">
 				</td>
 
-				<td class="count"><input type="text" integer ng-model="position.stueck" size="4"/></td>
+				<td class="count"><input type="text" integer ng-model="position.stueck" size="4" ng-change="updateBrutto(position)"/></td>
 
 				<td class="type">
 					<select ui-select2 ng-model="position.typ" data-placeholder="-- Typ --" style="width:110px;">
@@ -117,6 +118,8 @@
 				<!--
 				<td class="mwst_prozent"><span>[[position.mwst_prozent]] %</span></td>
 				-->
+				<td class="bruttoSum"><span>[[position.bruttoSum|number_de]] €</span></td>
+				
 				<td class="mwst"><span>[[position.mwst|number_de]] €</span></td>
 
 				<td class="netto"><span>[[position.netto|number_de]] €</span></td>

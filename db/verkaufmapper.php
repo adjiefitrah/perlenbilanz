@@ -215,7 +215,7 @@ class VerkaufMapper extends Mapper {
 			. ' `' . $this->getTableName() .'`.`account`,'
 			. ' `' . $this->getTableName() .'`.`name`,'
 			. ' `' . $this->getTableName() .'`.`zahlweise`,'
-			. ' SUM(`brutto`) AS `brutto`,'
+			. ' SUM(`stueck`*`brutto`) AS `brutto`,'
 			. ' SUM(`mwst`) AS `mwst`,'
 			. ' SUM(`netto`) AS `netto`'
 			. ' FROM `' . $this->getTableName() .'`'
@@ -255,7 +255,7 @@ class VerkaufMapper extends Mapper {
 	 */
 	public function report($start, $end, $userid){
 
-		$sql = 'SELECT `' . $this->getTableName() . '`.`id`, `zahlweise`, `wertstellung`, SUM(`brutto`) AS `brutto`, `name`, `typ`, SUM(`mwst`) AS `mwst`, SUM(`netto`) AS `netto`, `rechnungsnummer`'
+		$sql = 'SELECT `' . $this->getTableName() . '`.`id`, `zahlweise`, `wertstellung`, SUM(`stueck`*`brutto`) AS `brutto`, `name`, `typ`, SUM(`mwst`) AS `mwst`, SUM(`netto`) AS `netto`, `rechnungsnummer`'
 			. ' FROM `' . $this->getTableName() .'`'
 			. ' JOIN `*PREFIX*pb_vk_positionen`'
 			. ' ON `' . $this->getTableName() . '`.`id`=`*PREFIX*pb_vk_positionen`.`vk_id`'

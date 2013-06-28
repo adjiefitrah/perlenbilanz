@@ -767,11 +767,19 @@ angular.module('perlenbilanzServices', ['ngResource']).
 					if (typeof brutto === 'undefined') {
 						brutto = 0;
 					}
-					
+				
 					if (position.typ === 'Rabatt' && brutto > 0) {
 						brutto = brutto * -1;
 						position.brutto = brutto;
 					}
+					
+					var stueck = position.stueck;
+					if (stueck == null) {
+						stueck = 1;
+					}
+					brutto = brutto * stueck;
+					position.bruttoSum = brutto;
+					
 					bruttoTotal += brutto;
 					
 					var mwstProzent = 0;
@@ -841,6 +849,11 @@ angular.module('perlenbilanzServices', ['ngResource']).
 			if (typeof brutto === 'number') {
 				var mwstProzent = 0;
 				var netto = 0;
+				var stueck = position.stueck;
+				if (stueck == null) {
+					stueck = 1;
+				}
+				brutto = brutto * stueck;
 				if (typeof position.mwstProzent === 'number') {
 					mwstProzent = position.mwstProzent;
 					netto = brutto / (1+mwstProzent/100);
@@ -856,6 +869,7 @@ angular.module('perlenbilanzServices', ['ngResource']).
 					netto = brutto / (1+mwstProzent/100);
 				}
 				var mwst = brutto - netto;
+				position.bruttoSum = brutto;
 				position.netto = netto;
 				position.mwst = mwst;
 			}
@@ -866,6 +880,11 @@ angular.module('perlenbilanzServices', ['ngResource']).
 				brutto = 0;
 			}
 			if (typeof brutto === 'number') {
+				var stueck = position.stueck;
+				if (stueck == null) {
+					stueck = 1;
+				}
+				brutto = brutto * stueck;
 				var mwstProzent = 0;
 				if (typeof position.mwstStatus !== 'undefined') {
 					if (position.mwstStatus === true) {
@@ -880,6 +899,7 @@ angular.module('perlenbilanzServices', ['ngResource']).
 				}
 				var netto = brutto / (1+mwstProzent/100);
 				var mwst = brutto - netto;
+				position.bruttoSum = brutto;
 				position.netto = netto;
 				position.mwst = mwst;
 			}
@@ -890,6 +910,11 @@ angular.module('perlenbilanzServices', ['ngResource']).
 				brutto = 0;
 			}
 			if (typeof brutto === 'number') {
+				var stueck = position.stueck;
+				if (stueck == null) {
+					stueck = 1;
+				}
+				brutto = brutto * stueck;
 				var mwstProzent = position.mwstProzent;
 				if (mwstProzent == null) {
 					if (position.mwstStatus === true) {
@@ -900,6 +925,7 @@ angular.module('perlenbilanzServices', ['ngResource']).
 				}
 				var netto = brutto / (1+mwstProzent/100);
 				var mwst = brutto - netto;
+				position.bruttoSum = brutto;
 				position.netto = netto;
 				position.mwst = mwst;
 			}
