@@ -413,6 +413,9 @@ function EinkaufPositionCtrl($scope, $location, $filter, $routeParams, EinkaufRe
 
 function VerkaeufeCtrl($scope, $location, $filter, $routeParams, VerkaufResource, VerkaufPositionResource) {
 	$scope.verkaeufe = VerkaufResource.query({geliefert:false});
+	$scope.editVerkauf = function (id) {
+		$location.path('/verkauf/'+id);
+	};
 }
 function WertstellungenCtrl($scope, $location, $filter, $routeParams, VerkaufResource, EinkaufResource) {
 	$scope.einkaeufe = EinkaufResource.query({wertstellung:null});

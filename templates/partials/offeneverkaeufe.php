@@ -11,9 +11,8 @@
 				<th>Name</th>
 				<th>Offenes Brutto</th>
 				<th>Wertstellung</th>
-				<th></th>
 			</tr>
-			<tr ng-repeat="verkauf in verkaeufe">
+			<tr ng-repeat="verkauf in verkaeufe" ng-click="editVerkauf(verkauf.id)">
 
 				<td class="nr">[[$index+1]]</td>
 
@@ -26,8 +25,6 @@
 				<td class="brutto">[[verkauf.bruttoTotal|number_de]] €</td>
 
 				<td class="wertstellung">[[ verkauf.wertstellung | date:'dd.MM.yyyy' ]]</td>
-
-				<td style="height: 37px;"><a class="button" href="#/verkauf/[[verkauf.vkId]]">zum Verkauf</a></td>
 
 			</tr>
 
