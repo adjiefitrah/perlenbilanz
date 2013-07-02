@@ -25,7 +25,6 @@ namespace OCA\Perlenbilanz\Db;
 
 use \OCA\AppFramework\Core\API;
 use \OCA\AppFramework\Db\Mapper;
-use \OCA\AppFramework\Db\DoesNotExistException;
 
 
 class EinkaufMapper extends Mapper {
@@ -155,7 +154,7 @@ class EinkaufMapper extends Mapper {
 			. ' `' . $this->getTableName() .'`.`account`,'
 			. ' `' . $this->getTableName() .'`.`name`,'
 			. ' `' . $this->getTableName() .'`.`zahlweise`,'
-			. ' SUM(`brutto`) AS `brutto_total`'
+			. ' SUM(`stueck`*`brutto`) AS `brutto_total`'
 			. ' FROM `' . $this->getTableName() .'`'
 			. ' JOIN `*PREFIX*pb_ek_positionen`'
 			. ' ON `' . $this->getTableName() . '`.`id`=`*PREFIX*pb_ek_positionen`.`ek_id`'
@@ -191,7 +190,7 @@ class EinkaufMapper extends Mapper {
 			. ' `' . $this->getTableName() .'`.`name`,'
 			. ' `' . $this->getTableName() .'`.`zahlweise`,'
 			. ' AVG(`geliefert`) AS `geliefert`,'
-			. ' SUM(`brutto`) AS `brutto`,'
+			. ' SUM(`stueck`*`brutto`) AS `brutto`,'
 			. ' SUM(`mwst`) AS `mwst`,'
 			. ' SUM(`netto`) AS `netto`'
 			. ' FROM `' . $this->getTableName() .'`'

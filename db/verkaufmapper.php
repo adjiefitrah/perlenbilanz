@@ -25,7 +25,6 @@ namespace OCA\Perlenbilanz\Db;
 
 use \OCA\AppFramework\Core\API;
 use \OCA\AppFramework\Db\Mapper;
-use \OCA\AppFramework\Db\DoesNotExistException;
 
 
 class VerkaufMapper extends Mapper {
@@ -66,13 +65,14 @@ class VerkaufMapper extends Mapper {
 	 */
 	public function findOpen($userid){
 
-		$sql = 'SELECT *, SUM(`brutto`) AS `brutto_total`'
-			. ' FROM `' . $this->getTableName() .'`'
-			. ' JOIN `*PREFIX*pb_vk_positionen`'
-			. ' ON `' . $this->getTableName() . '`.`id`=`*PREFIX*pb_vk_positionen`.`vk_id`'
-			. ' WHERE `geliefert` != ?'
-			. ' AND `' . $this->getTableName() . '`.`userid` = ?'
-			. ' GROUP BY `oc_pb_vk_positionen`.`vk_id`';
+		$sql = 'SELECT *,
+				SUM(`stueck`*`brutto`) AS `brutto_total`
+				FROM `' . $this->getTableName() .'`
+				JOIN `*PREFIX*pb_vk_positionen`
+				ON `' . $this->getTableName() . '`.`id`=`*PREFIX*pb_vk_positionen`.`vk_id`
+				WHERE `geliefert` != ?
+				AND `' . $this->getTableName() . '`.`userid` = ?
+				GROUP BY `oc_pb_vk_positionen`.`vk_id`';
 
 		$result = $this->execute($sql,array(true, $userid));
 
@@ -180,7 +180,7 @@ class VerkaufMapper extends Mapper {
 			. ' `' . $this->getTableName() .'`.`account`,'
 			. ' `' . $this->getTableName() .'`.`name`,'
 			. ' `' . $this->getTableName() .'`.`zahlweise`,'
-			. ' SUM(`brutto`) AS `brutto_total`'
+			. ' SUM(`stueck`*`brutto`) AS `brutto_total`,'
 			. ' FROM `' . $this->getTableName() .'`'
 			. ' JOIN `*PREFIX*pb_vk_positionen`'
 			. ' ON `' . $this->getTableName() . '`.`id`=`*PREFIX*pb_vk_positionen`.`vk_id`'

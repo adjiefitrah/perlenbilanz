@@ -68,12 +68,12 @@ class EinkaufPositionMapper extends Mapper {
 	 */
 	public function findOpen($userid){
 
-		$sql = 'SELECT `' . $this->getTableName() .'`.*'
-			. ' FROM `' . $this->getTableName() . '`'
-			. ' JOIN `*PREFIX*pb_ek_einkaeufe`'
-			. ' ON `' . $this->getTableName() . '`.`ek_id`=`*PREFIX*pb_ek_einkaeufe`.`id`'
-			. ' WHERE `geliefert` != ?'
-			. ' AND `userid` = ?';
+		$sql = 'SELECT `' . $this->getTableName() .'`.*
+				FROM `' . $this->getTableName() . '`
+				JOIN `*PREFIX*pb_ek_einkaeufe`
+				ON `' . $this->getTableName() . '`.`ek_id`=`*PREFIX*pb_ek_einkaeufe`.`id`
+				WHERE `geliefert` != ?
+				AND `userid` = ?';
 
 		$result = $this->execute($sql,array(true, $userid));
 

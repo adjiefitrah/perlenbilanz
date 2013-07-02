@@ -28,12 +28,12 @@ use OCA\AppFramework\Db\Entity;
 
 class Verkauf extends Entity {
 
-    public $userid;
+	public $userid;
 	public $rechnungsnummer;
 	public $wertstellung;
-    public $plattform;
-    public $account;
-    public $name;
+	public $plattform;
+	public $account;
+	public $name;
 	public $zahlweise;
 	// Verpackungsmaterial
 	public $luftpolstertasche;
