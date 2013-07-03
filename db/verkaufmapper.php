@@ -180,7 +180,7 @@ class VerkaufMapper extends Mapper {
 			. ' `' . $this->getTableName() .'`.`account`,'
 			. ' `' . $this->getTableName() .'`.`name`,'
 			. ' `' . $this->getTableName() .'`.`zahlweise`,'
-			. ' SUM(`stueck`*`brutto`) AS `brutto_total`,'
+			. ' SUM(`stueck`*`brutto`) AS `brutto_total`'
 			. ' FROM `' . $this->getTableName() .'`'
 			. ' JOIN `*PREFIX*pb_vk_positionen`'
 			. ' ON `' . $this->getTableName() . '`.`id`=`*PREFIX*pb_vk_positionen`.`vk_id`'
