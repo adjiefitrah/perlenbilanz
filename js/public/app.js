@@ -372,6 +372,10 @@ function VerkaufCtrl($scope, $location, $filter, $routeParams, VerkaufResource, 
 	$scope.updateMwSt = function (position) {
 		mwstCalculator.updateMwSt(position);
 	};
+	$scope.generateInvoice = function () {
+		//FIXME this is a bad hack but I could not yet find an angular way of generating urls
+		$window.open('invoice?requesttoken='+oc_requesttoken);
+	};
 
 	if ($routeParams.id) {
 		accountNameRecommender.fetchAccounts($scope, VerkaufResource);

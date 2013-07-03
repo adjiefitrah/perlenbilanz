@@ -50,6 +50,11 @@ $this->create('perlenbilanz_bericht', '/report')->get()->action(
 		App::main('ReportController', 'renderReport', $params, new DIContainer());
 	}
 );
+$this->create('perlenbilanz_invoice', '/invoice')->get()->action(
+	function($params){
+		App::main('VerkaufController', 'renderInvoice', $params, new DIContainer());
+	}
+);
 
 /**
  * Notes

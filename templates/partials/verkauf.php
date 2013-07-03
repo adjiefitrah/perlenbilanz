@@ -4,6 +4,7 @@
 
 	<form>
 		<h2>Rahmendaten:</h2>
+		<a class="button" ng-click="generateInvoice()">Rechnung</a>
 		<div>
 			<div style="float:left; width:460px;">
 				<div style="float:right; width:320px; text-align: left; margin-top: 6px;">
