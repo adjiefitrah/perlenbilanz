@@ -12,7 +12,7 @@
 				<th>Offenes Brutto</th>
 				<th>Wertstellung</th>
 			</tr>
-			<tr ng-repeat="verkauf in verkaeufe" ng-click="editVerkauf(verkauf.id)">
+			<tr ng-repeat="verkauf in verkaeufe" ng-click="editVerkauf(verkauf.vkId)">
 
 				<td class="nr">[[$index+1]]</td>
 
