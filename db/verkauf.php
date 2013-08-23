@@ -34,6 +34,8 @@ class Verkauf extends Entity {
 	public $plattform;
 	public $account;
 	public $name;
+	public $lieferanschrift;
+	public $rechnungsanschrift;
 	public $zahlweise;
 	// Verpackungsmaterial
 	public $luftpolstertasche;

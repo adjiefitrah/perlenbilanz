@@ -77,7 +77,7 @@ class DIContainer extends BaseContainer {
 		});
 
 		$this['VerkaufController'] = $this->share(function($c){
-			return new VerkaufController($c['API'], $c['Request'], $c['VerkaufMapper']);
+			return new VerkaufController($c['API'], $c['Request'], $c['VerkaufMapper'], $c['VerkaufPositionMapper']);
 		});
 		$this['VerkaufPositionController'] = $this->share(function($c){
 			return new VerkaufPositionController($c['API'], $c['Request'], $c['VerkaufPositionMapper'], $c['VerkaufMapper']);

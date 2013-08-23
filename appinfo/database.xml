@@ -163,6 +163,14 @@
 				<length>100</length>
 			</field>
 			<field>
+				<name>lieferanschrift</name>
+				<type>text</type>
+			</field>
+			<field>
+				<name>rechnungsanschrift</name>
+				<type>text</type>
+			</field>
+			<field>
 				<name>zahlweise</name>
 				<type>text</type>
 				<length>30</length>

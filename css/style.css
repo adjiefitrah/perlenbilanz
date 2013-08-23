@@ -224,3 +224,29 @@ table .type select {
 #perlenbilanz table .icon.versand_teilweise {
 	background-image: url('%appswebroot%/perlenbilanz/img/icons/versand_teilweise.png');
 }
+#perlenbilanz #rechnungsnummer {
+	width: 25px;
+	text-align: center;
+}
+
+#perlenbilanz #verkauf .icon {
+	width:16px;
+	height:16px;
+	vertical-align: middle;
+	display:inline-block;
+	background-size: contain;
+	background-repeat: no-repeat;
+}
+
+#perlenbilanz #verkauf .icon.generate {
+	background-image: url('%appswebroot%/perlenbilanz/img/icons/cog.png');
+}
+#perlenbilanz #verkauf .icon.download {
+	background-image: url('%appswebroot%/perlenbilanz/img/icons/download.png');
+}
+#perlenbilanz #verkauf .icon.edit {
+	background-image: url('%appswebroot%/perlenbilanz/img/icons/pen_alt_fill.png');
+}
+#perlenbilanz #verkauf .icon.preview {
+	background-image: url('%appswebroot%/perlenbilanz/img/icons/eye.png');
+}

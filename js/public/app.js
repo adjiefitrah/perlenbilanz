@@ -257,7 +257,7 @@ function EinkaufCtrl($scope, $location, $filter, $routeParams, EinkaufResource, 
 }
 //EinkaufCtrl.$inject = ['$scope', 'EinkaufResource'];params:
 
-function VerkaufCtrl($scope, $location, $filter, $routeParams, VerkaufResource, VerkaufPositionResource, accountNameRecommender, mwstCalculator) {
+function VerkaufCtrl($scope, $location, $window, $filter, $routeParams, VerkaufResource, VerkaufPositionResource, accountNameRecommender, mwstCalculator) {
 	$scope.types = [
 		{id:"Ware",text:"Ware"},
 		{id:"Versand",text:"Versand"},
@@ -319,6 +319,11 @@ function VerkaufCtrl($scope, $location, $filter, $routeParams, VerkaufResource, 
 	$scope.guessNames = function() {
 		accountNameRecommender.guessNames($scope, $scope.verkauf, VerkaufResource);
 	};
+	$scope.toggleLieferanschrift = function() {
+		if (!$scope.differentaddress) {
+			$scope.verkauf.lieferanschrift = null;
+		}
+	};
 	$scope.newVerkauf = function () {
 		$scope.guessedAccounts = null;
 		$scope.guessedNames = null;
@@ -327,6 +332,7 @@ function VerkaufCtrl($scope, $location, $filter, $routeParams, VerkaufResource, 
 		$scope.verkauf = new VerkaufResource();
 		$scope.verkauf.plattform = 'fancywork';
 		$scope.verkauf.zahlweise = 'Konto';
+		$scope.verkauf.lieferanschrift = null;
 		$scope.positionen = [];
 		$scope.addPosition(0);
 	};
@@ -372,9 +378,16 @@ function VerkaufCtrl($scope, $location, $filter, $routeParams, VerkaufResource, 
 	$scope.updateMwSt = function (position) {
 		mwstCalculator.updateMwSt(position);
 	};
-	$scope.generateInvoice = function () {
+	$scope.generateInvoice = function (verkauf) {
+		verkauf.$renderInvoice();
+		// 1. if invoice has been generated open in tinymce
+		// 2. otherwise
+		// 2.1. load HTML template
+		// 2.2. generate HTML invoice
+		// 2.3. open in tinymce (allow user to review, show render pdf button)
+		//    TODO how do we handle this? store in filesystem? versioned?
 		//FIXME this is a bad hack but I could not yet find an angular way of generating urls
-		$window.open('invoice?requesttoken='+oc_requesttoken);
+		//$window.open('invoice?requesttoken='+oc_requesttoken);
 	};
 
 	if ($routeParams.id) {
@@ -708,7 +721,8 @@ angular.module('perlenbilanzServices', ['ngResource']).
 			{listAccounts:{method:'GET',params:{list:'accounts'}},
 				listNames:{method:'GET',params:{list:'names'}},
 				guessName:{method:'GET',params:{guess:'name'}},
-			 guessAccount:{method:'GET',params:{guess:'account'}}});
+			 guessAccount:{method:'GET',params:{guess:'account'}},
+			renderInvoice:{method:'POST',params:{render:'html'}}});
 	}).
 	factory('VerkaufPositionResource', function($resource){
 		return $resource('ajax/verkaufposition/:id', {id:'@id', requesttoken:oc_requesttoken});
