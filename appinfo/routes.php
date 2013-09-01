@@ -50,9 +50,9 @@ $this->create('perlenbilanz_bericht', '/report')->get()->action(
 		App::main('ReportController', 'renderReport', $params, new DIContainer());
 	}
 );
-$this->create('perlenbilanz_invoice', '/invoice')->get()->action(
+$this->create('perlenbilanz_invoice', '/ajax/render/invoice')->post()->action(
 	function($params){
-		App::main('VerkaufController', 'renderInvoice', $params, new DIContainer());
+		App::main('InvoiceController', 'renderInvoice', $params, new DIContainer());
 	}
 );
 
@@ -125,12 +125,17 @@ $this->create('perlenbilanz_ajax_verkauf_get', '/ajax/verkauf/{id}')->get()->act
 );
 $this->create('perlenbilanz_ajax_verkauf_post', '/ajax/verkauf')->post()->action(
 	function($params){
-		App::main('VerkaufController', 'postVerkauf', $params, new DIContainer());
+		App::main('VerkaufController', 'postVerkauf', $params, new DIContainer()); //TODO rename to createVerkauf
 	}
 );
 $this->create('perlenbilanz_ajax_verkauf_put', '/ajax/verkauf/{id}')->post()->action(
 	function($params){
-		App::main('VerkaufController', 'putVerkauf', $params, new DIContainer());
+		App::main('VerkaufController', 'putVerkauf', $params, new DIContainer()); //TODO rename to updateVerkauf, use PUT?
+	}
+);
+$this->create('perlenbilanz_ajax_verkauf_invoice_delete', '/ajax/verkauf/{id}/invoice')->post()->action(
+	function($params){
+		App::main('InvoiceController', 'deleteInvoice', $params, new DIContainer());
 	}
 );
 $this->create('perlenbilanz_ajax_verkauf_position_list', '/ajax/verkaufposition')->get()->action(

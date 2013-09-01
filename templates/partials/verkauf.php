@@ -75,10 +75,10 @@
 					   value="[[ verkauf.wertstellung | date:'dd.MM.yyyy' ]]"
 					   ui-date="{ dateFormat: 'dd.mm.yy' }" ui-date-format="yy-mm-dd"><br/>
 				<label for="rechnungsnummer">Rechnungsnummer:</label><br/>
-				<input type="text" id="rechnungsnummer" ng-model="verkauf.rechnungsnummer">
+				<!-- input type="text" id="rechnungsnummer" ng-model="verkauf.rechnungsnummer" -->
 				<!--
 	workflow optimalfall
-		angezeigt wird document_stroke
+		angezeigt wierden die freien rechnungsnummern (document_stroke?)
 		1. Rechnung generieren					-> id generieren, html generieren, pdf generieren
 		2. Rechnung generieren & herunterladen	-> id generieren, html generieren, pdf generieren, download
 	
@@ -94,16 +94,48 @@
 		1. anklicken		-> herunterladen
 		2. bearbeiten icon	-> editor -> speichern & neu generieren
 	
+	
+	fehlerhaft markierte rechnungen müssen überall noch auftauchen (weil die rechnungsnummer vergeben wurde)
+	aber in den summen darf nicht mehr berücksichtig werden ... hm das ist doch quatsch?
+	sie sind durch den stürer zu erkennen?
 				-->
-				<span ng-hide="verkauf.rechnungsnummer">frei: 123, 134</span>
-				<span ng-show="verkauf.rechnungsnummer">
-					<a class="icon generate" ng-click="generateInvoice(verkauf)" title="generieren"></a>
-					<a class="icon download" ng-click="downloadInvoice(verkauf)" title="herunterladen"></a>
-					<a class="icon edit" ng-click="editInvoice(verkauf)" title="bearbeiten"></a>
-					<a class="icon preview" ng-click="previewInvoice(verkauf)" title="vorschau"></a>
-					<a class="icon archive" ng-click="archiveInvoice(verkauf)" title="archivieren"></a>
-					<!-- kopiert die rechnung als Rechnung_XXX_<timestamp>.html/pdf mit manuell angegbenem störer -->
-				</span>
+				<div>
+					<span ng-hide="verkauf.rechnungsnummer">
+						<input type="text" id="rechnungsjahr" integer ng-model="verkauf.rechnungsjahr"
+							   on-cursor-up="verkauf.rechnungsjahr=verkauf.rechnungsjahr+1"
+							   on-cursor-down="verkauf.rechnungsjahr=verkauf.rechnungsjahr-1">
+						frei: <button ng-repeat="nextInvoiceID in nextInvoiceIDs" ng-click="generateInvoice(nextInvoiceID)">[[nextInvoiceID]]</button>
+					</span>
+					<span ng-show="verkauf.rechnungsnummer">
+						<!-- button für jede freie id zeigen
+							- download per xhr geht nicht
+							- also bei klick auf id generieren
+								- document_stoke anzeigen (= rechnungsnummer gespeichert )
+								- bei klick: neu generieren (xhr)
+							- checken ob datei existiert
+								- wenn ok document_fill anzeigen
+								- bei klick: download? (target = blank?)
+						-->
+						<!--
+						<a class="icon generate" ng-click="generateInvoice(verkauf)" title="generieren"></a>
+						-->
+						[[verkauf.rechnungsjahr]]-[[verkauf.rechnungsnummer]]:
+						<a class="icon download"   ng-hide="verkauf.faultyreason|notnull" ng-click="downloadInvoice()" title="herunterladen"></a>
+						<a class="icon faulty"     ng-show="verkauf.faultyreason|notnull" ng-click="downloadInvoice()" title="herunterladen"></a>
+						<!--<a class="icon preview"    ng-click="previewInvoice()"  title="vorschau"></a> same as edit? -->
+						<a class="icon edit"       ng-click="editInvoice()"     title="bearbeiten"></a>
+						<a class="icon markfaulty" ng-hide="verkauf.faultyreason|notnull" ng-click="markFaulty()"      title="fehlerhaft"></a>
+						<a class="icon delete"    ng-click="deleteInvoice()"  title="löschen"></a>
+						<!--
+						<a class="icon archive"    ng-click="archiveInvoice()"  title="archivieren"></a>
+						-->
+						<!-- kopiert die rechnung als Rechnung_XXX_<timestamp>.html/pdf mit manuell angegbenem störer -->
+					</span>
+				</div>
+				<div ng-show="verkauf.faultyreason|notnull">
+					<label for="faultyreason">Störer:</label><br/>
+					<input type="text" id="faultyreason" emtpy-to-null ng-model="verkauf.faultyreason">
+				</div>
 			</div>
 			<div style="clear: both; border-bottom: 1px solid #ddd; width: 100%; height:6px;"></div>
 		</div>
@@ -133,7 +165,10 @@
 						 ui-date-format="yy-mm-dd">
 				</td>
 
-				<td class="count"><input type="text" integer ng-model="position.stueck" size="4" ng-change="updateBrutto(position)"/></td>
+				<td class="count"><input type="text" integer ng-model="position.stueck" size="4"
+										 on-cursor-up="position.stueck=position.stueck+1"
+										 on-cursor-down="position.stueck=position.stueck-1"
+										 ng-change="updateBrutto(position)"/></td>
 
 				<td class="type">
 					<select ui-select2 ng-model="position.typ" data-placeholder="-- Typ --" style="width:110px;">
@@ -165,7 +200,7 @@
 
 		</table>
 
-		<button ng-click="saveVerkauf(verkauf)">Speichern</button>
+		<button ng-click="saveAndNew()">Speichern</button>
 	</form>
 </div>
 

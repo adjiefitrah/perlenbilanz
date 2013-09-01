@@ -29,7 +29,9 @@ use OCA\AppFramework\Db\Entity;
 class Verkauf extends Entity {
 
 	public $userid;
+	public $rechnungsjahr;
 	public $rechnungsnummer;
+	public $faultyreason;
 	public $wertstellung;
 	public $plattform;
 	public $account;
@@ -45,6 +47,7 @@ class Verkauf extends Entity {
 	public $unverpackt;
 
 	public function __construct(){
+		$this->addType('rechnungsjahr', 'int');
 		$this->addType('luftpolstertasche', 'bool');
 		$this->addType('briefumschlag', 'bool');
 		$this->addType('druckverschlussbeutel', 'bool');

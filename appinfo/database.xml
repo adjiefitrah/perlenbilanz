@@ -138,9 +138,18 @@
 				<was>user</was>
 			</field>
 			<field>
+				<name>rechnungsjahr</name>
+				<type>integer</type>
+				<length>4</length>
+			</field>
+			<field>
 				<name>rechnungsnummer</name>
 				<type>text</type>
 				<length>80</length>
+			</field>
+			<field>
+				<name>faultyreason</name>
+				<type>text</type>
 			</field>
 			<field>
 				<name>wertstellung</name>
@@ -262,6 +271,29 @@
 				<name>netto</name>
 				<type>float</type>
 				<default></default>
+			</field>
+		</declaration>
+	</table>
+	<table>
+		<name>*dbprefix*pb_vk_freeinvoiceno</name>
+		<declaration>
+			<field>
+				<name>userid</name>
+				<type>text</type>
+				<notnull>true</notnull>
+				<length>255</length>
+				<notnull>true</notnull>
+			</field>
+			<field>
+				<name>wertstellung</name>
+				<type>date</type>
+				<notnull>true</notnull>
+			</field>
+			<field>
+				<name>rechnungsnummer</name>
+				<type>text</type>
+				<length>80</length>
+				<notnull>true</notnull>
 			</field>
 		</declaration>
 	</table>

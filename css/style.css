@@ -238,14 +238,28 @@ table .type select {
 	background-repeat: no-repeat;
 }
 
+#perlenbilanz #verkauf #rechnungsjahr {
+	width: 30px;
+	text-align: center;
+}
+
 #perlenbilanz #verkauf .icon.generate {
 	background-image: url('%appswebroot%/perlenbilanz/img/icons/cog.png');
 }
 #perlenbilanz #verkauf .icon.download {
-	background-image: url('%appswebroot%/perlenbilanz/img/icons/download.png');
+	background-image: url('%appswebroot%/perlenbilanz/img/icons/document_alt_fill.png');
 }
 #perlenbilanz #verkauf .icon.edit {
 	background-image: url('%appswebroot%/perlenbilanz/img/icons/pen_alt_fill.png');
+}
+#perlenbilanz #verkauf .icon.faulty {
+	background-image: url('%appswebroot%/perlenbilanz/img/icons/document_denied.png');
+}
+#perlenbilanz #verkauf .icon.markfaulty {
+	background-image: url('%appswebroot%/perlenbilanz/img/icons/denied.png');
+}
+#perlenbilanz #verkauf .icon.delete {
+	background-image: url('%appswebroot%/perlenbilanz/img/icons/trash_fill.png');
 }
 #perlenbilanz #verkauf .icon.preview {
 	background-image: url('%appswebroot%/perlenbilanz/img/icons/eye.png');

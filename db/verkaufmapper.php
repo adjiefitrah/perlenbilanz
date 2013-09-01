@@ -172,6 +172,38 @@ class VerkaufMapper extends Mapper {
 	/**
 	 * @return []
 	 */
+	public function nextInvoiceIDs($userid, $year) {
+
+		$nextInvoiceIds = array();
+		
+		$d = new \DateTime( $year.'-01-01');
+		$begin = $d->format( 'Y-01-01' );
+		$end = $d->format( 'Y-12-31' );
+		
+		// get current max id +1
+		$sql = 'SELECT max(`rechnungsnummer`)+1 as `nextInvoiceId`, count(`rechnungsnummer`) as `count`'
+			. ' FROM `' . $this->getTableName() . '`'
+			. ' WHERE `userid` = ?'
+			. ' AND `rechnungsjahr` BETWEEN ? AND ?';
+
+		$result = $this->execute($sql,array($userid, $begin, $end));
+
+		$row = $result->fetchRow();
+		settype($row['nextInvoiceId'], 'int');
+		settype($row['count'], 'int');
+		if ( $row['nextInvoiceId'] ) {
+			array_push($nextInvoiceIds, $row['nextInvoiceId']);
+		} else if ($row['count'] === 0){
+			array_push($nextInvoiceIds, 1);
+		}
+		
+		// add free invoice ids
+
+		return $nextInvoiceIds;
+	}
+	/**
+	 * @return []
+	 */
 	public function missingWertstellung($userid){
 
 		$sql = 'SELECT `' . $this->getTableName() .'`.`id`,'
@@ -215,7 +247,9 @@ class VerkaufMapper extends Mapper {
 			. ' `' . $this->getTableName() .'`.`account`,'
 			. ' `' . $this->getTableName() .'`.`name`,'
 			. ' `' . $this->getTableName() .'`.`zahlweise`,'
+			. ' `' . $this->getTableName() .'`.`rechnungsjahr`,'
 			. ' `' . $this->getTableName() .'`.`rechnungsnummer`,'
+			. ' `' . $this->getTableName() .'`.`faultyreason`,'
 			. ' AVG(`geliefert`) AS `geliefert`,'
 			. ' SUM(`stueck`*`brutto`) AS `brutto`,'
 			. ' SUM(`mwst`) AS `mwst`,'
@@ -257,14 +291,16 @@ class VerkaufMapper extends Mapper {
 	 */
 	public function report($start, $end, $userid){
 
-		$sql = 'SELECT `' . $this->getTableName() . '`.`id`, `zahlweise`, `wertstellung`, SUM(`stueck`*`brutto`) AS `brutto`, `name`, `typ`, SUM(`mwst`) AS `mwst`, SUM(`netto`) AS `netto`, `rechnungsnummer`'
-			. ' FROM `' . $this->getTableName() .'`'
-			. ' JOIN `*PREFIX*pb_vk_positionen`'
-			. ' ON `' . $this->getTableName() . '`.`id`=`*PREFIX*pb_vk_positionen`.`vk_id`'
-			. ' WHERE `userid` = ?'
-			. ' AND `' . $this->getTableName() . '`.`wertstellung` BETWEEN ? AND ?'
-			. ' GROUP BY `vk_id`'
-			. ' ORDER BY `zahlweise`, `wertstellung`, `vk_id`';
+		$sql = 'SELECT `' . $this->getTableName() . '`.`id`, `zahlweise`, `wertstellung`,
+					SUM(`stueck`*`brutto`) AS `brutto`, `name`, `typ`, SUM(`mwst`) AS `mwst`,
+					SUM(`netto`) AS `netto`, `rechnungsjahr`, `rechnungsnummer`, `faultyreason`
+				FROM `' . $this->getTableName() .'`
+				JOIN `*PREFIX*pb_vk_positionen`
+					ON `' . $this->getTableName() . '`.`id`=`*PREFIX*pb_vk_positionen`.`vk_id`
+				WHERE `userid` = ?
+					AND `' . $this->getTableName() . '`.`wertstellung` BETWEEN ? AND ?
+				GROUP BY `vk_id`
+				ORDER BY `zahlweise`, `wertstellung`, `vk_id`';
 
 		$result = $this->execute($sql,array($userid,$start,$end));
 

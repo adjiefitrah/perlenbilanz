@@ -21,12 +21,11 @@
  *
  */
 
-namespace OCA\Perlenbilanz;
+OC::$CLASSPATH['OCA\Perlenbilanz\Hooks'] = 'perlenbilanz/lib/hooks.php';
 
+OCP\App::registerAdmin('perlenbilanz', 'admin/settings');
 
-\OCP\App::registerAdmin('perlenbilanz', 'admin/settings');
-
-\OCP\App::addNavigationEntry( array(
+OCP\App::addNavigationEntry( array(
 	
 	// the string under which your app will be referenced
 	// in owncloud, for instance: \OC_App::getAppPath('APP_ID')
@@ -37,13 +36,21 @@ namespace OCA\Perlenbilanz;
 	'order' => 74,
 	
 	// the route that will be shown on startup
-	'href' => \OCP\Util::linkToRoute('perlenbilanz_menu'),
+	'href' => OCP\Util::linkToRoute('perlenbilanz_menu'),
 	
 	// the icon that will be shown in the navigation
-	'icon' => \OCP\Util::imagePath('perlenbilanz', 'example.png' ),
+	'icon' => OCP\Util::imagePath('perlenbilanz', 'example.png' ),
 	
 	// the title of your application. This will be used in the
 	// navigation or on the settings page of your app
-	'name' => \OC_L10N::get('perlenbilanz')->t('Perlenbilanz')
+	'name' => OC_L10N::get('perlenbilanz')->t('Perlenbilanz')
 	
 ));
+
+
+//connect to the filesystem for invoice rendering when html files are changed
+OCP\Util::connectHook(
+		OC\Files\Filesystem::CLASSNAME,
+		OC\Files\Filesystem::signal_post_write,
+		'OCA\Perlenbilanz\Hooks',
+		'renderInvoice');

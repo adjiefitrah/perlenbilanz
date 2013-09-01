@@ -32,10 +32,12 @@ use OCA\Perlenbilanz\Controller\EinkaufPositionController;
 use OCA\Perlenbilanz\Controller\VerkaufController;
 use OCA\Perlenbilanz\Controller\VerkaufPositionController;
 use OCA\Perlenbilanz\Controller\ReportController;
+use OCA\Perlenbilanz\Controller\InvoiceController;
 use OCA\Perlenbilanz\Db\EinkaufMapper;
 use OCA\Perlenbilanz\Db\EinkaufPositionMapper;
 use OCA\Perlenbilanz\Db\VerkaufMapper;
 use OCA\Perlenbilanz\Db\VerkaufPositionMapper;
+use OCA\Perlenbilanz\Hooks;
 
 
 require_once __DIR__ . '/../3rdparty/PHPExcel.php';
@@ -65,9 +67,9 @@ class DIContainer extends BaseContainer {
 		/** 
 		 * CONTROLLERS
 		 */
-        $this['PageController'] = $this->share(function($c){
-            return new PageController($c['API'], $c['Request']);
-        });
+		$this['PageController'] = $this->share(function($c){
+			return new PageController($c['API'], $c['Request']);
+		});
 
 		$this['EinkaufController'] = $this->share(function($c){
 			return new EinkaufController($c['API'], $c['Request'], $c['EinkaufMapper']);
@@ -85,6 +87,9 @@ class DIContainer extends BaseContainer {
 
 		$this['ReportController'] = $this->share(function($c){
 			return new ReportController($c['API'], $c['Request'], $c['EinkaufMapper'], $c['VerkaufMapper']);
+		});
+		$this['InvoiceController'] = $this->share(function($c){
+			return new InvoiceController($c['API'], $c['Request'], $c['VerkaufMapper'], $c['VerkaufPositionMapper']);
 		});
 		$this['NotesController'] = $this->share(function($c){
 			return new NotesController($c['API'], $c['Request']);

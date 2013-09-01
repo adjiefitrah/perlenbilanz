@@ -257,7 +257,9 @@ function EinkaufCtrl($scope, $location, $filter, $routeParams, EinkaufResource, 
 }
 //EinkaufCtrl.$inject = ['$scope', 'EinkaufResource'];params:
 
-function VerkaufCtrl($scope, $location, $window, $filter, $routeParams, VerkaufResource, VerkaufPositionResource, accountNameRecommender, mwstCalculator) {
+function VerkaufCtrl($scope, $location, $window, $filter, $routeParams,
+		VerkaufResource, VerkaufPositionResource, RenderResource,
+		accountNameRecommender, mwstCalculator) {
 	$scope.types = [
 		{id:"Ware",text:"Ware"},
 		{id:"Versand",text:"Versand"},
@@ -313,11 +315,17 @@ function VerkaufCtrl($scope, $location, $window, $filter, $routeParams, VerkaufR
 		placeholder: "",
 		allowClear: true
 	};
+	$scope.invoice = null;
 	$scope.guessAccounts = function() {
 		accountNameRecommender.guessAccounts($scope, $scope.verkauf, VerkaufResource);
 	};
 	$scope.guessNames = function() {
 		accountNameRecommender.guessNames($scope, $scope.verkauf, VerkaufResource);
+	};
+	$scope.getNextInvoiceIDs = function() {
+		if ($scope.verkauf.rechnungsjahr && !$scope.verkauf.rechnungsnummer) {
+			$scope.nextInvoiceIDs = VerkaufResource.getNextInvoiceIDs({rechnungsjahr:$scope.verkauf.rechnungsjahr});
+		}
 	};
 	$scope.toggleLieferanschrift = function() {
 		if (!$scope.differentaddress) {
@@ -333,13 +341,27 @@ function VerkaufCtrl($scope, $location, $window, $filter, $routeParams, VerkaufR
 		$scope.verkauf.plattform = 'fancywork';
 		$scope.verkauf.zahlweise = 'Konto';
 		$scope.verkauf.lieferanschrift = null;
+		$scope.verkauf.faultyreason = null;
+		$scope.verkauf.rechnungsjahr = new Date().getFullYear();
 		$scope.positionen = [];
 		$scope.addPosition(0);
+		$scope.getNextInvoiceIDs();
 	};
-	$scope.saveVerkauf = function () {
+	$scope.saveAndNew = function () {
+		//FIXME Delete positions
+		$scope.updateVerkauf(function () {
+			alert('Gespeichert');
+			$location.path('/verkauf');
+			$scope.newVerkauf();
+		});
+	};
+	$scope.updateVerkauf = function (callback) {
 		$scope.verkauf.$save(function (data) {
 			//update the model with the entity returned from the server
 			$scope.verkauf = new VerkaufResource(data);
+			$location.path('/verkauf/'+$scope.verkauf.id);
+			
+			//FIXME Delete positions
 
 			//save positions with id from verkauf
 			angular.forEach($scope.positionen, function(position) {
@@ -351,9 +373,9 @@ function VerkaufCtrl($scope, $location, $window, $filter, $routeParams, VerkaufR
 					position = new VerkaufPositionResource(data);
 				});
 			});
-			alert('Gespeichert');
-			$location.path('/verkauf');
-			$scope.newVerkauf();
+			if(callback){
+				callback();
+			}
 		});
 	};
 	$scope.addPosition = function (index) {
@@ -372,14 +394,25 @@ function VerkaufCtrl($scope, $location, $window, $filter, $routeParams, VerkaufR
 	$scope.$watch('positionen', function(current, previous) {
 		mwstCalculator.update($scope, current);
 	}, true);
+	$scope.$watch('verkauf.rechnungsjahr', function(current, previous) {
+		$scope.getNextInvoiceIDs();
+	}, true);
 	$scope.updateBrutto = function (position) {
 		mwstCalculator.updateBrutto(position);
 	};
 	$scope.updateMwSt = function (position) {
 		mwstCalculator.updateMwSt(position);
 	};
-	$scope.generateInvoice = function (verkauf) {
-		verkauf.$renderInvoice();
+	$scope.generateInvoice = function (invoiceid) {
+		$scope.verkauf.rechnungsnummer = invoiceid;
+		$scope.updateVerkauf(function(){
+			$scope.invoice = RenderResource.renderInvoice({vkid:$scope.verkauf.id},function()
+			{
+				$scope.downloadInvoice();
+			});
+			//$scope.invoice = $scope.verkauf.$renderInvoice();
+			//FIXME danach _blank download öffnen
+		});
 		// 1. if invoice has been generated open in tinymce
 		// 2. otherwise
 		// 2.1. load HTML template
@@ -389,6 +422,20 @@ function VerkaufCtrl($scope, $location, $window, $filter, $routeParams, VerkaufR
 		//FIXME this is a bad hack but I could not yet find an angular way of generating urls
 		//$window.open('invoice?requesttoken='+oc_requesttoken);
 	};
+	$scope.downloadInvoice = function () {
+		var path = '/Perlenbilanz/Rechnungen/Rechnung '+$scope.verkauf.rechnungsjahr+'-'+$scope.verkauf.rechnungsnummer+'.pdf';
+		$window.open(OC.Router.generate('download',{file:path}));
+	};
+	$scope.editInvoice = function () {
+		var filename = 'Rechnung '+$scope.verkauf.rechnungsjahr+'-'+$scope.verkauf.rechnungsnummer+'.html';
+		startEditDoc('/Perlenbilanz/Rechnungen',filename);
+	};
+	$scope.markFaulty = function() {
+		$scope.verkauf.faultyreason = '';
+	};
+	$scope.deleteInvoice = function() {
+		$scope.verkauf = VerkaufResource.deleteInvoice($scope.verkauf);
+	};
 
 	if ($routeParams.id) {
 		accountNameRecommender.fetchAccounts($scope, VerkaufResource);
@@ -396,6 +443,7 @@ function VerkaufCtrl($scope, $location, $window, $filter, $routeParams, VerkaufR
 		$scope.verkauf = VerkaufResource.get({id:$routeParams.id}, function(data){
 			$scope.guessNames();
 			$scope.guessAccounts();
+			$scope.getNextInvoiceIDs();
 		});
 		$scope.positionen = VerkaufPositionResource.query({vkId:$routeParams.id});
 	} else {
@@ -599,6 +647,31 @@ angular.module('perlenbilanz').directive('currencyInput', function() {
 	};
 });
 
+
+
+angular.module('perlenbilanz').directive('onCursorUp', function() {
+	return function (scope, element, attrs) {
+		element.bind("keydown keypress", function (event) {
+			if(event.which === 38) {
+				scope.$apply(function (){
+					scope.$eval(attrs.onCursorUp);
+				});
+			}
+		});
+	};
+});
+angular.module('perlenbilanz').directive('onCursorDown', function() {
+	return function (scope, element, attrs) {
+		element.bind("keydown keypress", function (event) {
+			if(event.which === 40) {
+				scope.$apply(function (){
+					scope.$eval(attrs.onCursorDown);
+				});
+			}
+		});
+	};
+});
+
 angular.module('perlenbilanz').directive('autoComplete', function($filter, $timeout) {
 	return {
 		restrict: 'A',
@@ -617,6 +690,22 @@ angular.module('perlenbilanz').directive('autoComplete', function($filter, $time
 		}
 	};
 });
+
+angular.module('perlenbilanz').directive('emtpyToNull', function() {
+	return {
+		require: 'ngModel',
+		link: function(scope, elm, attrs, ctrl) {
+			ctrl.$parsers.unshift(function(viewValue) {
+				if (viewValue === '') {
+					return null;
+				} else {
+					return viewValue;
+				}
+			});
+		}
+	};
+});
+
 /* Filters */
 angular.module('perlenbilanz').filter('number_de', function() {
 	return function(input) {
@@ -706,6 +795,12 @@ angular.module('perlenbilanzServices', ['ngResource']).
 	factory('NotesResource', function($resource){
 		return $resource('ajax/notes', {id:'@id', requesttoken:oc_requesttoken});
 	}).
+	factory('RenderResource', function($resource){
+		return $resource('ajax/render/:doctype', {requesttoken:oc_requesttoken},
+			{renderInvoice:{method:'POST',params:{doctype:'invoice'}},
+			 
+			  renderReport:{method:'GET',params:{doctype:'report'}}});
+	}).
 	factory('EinkaufResource', function($resource){
 		return $resource('ajax/einkauf/:id', {id:'@id', requesttoken:oc_requesttoken},
 			{listAccounts:{method:'GET',params:{list:'accounts'}},
@@ -717,12 +812,13 @@ angular.module('perlenbilanzServices', ['ngResource']).
 		return $resource('ajax/einkaufposition/:id', {id:'@id', requesttoken:oc_requesttoken});
 	}).
 	factory('VerkaufResource', function($resource){
-		return $resource('ajax/verkauf/:id', {id:'@id', requesttoken:oc_requesttoken},
-			{listAccounts:{method:'GET',params:{list:'accounts'}},
-				listNames:{method:'GET',params:{list:'names'}},
-				guessName:{method:'GET',params:{guess:'name'}},
-			 guessAccount:{method:'GET',params:{guess:'account'}},
-			renderInvoice:{method:'POST',params:{render:'html'}}});
+		return $resource('ajax/verkauf/:id/:doctype', {id:'@id', requesttoken:oc_requesttoken},
+			{listAccounts:{method:'GET',  params:{list:'accounts'}},
+				listNames:{method:'GET',  params:{list:'names'}},
+				guessName:{method:'GET',  params:{guess:'name'}},
+			 guessAccount:{method:'GET',  params:{guess:'account'}},
+			deleteInvoice:{method:'POST', params:{doctype:'invoice'}},
+		getNextInvoiceIDs:{method:'GET',  params:{next:'invoiceids'}}}); // TODO extra action to render as pdf?
 	}).
 	factory('VerkaufPositionResource', function($resource){
 		return $resource('ajax/verkaufposition/:id', {id:'@id', requesttoken:oc_requesttoken});

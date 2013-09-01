@@ -33,6 +33,7 @@ use OCA\Perlenbilanz\Db\Verkauf;
 use OCA\Perlenbilanz\Db\VerkaufMapper;
 use OCA\Perlenbilanz\Db\VerkaufPositionMapper;
 use OCA\Perlenbilanz\Http\JSONResponse;
+use OCA\Perlenbilanz\Http\FileDownloadResponse;
 
 
 class VerkaufController extends Controller {
@@ -91,6 +92,13 @@ class VerkaufController extends Controller {
 				$list = array();
 			}
 			return $this->renderRawJSON($list);
+		} else if (isset($params['next']) && isset($params['rechnungsjahr'])) {
+			if ($params['next']=='invoiceids') {
+				$list = $this->mapper->nextInvoiceIDs($this->api->getUserId(), $params['rechnungsjahr']);
+			} else {
+				$list = array();
+			}
+			return $this->renderRawJSON($list);
 		} else if (isset($params['guess'])) {
 			if ($params['guess']=='account') {
 				$list = $this->mapper->guessAccount($params['plattform'],$params['name'],$this->api->getUserId());
@@ -111,6 +119,7 @@ class VerkaufController extends Controller {
 		}
 		return new NotFoundResponse();
 	}
+	
 	/**
 	 * @Ajax
 	 * @IsAdminExemption
@@ -160,8 +169,7 @@ class VerkaufController extends Controller {
 
 		$params = $this->getParams();
 		if (isset($params['render']) && $params['render'] === 'html') {
-			$this->renderInvoice();
-			exit();
+			return $this->renderInvoice();
 		}
 		//read json from input
 		$input = file_get_contents("php://input");
@@ -176,84 +184,6 @@ class VerkaufController extends Controller {
 
 		//return complete object back
 		return $this->renderRawJSON($entity);
-	}
-	/**
-	 * @Ajax
-	 * @IsAdminExemption
-	 * @IsSubAdminExemption
-	 */
-	public function renderInvoice(){
-
-		//read json from input
-		$input = file_get_contents("php://input");
-		$json = $this->validateJSON($input);
-
-		//set user
-		$json['userid'] = $this->api->getUserId();
-
-		//TODO check valid?
-		$verkauf = Verkauf::fromJSON($json, true);
-		
-		$positionen = $this->positionenMapper->findAll($verkauf->id,$verkauf->userid);
-		
-		$brutto = 0;
-		$netto = 0;
-		foreach ($positionen as $position) {
-			$brutto += $position->stueck * $position->brutto;
-			$netto += $position->netto;
-			$position->brutto = $position->brutto;
-			$position->bezeichnung = str_replace("\n", "<br/>\n", \OC_Util::sanitizeHTML($position->bezeichnung));
-		}
-		$mwst = $brutto - $netto;
-		$verkauf->brutto = $brutto;
-		$verkauf->netto = $netto;
-		$verkauf->mwst = $mwst;
-		
-		$verkauf->rechnungsanschrift = str_replace("\n", "<br/>\n", \OC_Util::sanitizeHTML($verkauf->rechnungsanschrift));
-		
-		$dtw = new \DateTime($verkauf->wertstellung);
-		$verkauf->wertstellung = $dtw->format( 'd.m.Y' );
-		
-		/** Error reporting */
-		error_reporting(E_ALL);
-		
-		
-		require_once __DIR__ . '/../3rdparty/MPDF56/mpdf.php';
-
-		
-		$dt = new \DateTime();
-		$date = $dt->format( 'd.m.Y' );
-		
-		//create app folder if it does not yet exist
-		if ( ! \OC\Files\Filesystem::is_dir('Perlenbilanz') ) {
-			\OC\Files\Filesystem::mkdir('Perlenbilanz');
-		}
-		if ( ! \OC\Files\Filesystem::is_dir('Perlenbilanz/Rechnungen') ) {
-			\OC\Files\Filesystem::mkdir('Perlenbilanz/Rechnungen');
-		}
-		//if ( ! \OC\Files\Filesystem::is_file('Perlenbilanz/Rechnungen/Vorlage.php') ) {
-			$template = file_get_contents(__DIR__ . '/../templates/invoice.php');
-			\OC\Files\Filesystem::file_put_contents('Perlenbilanz/Rechnungen/Vorlage.php', $template);
-		//}
-		
-		$invoiceTemplate = new \OCA\Perlenbilanz\Http\Template('Perlenbilanz/Rechnungen/Vorlage.php');
-		$invoiceTemplate->assign('datum', $date);
-		$invoiceTemplate->assign('verkauf', $verkauf);
-		$invoiceTemplate->assign('positionen', $positionen);
-		$html = $invoiceTemplate->fetchPage();
-		
-		\OC\Files\Filesystem::file_put_contents('Perlenbilanz/Rechnungen/Rechnung '.$verkauf->rechnungsnummer.'.html', $html);
-		
-		$mpdf=new \mPDF();
-		
-		header('Content-Type: application/pdf');
-		//header('Content-Disposition: attachment; filename=Rechnung_'.$entity->rechnungsnummer.'.pdf');
-		header('Content-Disposition: attachment; filename=Rechnung.pdf');
-		
-		$mpdf->WriteHTML($html);
-		$pdf = $mpdf->Output(null, 'S');
-		\OC\Files\Filesystem::file_put_contents('Perlenbilanz/Rechnungen/Rechnung '.$verkauf->rechnungsnummer.'.pdf', $pdf);
-		
 	}
 
 }
