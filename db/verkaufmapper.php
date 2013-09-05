@@ -160,7 +160,7 @@ class VerkaufMapper extends Mapper {
 					AND `name` IS NOT NULL
 					AND `userid` = ?';
 
-		$result = $this->execute($sql,array($plattform, $account, $userid));
+		$result = $this->execute($sql, array($plattform, $account, $userid));
 
 		$nameList = array();
 		while($row = $result->fetchRow()){
@@ -176,17 +176,27 @@ class VerkaufMapper extends Mapper {
 
 		$nextInvoiceIds = array();
 		
-		$d = new \DateTime( $year.'-01-01');
-		$begin = $d->format( 'Y-01-01' );
-		$end = $d->format( 'Y-12-31' );
+		// get free invoice ids
+		$sql = 'SELECT `rechnungsnummer`
+				FROM `*PREFIX*pb_vk_freeinvoiceno`
+				WHERE `userid` = ?
+					AND `rechnungsjahr` = ?
+				ORDER BY `rechnungsnummer` ASC';
+
+		$result = $this->execute($sql, array($userid, $year));
+
+		while($row = $result->fetchRow()){
+			settype($row['rechnungsnummer'], 'int');
+			array_push($nextInvoiceIds, $row['rechnungsnummer']);
+		}
 		
 		// get current max id +1
-		$sql = 'SELECT max(`rechnungsnummer`)+1 as `nextInvoiceId`, count(`rechnungsnummer`) as `count`
+		$sql = 'SELECT max(`rechnungsnummer`)+1 AS `nextInvoiceId`, count(`rechnungsnummer`) AS `count`
 				FROM `' . $this->getTableName() . '`
 				WHERE `userid` = ?
-					AND `rechnungsjahr` BETWEEN ? AND ?';
+					AND `rechnungsjahr` = ?';
 
-		$result = $this->execute($sql,array($userid, $begin, $end));
+		$result = $this->execute($sql, array($userid, $year));
 
 		$row = $result->fetchRow();
 		settype($row['nextInvoiceId'], 'int');
@@ -196,11 +206,52 @@ class VerkaufMapper extends Mapper {
 		} else if ($row['count'] === 0){
 			array_push($nextInvoiceIds, 1);
 		}
-		
-		// add free invoice ids
 
 		return $nextInvoiceIds;
 	}
+	/**
+	 * @return []
+	 */
+	public function rememberFreeInvoiceID($userid, $year, $invoiceid) {
+		
+		
+		// get current max id
+		$sql = 'SELECT max(`rechnungsnummer`) AS `maxInvoiceId`
+				FROM `' . $this->getTableName() . '`
+				WHERE `userid` = ?
+					AND `rechnungsjahr` = ?';
+
+		$result = $this->execute($sql, array($userid, $year));
+
+		$row = $result->fetchRow();
+		
+		//only remember id if it is not the current maximum
+		if ($row && isset($row['maxInvoiceId']) && $row['maxInvoiceId'] !== $invoiceid) {
+		
+			$sql = 'INSERT INTO `*PREFIX*pb_vk_freeinvoiceno`
+					( `userid`, `rechnungsjahr`, `rechnungsnummer` )
+					VALUES (?,?,?)';
+
+			$this->execute($sql, array($userid, $year, $invoiceid));
+			
+		}
+
+	}
+	
+	/**
+	 * @return []
+	 */
+	public function forgetFreeInvoiceID($userid, $year, $invoiceid) {
+		
+		$sql = 'DELETE FROM `*PREFIX*pb_vk_freeinvoiceno`
+				WHERE `userid` = ?
+					AND `rechnungsjahr` = ?
+					AND `rechnungsnummer` = ?';
+
+		$this->execute($sql, array($userid, $year, $invoiceid));
+
+	}
+	
 	/**
 	 * @return []
 	 */

@@ -44,7 +44,7 @@ class InvoiceController extends Controller {
 	}
 
 	public function getRechnungsname(\OCA\Perlenbilanz\Db\Verkauf $verkauf) {
-		return 'Rechnung '.$verkauf->rechnungsjahr.'-'.$verkauf->rechnungsnummer;
+		return 'Rechnung '.$verkauf->rechnungsjahr.'-'.sprintf("%03s", $verkauf->rechnungsnummer);
 	}
 	public function getRechnungspath(\OCA\Perlenbilanz\Db\Verkauf $verkauf = null) {
 		return '/Perlenbilanz/Rechnungen';
@@ -87,14 +87,17 @@ class InvoiceController extends Controller {
 		
 		$verkauf->rechnungsanschrift = str_replace("\n", "<br/>\n", \OC_Util::sanitizeHTML($verkauf->rechnungsanschrift));
 		
-		$dtw = new \DateTime($verkauf->wertstellung);
-		$verkauf->wertstellung = $dtw->format( 'd.m.Y' );
+		if ($verkauf->wertstellung) {
+			$dtw = new \DateTime($verkauf->wertstellung);
+			$verkauf->wertstellung = $dtw->format( 'd.m.Y' );
+		}
+		
+		if ($verkauf->plattform === 'Sonstige') {
+			$verkauf->plattform = null;
+		}
 		
 		/** Error reporting */
 		error_reporting(E_ALL);
-		
-		
-
 		
 		$dt = new \DateTime();
 		$date = $dt->format( 'd.m.Y' );
@@ -152,9 +155,14 @@ class InvoiceController extends Controller {
 		\OC\Files\Filesystem::unlink($this->getRechnungspath().'/'.$filename.'.html');
 		\OC\Files\Filesystem::unlink($this->getRechnungspath().'/'.$filename.'.pdf');
 		
+		$this->verkaufMapper->rememberFreeInvoiceID(
+			$verkauf->userid,
+			$verkauf->rechnungsjahr,
+			$verkauf->rechnungsnummer
+		);
+		
 		//remove rechnungsnummer
 		$verkauf->setRechnungsnummer(null);
-		//TODO remove rechnungsjahr?
 		
 		$this->verkaufMapper->update($verkauf);
 		

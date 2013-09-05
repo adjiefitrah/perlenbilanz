@@ -153,3 +153,8 @@ $this->create('perlenbilanz_ajax_verkauf_position_put', '/ajax/verkaufposition/{
 		App::main('VerkaufPositionController', 'putPosition', $params, new DIContainer());
 	}
 );
+$this->create('perlenbilanz_ajax_verkauf_position_delete', '/ajax/verkaufposition/{id}')->delete()->action(
+	function($params){
+		App::main('VerkaufPositionController', 'deletePosition', $params, new DIContainer());
+	}
+);

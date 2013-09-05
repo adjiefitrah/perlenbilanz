@@ -48,7 +48,7 @@ class Hooks {
 			
 			require_once __DIR__ . '/../3rdparty/MPDF56/mpdf.php';
 
-			$mpdf=new \mPDF();
+			$mpdf=new \mPDF('utf-8', 'A4');
 
 			$mpdf->WriteHTML($html);
 			$pdf = $mpdf->Output(null, 'S');

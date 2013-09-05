@@ -43,12 +43,13 @@ class VerkaufPositionMapper extends Mapper {
 	 */
 	public function findAll($vkId, $userid){
 
-		$sql = 'SELECT `' . $this->getTableName() .'`.*'
-			. ' FROM `' . $this->getTableName() .'`'
-			. ' JOIN `*PREFIX*pb_vk_verkaeufe`'
-			. ' ON `' . $this->getTableName() . '`.`vk_id`=`*PREFIX*pb_vk_verkaeufe`.`id`'
-			. ' WHERE `' . $this->getTableName() . '`.`vk_id` = ?'
-			. ' AND `*PREFIX*pb_vk_verkaeufe`.`userid` = ?';
+		$sql = 'SELECT `' . $this->getTableName() .'`.*
+				FROM `' . $this->getTableName() .'`
+				JOIN `*PREFIX*pb_vk_verkaeufe`
+				ON `' . $this->getTableName() . '`.`vk_id`=`*PREFIX*pb_vk_verkaeufe`.`id`
+				WHERE `' . $this->getTableName() . '`.`vk_id` = ?
+				AND `*PREFIX*pb_vk_verkaeufe`.`userid` = ?
+				ORDER BY `' . $this->getTableName() . '`.`pos` ASC, `' . $this->getTableName() . '`.`vk_id` ASC';
 
 		$result = $this->execute($sql,array($vkId, $userid));
 

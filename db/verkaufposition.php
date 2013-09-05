@@ -30,6 +30,7 @@ class VerkaufPosition extends Entity {
 
 	public $id;
 	public $vkId;
+	public $pos;
 	public $datum;
 	public $stueck;
 	public $typ;
@@ -42,6 +43,7 @@ class VerkaufPosition extends Entity {
 
 	public function __construct(){
 		$this->addType('vkId', 'int');
+		$this->addType('pos', 'int');
 		$this->addType('stueck', 'int');
 		$this->addType('geliefert', 'bool');
 		$this->addType('brutto', 'float');

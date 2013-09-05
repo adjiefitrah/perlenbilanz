@@ -361,18 +361,23 @@ function VerkaufCtrl($scope, $location, $window, $filter, $routeParams,
 			$scope.verkauf = new VerkaufResource(data);
 			$location.path('/verkauf/'+$scope.verkauf.id);
 			
-			//FIXME Delete positions
-
 			//save positions with id from verkauf
 			angular.forEach($scope.positionen, function(position) {
 				//update id
 				position.vkId = $scope.verkauf.id;
-
 				new VerkaufPositionResource(position).$save(function (data) {
 					//update the model with the entity returned from the server
 					position = new VerkaufPositionResource(data);
 				});
 			});
+			//delete positions with id from verkauf
+			angular.forEach($scope.deletedPositionen, function(position) {
+				if (position.id) {
+					// Delete existing position
+					new VerkaufPositionResource(position).$delete();
+				}
+			});
+			$scope.deletedPositionen = [];
 			if(callback){
 				callback();
 			}
@@ -380,6 +385,7 @@ function VerkaufCtrl($scope, $location, $window, $filter, $routeParams,
 	};
 	$scope.addPosition = function (index) {
 		$scope.positionen.splice(index+1, 0, {
+			pos:index+1,
 			datum: $filter('date')(new Date(),'yyyy-MM-dd'),
 			stueck:1,
 			typ:'Ware',
@@ -387,9 +393,22 @@ function VerkaufCtrl($scope, $location, $window, $filter, $routeParams,
 			geliefert:false,
 			mwstProzent:19
 		});
+		$scope.renumberPositions();
 	};
+	$scope.renumberPositions = function () {
+		var pos = 1;
+		angular.forEach($scope.positionen, function(position) {
+			if (position.pos !== pos) {
+				position.pos = pos;
+			}
+			pos++;
+		});
+	};
+	$scope.deletedPositionen = [];
 	$scope.removePosition = function (index) {
-		$scope.positionen.splice(index, 1);
+		var deleted = $scope.positionen.splice(index, 1);
+		$scope.deletedPositionen = $scope.deletedPositionen.concat(deleted);
+		$scope.renumberPositions();
 	};
 	$scope.$watch('positionen', function(current, previous) {
 		mwstCalculator.update($scope, current);
@@ -413,28 +432,26 @@ function VerkaufCtrl($scope, $location, $window, $filter, $routeParams,
 			//$scope.invoice = $scope.verkauf.$renderInvoice();
 			//FIXME danach _blank download öffnen
 		});
-		// 1. if invoice has been generated open in tinymce
-		// 2. otherwise
-		// 2.1. load HTML template
-		// 2.2. generate HTML invoice
-		// 2.3. open in tinymce (allow user to review, show render pdf button)
-		//    TODO how do we handle this? store in filesystem? versioned?
-		//FIXME this is a bad hack but I could not yet find an angular way of generating urls
-		//$window.open('invoice?requesttoken='+oc_requesttoken);
 	};
 	$scope.downloadInvoice = function () {
-		var path = '/Perlenbilanz/Rechnungen/Rechnung '+$scope.verkauf.rechnungsjahr+'-'+$scope.verkauf.rechnungsnummer+'.pdf';
-		$window.open(OC.Router.generate('download',{file:path}));
+		var number = $scope.verkauf.rechnungsnummer;
+		var number = (number < 100)?((!(parseInt(number/10)))? "00"+number : "0"+number) : number;
+		var filename = '/Perlenbilanz/Rechnungen/Rechnung '+$scope.verkauf.rechnungsjahr+'-'+number+'.pdf';
+		$window.open(OC.Router.generate('download',{file:filename}));
 	};
 	$scope.editInvoice = function () {
-		var filename = 'Rechnung '+$scope.verkauf.rechnungsjahr+'-'+$scope.verkauf.rechnungsnummer+'.html';
+		var number = $scope.verkauf.rechnungsnummer;
+		var number = (number < 100)?((!(parseInt(number/10)))? "00"+number : "0"+number) : number;
+		var filename = 'Rechnung '+$scope.verkauf.rechnungsjahr+'-'+number+'.html';
 		startEditDoc('/Perlenbilanz/Rechnungen',filename);
 	};
 	$scope.markFaulty = function() {
 		$scope.verkauf.faultyreason = '';
 	};
 	$scope.deleteInvoice = function() {
-		$scope.verkauf = VerkaufResource.deleteInvoice($scope.verkauf);
+		$scope.verkauf = VerkaufResource.deleteInvoice($scope.verkauf, function(){
+			$scope.getNextInvoiceIDs();
+		});
 	};
 
 	if ($routeParams.id) {
@@ -779,6 +796,11 @@ angular.module('perlenbilanz').filter('empty', function() {
 		} else {
 			return false;
 		}
+	};
+});
+angular.module('perlenbilanz').filter('prependZero' , function() {
+	return function(number) {
+		return (number < 100)?((!(parseInt(number/10)))? "00"+number : "0"+number) : number;
 	};
 });
 /*

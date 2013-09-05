@@ -34,6 +34,7 @@ class Verkauf extends Entity {
 	public $faultyreason;
 	public $wertstellung;
 	public $plattform;
+	public $bestellnummer;
 	public $account;
 	public $name;
 	public $lieferanschrift;

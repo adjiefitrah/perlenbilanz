@@ -162,6 +162,11 @@
 				<length>30</length>
 			</field>
 			<field>
+				<name>bestellnummer</name>
+				<type>text</type>
+				<length>80</length>
+			</field>
+			<field>
 				<name>account</name>
 				<type>text</type>
 				<length>100</length>
@@ -228,6 +233,10 @@
 				<notnull>true</notnull>
 			</field>
 			<field>
+				<name>pos</name>
+				<type>integer</type>
+			</field>
+			<field>
 				<name>datum</name>
 				<type>date</type>
 				<default></default>
@@ -282,17 +291,16 @@
 				<type>text</type>
 				<notnull>true</notnull>
 				<length>255</length>
-				<notnull>true</notnull>
 			</field>
 			<field>
-				<name>wertstellung</name>
-				<type>date</type>
+				<name>rechnungsjahr</name>
+				<type>integer</type>
 				<notnull>true</notnull>
 			</field>
 			<field>
 				<name>rechnungsnummer</name>
 				<type>text</type>
-				<length>80</length>
+				<length>16</length>
 				<notnull>true</notnull>
 			</field>
 		</declaration>

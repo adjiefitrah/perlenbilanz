@@ -181,6 +181,14 @@ class VerkaufController extends Controller {
 		//TODO check valid?
 		$entity = Verkauf::fromJSON($json, true);
 		$this->mapper->update($entity);
+		
+		if ($entity->rechnungsnummer) {
+			$this->mapper->forgetFreeInvoiceID (
+				$entity->userid,
+				$entity->rechnungsjahr,
+				$entity->rechnungsnummer
+			);
+		}
 
 		//return complete object back
 		return $this->renderRawJSON($entity);

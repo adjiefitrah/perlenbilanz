@@ -154,5 +154,30 @@ class VerkaufPositionController extends Controller {
 
 	}
 
+	/**
+	 * @Ajax
+	 * @IsAdminExemption
+	 * @IsSubAdminExemption
+	 *
+	 */
+	public function deletePosition(){
+
+		
+		$params = $this->getParams();
+		if (isset($params['id'])) {
+
+			//TODO check valid?
+			$entity = new VerkaufPosition();
+			$entity->setId($params['id']);
+
+			$this->posMapper->delete($entity);
+
+			//return ok?
+			return $this->renderRawJSON();
+		} else {
+			return new \OCA\AppFramework\Http\NotFoundResponse();
+		}
+
+	}
 
 }
