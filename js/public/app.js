@@ -348,7 +348,6 @@ function VerkaufCtrl($scope, $location, $window, $filter, $routeParams,
 		$scope.getNextInvoiceIDs();
 	};
 	$scope.saveAndNew = function () {
-		//FIXME Delete positions
 		$scope.updateVerkauf(function () {
 			alert('Gespeichert');
 			$location.path('/verkauf');
