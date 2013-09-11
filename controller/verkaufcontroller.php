@@ -130,6 +130,7 @@ class VerkaufController extends Controller {
 
 		try {
 			$entity = $this->mapper->find($params['id'], $this->api->getUserId());
+			\OCP\Util::writeLog('perlenbilanz', __METHOD__.': '.  json_encode($entity), \OCP\Util::DEBUG);
 			return $this->renderRawJSON($entity);
 		} catch (DoesNotExistException $ex) {
 			return new NotFoundResponse();
@@ -153,8 +154,10 @@ class VerkaufController extends Controller {
 
 		//TODO check valid?
 		$entity = Verkauf::fromJSON($json);
+		\OCP\Util::writeLog('perlenbilanz', __METHOD__.': '.  json_encode($entity), \OCP\Util::DEBUG);
 		$entity = $this->mapper->insert($entity);
-
+		\OCP\Util::writeLog('perlenbilanz', __METHOD__.': '.  json_encode($entity), \OCP\Util::DEBUG);
+		
 		//return complete object back
 		return $this->renderRawJSON($entity);
 	}
@@ -180,7 +183,9 @@ class VerkaufController extends Controller {
 
 		//TODO check valid?
 		$entity = Verkauf::fromJSON($json, true);
+		\OCP\Util::writeLog('perlenbilanz', __METHOD__.': '.  json_encode($entity), \OCP\Util::DEBUG);
 		$this->mapper->update($entity);
+		\OCP\Util::writeLog('perlenbilanz', __METHOD__.': '.  json_encode($entity), \OCP\Util::DEBUG);
 		
 		if ($entity->rechnungsnummer) {
 			$this->mapper->forgetFreeInvoiceID (
