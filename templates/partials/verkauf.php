@@ -17,58 +17,59 @@
 					<label for="plattform_sonstige">Sonstige</label>
 				</fieldset>
 			</div>
-			<div style="float:left; margin-left: 15px;" class="col2">
+			<div style="float:left; margin-left: 15px; border-left: 1px solid lightgrey; padding-left: 15px; height: 135px;" class="col2">
 				<fieldset>
 					<legend>Käufer:</legend>
-					<div>
+					<div style="margin-left: 5px;">
 						<label for="account">Bestnr:</label>
 						<input type="text" class="plattform_bestellnummer"
 							   ng-model="verkauf.bestellnummer">
 					</div>
-					<div>
-						<label for="account">Account:</label>
+					<div style="margin-left: 5px;">
+						<label style="vertical-align: bottom; margin-bottom: 7px;" for="account">Account:</label>
 						<input id="account" type="hidden" ui-select2="accountOptions"
 							   ng-model="verkauf.account" ng-change="guessNames()">
 					</div>
-					<div>
-						<label for="name">Name:</label>
+					<div style="margin-left: 5px;">
+						<label style="vertical-align: bottom; margin-bottom: 7px;" for="name">Name:</label>
 						<input id="name" type="hidden" ui-select2="nameOptions"
 							   ng-model="verkauf.name" ng-change="guessAccounts()">
 					</div>
 				</fieldset>
 			</div>
 			<div style="float:left; margin-left: 15px;">
-				<label for="rechnungsanschrift" style="font-variant: small-caps;">Rechnungsanschrift:</label><br/>
+				<label for="rechnungsanschrift" style="font-variant: small-caps; text-decoration: underline;">Rechnungsanschrift:</label><br/>
 				<textarea id="rechnungsanschrift" ng-model="verkauf.rechnungsanschrift" style="width:170px; height: 67px;"/><br/>
 
-				<input id="differentaddress" type="checkbox" ng-model="differentaddress" ng-checked="verkauf.lieferanschrift|notnull" ng-change="toggleLieferanschrift()"/>
+				<input id="differentaddress" type="checkbox" ng-model="differentaddress"
+					   ng-checked="verkauf.lieferanschrift|notnull"
+					   ng-change="toggleLieferanschrift()" style="margin-left: 5px;"/>
 				<label for="differentaddress">Abweichende Lieferanschrift</label>
 			</div>
-			<div ng-show="differentaddress||verkauf.lieferanschrift|notnull" style="float:left; margin-top: 6px; margin-left: 15px;">
-				<label for="lieferanschrift">Lieferanschrift:</label><br/>
+			<div ng-show="differentaddress||verkauf.lieferanschrift|notnull" style="float:left; margin-left: 15px;">
+				<label for="lieferanschrift" style="font-variant: small-caps; text-decoration: underline;">Lieferanschrift:</label><br/>
 				<textarea id="lieferanschrift" ng-model="verkauf.lieferanschrift" style="width:170px; height: 67px;"/><br/>
 			</div>
-			<div style="float:left; margin-left: 15px;">
+			<div style="float:left; margin-left: 15px; border-left: 1px solid lightgrey; padding-left: 15px; height: 135px;">
 				<fieldset>
 					<legend>Verpackungsmaterial:</legend>
-					<input id="vpm_luftpolstertasche" type="checkbox" ng-model="verkauf.luftpolstertasche">
+					<input id="vpm_luftpolstertasche" type="checkbox" ng-model="verkauf.luftpolstertasche" style="margin-left: 5px;">
 					<label for="vpm_luftpolstertasche">Luftpolstertasche</label>
 					</br>
-					<input id="vpm_briefumschlag" type="checkbox" ng-model="verkauf.briefumschlag">
+					<input id="vpm_briefumschlag" type="checkbox" ng-model="verkauf.briefumschlag" style="margin-left: 5px;">
 					<label for="vpm_briefumschlag">Briefumschlag</label>
 					</br>
-					<input id="vpm_druckverschlussbeutel" type="checkbox" ng-model="verkauf.druckverschlussbeutel">
-					<label for="vpm_
-		<h2>Rahmendaten:</h2>druckverschlussbeutel">Druckverschlussbeutel</label>
+					<input id="vpm_druckverschlussbeutel" type="checkbox" ng-model="verkauf.druckverschlussbeutel" style="margin-left: 5px;">
+					<label for="vpm_druckverschlussbeutel">Druckverschlussbeutel</label>
 					</br>
-					<input id="vpm_knallfolie" type="checkbox" ng-model="verkauf.knallfolie">
+					<input id="vpm_knallfolie" type="checkbox" ng-model="verkauf.knallfolie" style="margin-left: 5px;">
 					<label for="vpm_knallfolie">Knallfolie</label>
 					</br>
-					<input id="vpm_unverpackt" type="checkbox" ng-model="verkauf.unverpackt">
+					<input id="vpm_unverpackt" type="checkbox" ng-model="verkauf.unverpackt" style="margin-left: 5px;">
 					<label for="vpm_unverpackt">Unverpackt</label>
 				</fieldset>
 			</div>
-			<div style="float:left; margin-left: 15px;">
+			<div style="float:left; margin-left: 15px; border-left: 1px solid lightgrey; padding-left: 15px; height: 135px;">
 				<fieldset>
 					<legend>Zahlweise:</legend>
 					<input id="zahlweise_konto" type="radio" value="Konto" ng-model="verkauf.zahlweise">
@@ -82,12 +83,12 @@
 				</fieldset>
 			</div>
 			<div style="float:left; margin-left: 15px;">
-				<label for="wertstellung" style="font-variant: small-caps;">Wertstellung:</label><br/>
+				<label for="wertstellung" style="font-variant: small-caps; text-decoration: underline;">Wertstellung:</label><br/>
 				<input type="text" id="wertstellung" ng-model="verkauf.wertstellung"
 					   value="[[ verkauf.wertstellung | date:'dd.MM.yyyy' ]]"
 					   ui-date="{ dateFormat: 'dd.mm.yy' }" ui-date-format="yy-mm-dd"
-					   style="margin-bottom: 8px;"><br/>
-				<label for="rechnungsnummer" style="font-variant: small-caps;">Rechnungsnummer:</label><br/>
+					   style="margin-bottom: 23px;"><br/>
+				<label for="rechnungsnummer" style="font-variant: small-caps; text-decoration: underline;">Rechnungsnummer:</label><br/>
 				<!-- input type="text" id="rechnungsnummer" ng-model="verkauf.rechnungsnummer" -->
 				<!--
 	workflow optimalfall
@@ -119,7 +120,7 @@
 							   on-cursor-down="verkauf.rechnungsjahr=verkauf.rechnungsjahr-1">
 						frei: <button ng-repeat="nextInvoiceID in nextInvoiceIDs" ng-click="generateInvoice(nextInvoiceID)">[[nextInvoiceID]]</button>
 					</span>
-					<span ng-show="verkauf.rechnungsnummer">
+					<span ng-show="verkauf.rechnungsnummer" style="margin-left: 5px;">
 						<!-- button für jede freie id zeigen
 							- download per xhr geht nicht
 							- also bei klick auf id generieren
@@ -151,11 +152,11 @@
 				</div>
 			</div>
 			<div style="float: left; margin-left: 15px; min-width: 120px;">
-				<div style="margin-bottom: 9px; font-variant: small-caps;">Brutto:<br/>
-				<span style="font-size: 40px; margin-top: 10px; display: block;">[[bruttoTotal|number_de]] €</span>
-				</div>
-				<div ng-repeat="mwst in mwstGroups">MwSt ([[mwst.mwstProzent]]%):<span style="float:right;">[[mwst.mwst|number_de]] €</span></div>
-				<div> Netto: <span style="float:right;">[[nettoTotal|number_de]] €</span></div>
+				<div style="margin-bottom: 9px; font-variant: small-caps; text-decoration: underline;">Brutto:</div>
+				<div style="margin-left: 5px; font-size: 40px; height:30px;">[[bruttoTotal|number_de]] €</div>
+				
+				<div style="margin-left: 5px;" ng-repeat="mwst in mwstGroups">MwSt ([[mwst.mwstProzent]]%):<span style="float:right;">[[mwst.mwst|number_de]] €</span></div>
+				<div style="margin-left: 5px;">Netto: <span style="float:right;">[[nettoTotal|number_de]] €</span></div>
 			</div>
 			<div style="clear: both; border-bottom: 1px solid #ddd; width: 100%; height:6px;"></div>
 		</div>
@@ -200,8 +201,7 @@
 				<td class="description"><textarea ng-model="position.bezeichnung"></textarea></td>
 
 				<td class="delivered">
-					<label><input ng-value="false" type="radio" ng-model="position.geliefert"/>nein</label><br/>
-					<label><input ng-value="true" type="radio" ng-model="position.geliefert"/>ja</label>
+					<input type="checkbox" ng-model="position.geliefert" />
 				</td>
 
 				<td class="brutto"><input type="text" currency-input ng-model="position.brutto" ng-change="updateBrutto(position)"/></td>
@@ -220,7 +220,7 @@
 
 		</table>
 
-		<button ng-click="saveAndNew()">Speichern</button>
+		<button style="margin-top: 18px;" ng-click="saveAndNew()">Speichern</button>
 	</form>
 </div>
 

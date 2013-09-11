@@ -3,17 +3,10 @@
 	<h1 class="heading">Einkauf erfassen</h1>
 
 	<form>
-		<h2>Rahmendaten:</h2>
 		<div>
-			<div style="float:left; width:440px;">
-				<div style="float:right; width:320px; text-align: left; margin-top: 6px;">
-					<label for="account">Account:</label>
-					<input id="account" type="hidden" ui-select2="accountOptions" ng-model="einkauf.account" ng-change="guessNames()"><br/>
-
-					<label for="name">Name:</label>
-					<input id="name" type="hidden" ui-select2="nameOptions" ng-model="einkauf.name" ng-change="guessAccounts()">
-				</div>
-				<div style="float:left;margin-top: 5px;">
+			<div style="float:left;">
+				<fieldset>
+					<legend>Kanal:</legend>
 					<input id="plattform_ebay" type="radio" value="eBay" ng-model="einkauf.plattform">
 					<label for="plattform_ebay">eBay</label>
 					</br>
@@ -25,10 +18,26 @@
 					</br>
 					<input id="plattform_sonstige" type="radio" value="Sonstige" ng-model="einkauf.plattform">
 					<label for="plattform_sonstige">Sonstige</label>
-				</div>
+				</fieldset>
 			</div>
-			<div style="float:left; margin-left: 15px;">
-				<div style="margin-top: 5px;">
+			<div style="float:left; margin-left: 15px; border-left: 1px solid lightgrey; padding-left: 15px; height: 105px;" class="col2">
+				<fieldset>
+					<legend>Verkäufer:</legend>
+					<div style="margin-left: 5px;">
+						<label style="vertical-align: bottom; margin-bottom: 7px;" for="account">Account:</label>
+						<input id="account" type="hidden" ui-select2="accountOptions"
+							   ng-model="einkauf.account" ng-change="guessNames()">
+					</div>
+					<div style="margin-left: 5px;">
+						<label style="vertical-align: bottom; margin-bottom: 7px;" for="name">Name:</label>
+						<input id="name" type="hidden" ui-select2="nameOptions"
+							   ng-model="einkauf.name" ng-change="guessAccounts()">
+					</div>
+				</fieldset>
+			</div>
+			<div style="float:left; margin-left: 15px; border-left: 1px solid lightgrey; padding-left: 15px; height: 105px;">
+				<fieldset>
+					<legend>Zahlweise:</legend>
 					<input id="zahlweise_paypal" type="radio" value="PayPal" ng-model="einkauf.zahlweise">
 					<label for="zahlweise_paypal">PayPal</label>
 					</br>
@@ -37,24 +46,26 @@
 					</br>
 					<input id="zahlweise_bar" type="radio" value="Bar" ng-model="einkauf.zahlweise">
 					<label for="zahlweise_bar">Bar</label>
-				</div>
+				</fieldset>
 			</div>
-			<div style="float:left; margin-left: 25px; min-width:60px;">
-				<div style="margin-top:6px;margin-bottom:9px;">Brutto:<br/><span style="font-size: 40px; margin-top: 10px; display: block;">[[bruttoTotal|number_de]] €</span></div>
-				<div ng-repeat="mwst in mwstGroups">MwSt ([[mwst.mwstProzent]]%):<span style="float:right;">[[mwst.mwst|number_de]] €</span></div>
-				<div> Netto: <span style="float:right;">[[nettoTotal|number_de]] €</span></div>
-			</div>
-			<div style="float:left; width:180px; text-align: left; margin-top: 6px; margin-left: 20px;">
-				<label for="wertstellung">Wertstellung:</label><br/>
+			<div style="float:left; margin-left: 15px;">
+				<label for="wertstellung" style="font-variant: small-caps; text-decoration: underline;">Wertstellung:</label><br/>
 				<input id="wertstellung" ng-model="einkauf.wertstellung"
 					   type="text" value="[[ einkauf.wertstellung | date:'dd.MM.yyyy' ]]"
 					   ui-date="{ dateFormat: 'dd.mm.yy' }" ui-date-format="yy-mm-dd">
 			</div>
+			<div style="float: left; margin-left: 15px; min-width: 120px;">
+				<div style="margin-bottom: 9px; font-variant: small-caps; text-decoration: underline;">Brutto:</div>
+				<div style="margin-left: 5px; font-size: 40px; height:30px;">[[bruttoTotal|number_de]] €</div>
+				
+				<div style="margin-left: 5px;" ng-repeat="mwst in mwstGroups">MwSt ([[mwst.mwstProzent]]%):<span style="float:right;">[[mwst.mwst|number_de]] €</span></div>
+				<div style="margin-left: 5px;">Netto: <span style="float:right;">[[nettoTotal|number_de]] €</span></div>
+			</div>
 			<div style="clear: both; border-bottom: 1px solid #ddd; width: 100%; height:6px;"></div>
 		</div>
 
-		<h2>Positionen:<button ng-click="addPosition(-1)">+</button></h2>
-
+		<br/>
+		
 		<table id="positionen">
 			<tr>
 				<th>Einkaufsdatum</th>
@@ -86,8 +97,7 @@
 				<td class="description"><textarea ng-model="position.bezeichnung"></textarea></td>
 
 				<td class="delivered">
-					<label><input ng-value="true" type="radio" ng-model="position.geliefert"/>ja</label><br/>
-					<label><input ng-value="false" type="radio" ng-model="position.geliefert"/>nein</label>
+					<input type="checkbox" ng-model="position.geliefert" />
 				</td>
 
 				<td class="brutto"><input type="text" currency-input ng-model="position.brutto" ng-change="updateBrutto(position)"/></td>
@@ -111,8 +121,7 @@
 
 		</table>
 
-		<!-- FIXME: save mit popup bestätigen -->
-		<button ng-click="saveEinkauf(einkauf)">Speichern</button>
+		<button style="margin-top: 18px;" ng-click="saveEinkauf(einkauf)">Speichern</button>
 	</form>
 </div>
 

@@ -88,6 +88,7 @@ th {
 	text-align: left;
 	font-variant: small-caps;
 	font-weight: normal;
+	text-decoration: underline;
 }
 
 table .count input {
@@ -107,8 +108,11 @@ table .type select {
 	width:300px;
 }
 
-.brutto, .mwst, .netto {
+.brutto, .bruttoSum, .mwst, .netto {
 	text-align: right;
+}
+.delivered {
+	text-align: center;
 }
 
 .brutto input, .mwst input, .netto input {
@@ -149,7 +153,7 @@ table .type select {
 }
 
 .ui-datepicker .ui-datepicker-today a {
-	background: beige;
+	background: #ffff91;
 }
 
 #perlenbilanz .select2-container .select2-choice span {
@@ -165,6 +169,7 @@ table .type select {
 }
 #perlenbilanz #verkauf .type .select2-container {
 	width:110px;
+	padding: 0 4px 0 4px;
 }
 
 #controls .ui-datepicker {
@@ -249,13 +254,14 @@ table .type select {
 	text-align: right;
 	margin: 0 0 4px 0;
 }
-#perlenbilanz #verkauf legend {
+#perlenbilanz legend {
 	font-variant: small-caps;
+	text-decoration: underline;
 }
-#perlenbilanz #verkauf .col2 div {
+#perlenbilanz .col2 div {
 	margin: 0 0 3px 0;
 }
-#perlenbilanz #verkauf .col2 label {
+#perlenbilanz .col2 label {
 	width: 55px;
 	display: inline-block;
 }
@@ -264,7 +270,7 @@ table .type select {
 	background-image: url('%appswebroot%/perlenbilanz/img/icons/cog.png');
 }
 #perlenbilanz #verkauf .icon.download {
-	background-image: url('%appswebroot%/perlenbilanz/img/icons/document_alt_fill.png');
+	background-image: url('%appswebroot%/perlenbilanz/img/icons/download.png');
 }
 #perlenbilanz #verkauf .icon.edit {
 	background-image: url('%appswebroot%/perlenbilanz/img/icons/pen_alt_fill.png');
