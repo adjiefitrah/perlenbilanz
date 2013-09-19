@@ -257,12 +257,7 @@ class VerkaufMapper extends Mapper {
 	 */
 	public function missingWertstellung($userid){
 
-		$sql = 'SELECT `' . $this->getTableName() .'`.`id`,
-					`' . $this->getTableName() .'`.`wertstellung`,
-					`' . $this->getTableName() .'`.`plattform`,
-					`' . $this->getTableName() .'`.`account`,
-					`' . $this->getTableName() .'`.`name`,
-					`' . $this->getTableName() .'`.`zahlweise`,
+		$sql = 'SELECT `' . $this->getTableName() .'`.*,
 					SUM(`stueck`*`brutto`) AS `brutto_total`
 				FROM `' . $this->getTableName() .'`
 				JOIN `*PREFIX*pb_vk_positionen`
@@ -275,7 +270,7 @@ class VerkaufMapper extends Mapper {
 
 		$entityList = array();
 		while($row = $result->fetchRow()){
-			$entity = new Einkauf();
+			$entity = new Verkauf();
 			$entity->fromRow($row);
 			array_push($entityList, $entity);
 		}

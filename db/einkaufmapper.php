@@ -148,19 +148,14 @@ class EinkaufMapper extends Mapper {
 	 */
 	public function missingWertstellung($userid){
 
-		$sql = 'SELECT `' . $this->getTableName() .'`.`id`,'
-			. ' `' . $this->getTableName() .'`.`wertstellung`,'
-			. ' `' . $this->getTableName() .'`.`plattform`,'
-			. ' `' . $this->getTableName() .'`.`account`,'
-			. ' `' . $this->getTableName() .'`.`name`,'
-			. ' `' . $this->getTableName() .'`.`zahlweise`,'
-			. ' SUM(`brutto`) AS `brutto_total`'
-			. ' FROM `' . $this->getTableName() .'`'
-			. ' JOIN `*PREFIX*pb_ek_positionen`'
-			. ' ON `' . $this->getTableName() . '`.`id`=`*PREFIX*pb_ek_positionen`.`ek_id`'
-			. ' WHERE `' . $this->getTableName() . '`.`wertstellung` IS NULL'
-			. ' AND `' . $this->getTableName() . '`.`userid` = ?'
-			. ' GROUP BY `' . $this->getTableName() . '`.`id`';
+		$sql = 'SELECT `' . $this->getTableName() .'`.*,
+					SUM(`brutto`) AS `brutto_total`
+				FROM `' . $this->getTableName() .'`
+				JOIN `*PREFIX*pb_ek_positionen`
+					ON `' . $this->getTableName() . '`.`id`=`*PREFIX*pb_ek_positionen`.`ek_id`
+				WHERE `' . $this->getTableName() . '`.`wertstellung` IS NULL
+					AND `' . $this->getTableName() . '`.`userid` = ?
+				GROUP BY `' . $this->getTableName() . '`.`id`';
 
 		$result = $this->execute($sql, array($userid));
 

@@ -66,7 +66,7 @@ class Verkauf extends Entity {
 		if ($allProperties) {
 			$entityProperties = get_object_vars($entity);
 			foreach ($entityProperties as $prop => $value) {
-				if ( ! is_null($json[$prop]) ) {
+				if ( isset($json[$prop]) && ! is_null($json[$prop]) ) {
 					$entity->$prop = $json[$prop];
 				} else {
 					$entity->$prop = null;

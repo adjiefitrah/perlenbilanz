@@ -2,7 +2,6 @@
 
 	<h1 class="heading">Verkauf erfassen</h1>
 
-	<form>
 		<div>
 			<div style="float:left;">
 				<fieldset>
@@ -221,7 +220,7 @@
 		</table>
 
 		<button style="margin-top: 18px;" ng-click="saveAndNew()">Speichern</button>
-	</form>
+
 </div>
 
 
