@@ -67,7 +67,12 @@ class ReportController extends Controller {
 		
 		// VK
 		if ($e instanceof Verkauf) {
-			$sheet->SetCellValue('I'.$row, $e->rechnungsnummer);
+			if ($e->rechnungsjahr) {
+				$rechnungsnummer = $e->rechnungsjahr . '-' . $e->rechnungsnummer;
+			} else {
+				$rechnungsnummer = $e->rechnungsnummer;
+			}
+			$sheet->SetCellValue('I'.$row, $rechnungsnummer);
 			$sheet->SetCellValue('J'.$row, 'http://oc.butonic.de/index.php/apps/perlenbilanz/#/verkauf/'.$e->id);
 			$sheet->getCell('J'.$row)->getHyperlink()->setUrl('http://oc.butonic.de/index.php/apps/perlenbilanz/#/verkauf/'.$e->id);
 		}
