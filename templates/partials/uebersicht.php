@@ -5,12 +5,12 @@
 		<div>
 			
 			<div style="float:left; width:100%;">
-				<div style="margin-right: 280px;">
+				<div style="margin-right: 330px;">
 			<textarea class="notes" ng-model="notes" ng-change="saveNotes()"></textarea>
 				</div>
 			</div>
 			
-			<table style="float: left; width: 250px; margin-left: -250px;" class="overview">
+			<table style="float: left; width: 300px; margin-left: -300px;" class="overview">
 				<tr>
 					<th></th>
 					<th>Brutto</th>
