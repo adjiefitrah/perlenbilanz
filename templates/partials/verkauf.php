@@ -86,7 +86,7 @@
 				<input type="text" id="wertstellung" ng-model="verkauf.wertstellung"
 					   value="[[ verkauf.wertstellung | date:'dd.MM.yyyy' ]]"
 					   ui-date="{ dateFormat: 'dd.mm.yy' }" ui-date-format="yy-mm-dd"
-					   style="margin-bottom: 23px;"><br/>
+					><br/>
 				<label for="rechnungsnummer" style="font-variant: small-caps; text-decoration: underline;">Rechnungsnummer:</label><br/>
 				<!-- input type="text" id="rechnungsnummer" ng-model="verkauf.rechnungsnummer" -->
 				<!--
@@ -113,10 +113,16 @@
 	sie sind durch den störer zu erkennen?
 				-->
 				<div>
+					<input id="alternateinvoice" type="checkbox" style="margin-left: 5px;"
+						ng-model="verkauf.rechnungsnummer"
+						ng-true-value="keine">
+					<label for="alternateinvoice">anderer Beleg</label>
+				</div>
+				<div ng-hide="verkauf.rechnungsnummer=='keine'">
 					<span ng-hide="verkauf.rechnungsnummer">
 						<input type="text" id="rechnungsjahr" integer ng-model="verkauf.rechnungsjahr"
-							   on-cursor-up="verkauf.rechnungsjahr=verkauf.rechnungsjahr+1"
-							   on-cursor-down="verkauf.rechnungsjahr=verkauf.rechnungsjahr-1">
+							on-cursor-up="verkauf.rechnungsjahr=verkauf.rechnungsjahr+1"
+							on-cursor-down="verkauf.rechnungsjahr=verkauf.rechnungsjahr-1">
 						frei: <button ng-repeat="nextInvoiceID in nextInvoiceIDs" ng-click="generateInvoice(nextInvoiceID)">[[nextInvoiceID]]</button>
 					</span>
 					<span ng-show="verkauf.rechnungsnummer" style="margin-left: 5px;">
