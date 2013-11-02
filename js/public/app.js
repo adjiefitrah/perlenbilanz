@@ -64,18 +64,7 @@ function UebersichtCtrl($scope, $location, NotesResource, $timeout, VerkaufResou
 			}
 		});
 	});
-	$scope.overdueVerkaeufe = VerkaufResource.query({overview:'overdue'},function(response){
-		$scope.vkBrutto = 0;
-		$scope.vkMwSt = 0;
-		$scope.vkNetto = 0;
-		angular.forEach(response, function(entry) {
-			if (entry.wertstellung !== null) {
-				$scope.vkBrutto += entry.brutto;
-				$scope.vkMwSt += entry.mwst;
-				$scope.vkNetto += entry.netto;
-			}
-		});
-	});
+	$scope.overdueVerkaeufe = VerkaufResource.query({overview:'overdue'});
 	$scope.einkaeufe = EinkaufResource.query({overview:'current'},function(response){
 		$scope.ekBrutto = 0;
 		$scope.ekMwSt = 0;
@@ -88,18 +77,7 @@ function UebersichtCtrl($scope, $location, NotesResource, $timeout, VerkaufResou
 			}
 		});
 	});
-	$scope.overdueEinkaeufe = EinkaufResource.query({overview:'overdue'},function(response){
-		$scope.ekBrutto = 0;
-		$scope.ekMwSt = 0;
-		$scope.ekNetto = 0;
-		angular.forEach(response, function(entry) {
-			if (entry.wertstellung !== null) {
-				$scope.ekBrutto += entry.brutto;
-				$scope.ekMwSt += entry.mwst;
-				$scope.ekNetto += entry.netto;
-			}
-		});
-	});
+	$scope.overdueEinkaeufe = EinkaufResource.query({overview:'overdue'});
 	$scope.editEinkauf = function (id) {
 		$location.path('/einkauf/'+id);
 	};

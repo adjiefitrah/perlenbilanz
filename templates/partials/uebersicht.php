@@ -189,11 +189,11 @@
 
 					<td class="name" style="text-align: right;">Summe:</td>
 
-					<td class="brutto">[[calcBruttoSum(verkaeufe)|number_de]] €</td>
+					<td class="brutto">[[calcBruttoSum(overdueVerkaeufe)|number_de]] €</td>
 					
-					<td class="brutto">[[calcMwStSum(verkaeufe)|number_de]] €</td>
+					<td class="brutto">[[calcMwStSum(overdueVerkaeufe)|number_de]] €</td>
 					
-					<td class="brutto">[[calcNettoSum(verkaeufe)|number_de]] €</td>
+					<td class="brutto">[[calcNettoSum(overdueVerkaeufe)|number_de]] €</td>
 
 					<td class="zahlweise"></td>
 					
@@ -347,11 +347,11 @@
 
 					<td class="name" style="text-align: right;">Summe:</td>
 
-					<td class="brutto">[[calcBruttoSum(einkaeufe)|number_de]] €</td>
+					<td class="brutto">[[calcBruttoSum(overdueEinkaeufe)|number_de]] €</td>
 
-					<td class="mwst">[[calcMwStSum(einkaeufe)|number_de]] €</td>
+					<td class="mwst">[[calcMwStSum(overdueEinkaeufe)|number_de]] €</td>
 
-					<td class="netto">[[calcNettoSum(einkaeufe)|number_de]] €</td>
+					<td class="netto">[[calcNettoSum(overdueEinkaeufe)|number_de]] €</td>
 
 					<td class="zahlweise"></td>
 
