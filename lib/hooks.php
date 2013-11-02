@@ -43,7 +43,6 @@ class Hooks {
 		
 		if (self::isPerlenbilanzInvoice($param['path'])) {
 			
-			
 			$html = \OC\Files\Filesystem::file_get_contents($param['path']);
 			
 			require_once __DIR__ . '/../3rdparty/MPDF56/mpdf.php';
