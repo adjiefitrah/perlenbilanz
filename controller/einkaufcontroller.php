@@ -101,7 +101,10 @@ class EinkaufController extends Controller {
 			return $this->renderRawJSON($list);
 		} else if (isset($params['overview'])) {
 			if ($params['overview'] === 'current') {
-				$list = $this->mapper->overview($this->api->getUserId());
+				$list = $this->mapper->current($this->api->getUserId());
+				return $this->renderRawJSON($list);
+			} else if ($params['overview'] === 'overdue') {
+				$list = $this->mapper->overdue($this->api->getUserId());
 				return $this->renderRawJSON($list);
 			} //TODO year and month. then without wertstellung = null
 		}

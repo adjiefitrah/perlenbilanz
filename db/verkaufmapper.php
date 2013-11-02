@@ -279,17 +279,45 @@ class VerkaufMapper extends Mapper {
 
 		return $entityList;
 	}
-
 	/**
 	 * @return []
 	 */
-	public function overview($userid){
-		
+	public function current($userid){
+
 		$start = date('Y-m-01');
 		$d = new \DateTime( $start );
 		$end = $d->format( 'Y-m-t' );
+
+		$params = array($start, $end);
+
+		$where = '
+			(`' . $this->getTableName() . '`.`wertstellung` IS NULL
+			OR `' . $this->getTableName() . '`.`wertstellung` BETWEEN ? AND ? )
+		';
+
+		return $this->overview($userid, $where, $params);
+
+	}
+	/**
+	 * @return []
+	 */
+	public function overdue($userid){
+
+		$before = date('Y-m-01');
+
+		$params = array($before);
+
+		$where = '`' . $this->getTableName() . '`.`wertstellung` < ? ';
+
+		return $this->overview($userid, $where, $params);
+	}
+	/**
+	 * @return []
+	 */
+	private function overview($userid, $where, $params){
 		
 		$sql = 'SELECT `' . $this->getTableName() .'`.`id`,
+					`' . $this->getTableName() .'`.`userid`,
 					`' . $this->getTableName() .'`.`wertstellung`,
 					`' . $this->getTableName() .'`.`plattform`,
 					`' . $this->getTableName() .'`.`account`,
@@ -306,25 +334,24 @@ class VerkaufMapper extends Mapper {
 				JOIN `*PREFIX*pb_vk_positionen`
 					ON `' . $this->getTableName() . '`.`id`=`*PREFIX*pb_vk_positionen`.`vk_id`
 				WHERE `' . $this->getTableName() . '`.`userid` = ?
-					AND (`' . $this->getTableName() . '`.`wertstellung` IS NULL
-					OR `' . $this->getTableName() . '`.`wertstellung` BETWEEN ? AND ? )
+					AND '. $where .'
 				GROUP BY `' . $this->getTableName() . '`.`id`
 				ORDER BY `' . $this->getTableName() . '`.`id` DESC';
 
-		$result = $this->execute($sql, array($userid,$start,$end));
+		$result = $this->execute($sql, array_merge( array($userid), $params) );
 
 		$entityList = array();
 		while($row = $result->fetchRow()){
 			$entity = new Verkauf();
 			$entity->fromRow($row);
 			if ($entity->brutto != null) {
-				settype($entity->brutto,'float');
+				settype( $entity->brutto, 'float' );
 			}
 			if ($entity->mwst != null) {
-				settype($entity->mwst,'float');
+				settype( $entity->mwst, 'float' );
 			}
 			if ($entity->netto != null) {
-				settype($entity->netto,'float');
+				settype( $entity->netto, 'float' );
 			}
 			array_push($entityList, $entity);
 		}

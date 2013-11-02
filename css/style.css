@@ -192,15 +192,10 @@ table .type select {
 	border-top: black double;
 	font-weight: bold;
 }
-#perlenbilanz .uebersicht-ek table {
+#perlenbilanz .uebersicht table {
 	margin-left: auto;
 	margin-right: auto;
 }
-#perlenbilanz .uebersicht-vk table {
-	margin-left: auto;
-	margin-right: auto;
-}
-
 
 #perlenbilanz .uebersicht-vk table .status {
 	width:46px;

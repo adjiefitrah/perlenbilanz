@@ -168,36 +168,62 @@ class EinkaufMapper extends Mapper {
 
 		return $entityList;
 	}
-	
 	/**
 	 * @return []
 	 */
-	public function overview($userid){
-		
+	public function current($userid){
+
 		$start = date('Y-m-01');
 		$d = new \DateTime( $start );
 		$end = $d->format( 'Y-m-t' );
-		
-		$sql = 'SELECT `' . $this->getTableName() .'`.`id`,'
-			. ' `' . $this->getTableName() .'`.`wertstellung`,'
-			. ' `' . $this->getTableName() .'`.`plattform`,'
-			. ' `' . $this->getTableName() .'`.`account`,'
-			. ' `' . $this->getTableName() .'`.`name`,'
-			. ' `' . $this->getTableName() .'`.`zahlweise`,'
-			. ' AVG(`geliefert`) AS `geliefert`,'
-			. ' SUM(`brutto`) AS `brutto`,'
-			. ' SUM(`mwst`) AS `mwst`,'
-			. ' SUM(`netto`) AS `netto`'
-			. ' FROM `' . $this->getTableName() .'`'
-			. ' JOIN `*PREFIX*pb_ek_positionen`'
-			. ' ON `' . $this->getTableName() . '`.`id`=`*PREFIX*pb_ek_positionen`.`ek_id`'
-			. ' WHERE `' . $this->getTableName() . '`.`userid` = ?'
-			. ' AND (`' . $this->getTableName() . '`.`wertstellung` IS NULL'
-				.' OR `' . $this->getTableName() . '`.`wertstellung` BETWEEN ? AND ? )'
-			. ' GROUP BY `' . $this->getTableName() . '`.`id`'
-			. ' ORDER BY `' . $this->getTableName() . '`.`id` DESC';
 
-		$result = $this->execute($sql, array($userid,$start,$end));
+		$params = array($start, $end);
+
+		$where = '
+			(`' . $this->getTableName() . '`.`wertstellung` IS NULL
+			OR `' . $this->getTableName() . '`.`wertstellung` BETWEEN ? AND ? )
+		';
+
+		return $this->overview($userid, $where, $params);
+
+	}
+	/**
+	 * @return []
+	 */
+	public function overdue($userid){
+
+		$before = date('Y-m-01');
+		
+		$params = array($before);
+		
+		$where = '`' . $this->getTableName() . '`.`wertstellung` < ?';
+		
+		return $this->overview($userid, $where, $params);
+	}
+	/**
+	 * @return []
+	 */
+	private function overview($userid, $where, $params){
+		
+		$sql = 'SELECT `' . $this->getTableName() .'`.`id`,
+			`' . $this->getTableName() .'`.`wertstellung`,
+			`' . $this->getTableName() .'`.`plattform`,
+			`' . $this->getTableName() .'`.`account`,
+			`' . $this->getTableName() .'`.`name`,
+			`' . $this->getTableName() .'`.`zahlweise`,
+			AVG(`geliefert`) AS `geliefert`,
+			SUM(`brutto`) AS `brutto`,
+			SUM(`mwst`) AS `mwst`,
+			SUM(`netto`) AS `netto`
+			FROM `' . $this->getTableName() .'`
+			JOIN `*PREFIX*pb_ek_positionen`
+			ON `' . $this->getTableName() . '`.`id`=`*PREFIX*pb_ek_positionen`.`ek_id`
+			WHERE `' . $this->getTableName() . '`.`userid` = ?
+			AND ' . $where . '
+			GROUP BY `' . $this->getTableName() . '`.`id`
+			ORDER BY `' . $this->getTableName() . '`.`id` DESC';
+
+		$result = $this->execute($sql, array_merge( array($userid), $params) );
 
 		$entityList = array();
 		while($row = $result->fetchRow()){
