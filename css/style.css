@@ -203,6 +203,11 @@ table .type select {
 #perlenbilanz .uebersicht-ek table .status {
 	width:23px;
 }
+#perlenbilanz #uebersicht hr {
+	width: 100%;
+	margin-top: 3px;
+	margin-bottom: 3px;
+}
 #perlenbilanz table .icon {
 	width:23px;
 	height:20px;

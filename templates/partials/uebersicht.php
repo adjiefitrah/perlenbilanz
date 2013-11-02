@@ -37,10 +37,12 @@
 				</tr>
 			</table>
 		</div>
+		
+		<hr/>
 
 		<div class="uebersicht">
 		
-			<h2>Übersicht VK</h2>
+			<h2>Verkäufe im aktuellen Monat</h2>
 			
 			<table id="verkaeufe">
 				<tr>
@@ -204,11 +206,11 @@
 			</table>
 		</div>
 		
-		<br/>
+		<hr/>
 		
 		<div class="uebersicht">
 		
-			<h2>Übersicht EK</h2>
+			<h2>Einkäufe im aktuellen Monat</h2>
 			
 			<table id="einkaeufe">
 				<tr>
