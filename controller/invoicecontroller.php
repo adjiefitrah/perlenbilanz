@@ -109,10 +109,10 @@ class InvoiceController extends Controller {
 		if ( ! \OC\Files\Filesystem::is_dir($this->getRechnungspath()) ) {
 			\OC\Files\Filesystem::mkdir($this->getRechnungspath());
 		}
-		//if ( ! \OC\Files\Filesystem::is_file('Perlenbilanz/Rechnungen/Vorlage.php') ) {
+		if ( ! \OC\Files\Filesystem::is_file('Perlenbilanz/Rechnungen/Vorlage.php') ) {
 			$template = file_get_contents(__DIR__ . '/../templates/invoice.php');
 			\OC\Files\Filesystem::file_put_contents($this->getRechnungspath().'/Vorlage.php', $template);
-		//}
+		}
 		
 		$invoiceTemplate = new \OCA\Perlenbilanz\Http\Template($this->getRechnungspath().'/Vorlage.php');
 		$invoiceTemplate->assign('datum', $date);
