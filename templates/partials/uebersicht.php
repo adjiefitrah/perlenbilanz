@@ -72,15 +72,23 @@
 					<td class="zahlweise">[[verkauf.zahlweise]]</td>
 
 					<td class="status">
-						<div class="icon gezahlt" ng-hide="verkauf.wertstellung|empty"></div>
+						<div class="icon gezahlt"
+						     title="Gezahlt"
+						     ng-hide="verkauf.wertstellung|empty"></div>
 						<div class="icon placeholder" ng-show="verkauf.wertstellung|empty"></div>
 						
-						<div class="icon rechnung" ng-hide="verkauf.rechnungsnummer|empty"></div>
+						<div class="icon rechnung"
+						     title="Rechnung"
+						     ng-hide="verkauf.rechnungsnummer|empty"></div>
 						<div class="icon placeholder" ng-show="verkauf.rechnungsnummer|empty"></div>
 						
 						<div class="icon placeholder" ng-show="verkauf.geliefert == 0"></div>
-						<div class="icon versand_teilweise" ng-show="verkauf.geliefert > 0 && verkauf.geliefert < 1"></div>
-						<div class="icon versand" ng-show="verkauf.geliefert == 1"></div>
+						<div class="icon versand_teilweise"
+						     title="Teilweise Versand"
+						     ng-show="verkauf.geliefert > 0 && verkauf.geliefert < 1"></div>
+						<div class="icon versand"
+						     title="Versand"
+						     ng-show="verkauf.geliefert == 1"></div>
 					</td>
 					
 				</tr>
@@ -147,12 +155,19 @@
 					<td class="zahlweise">[[einkauf.zahlweise]]</td>
 
 					<td class="status">
-						<div class="icon gezahlt" ng-hide="einkauf.wertstellung|empty"></div>
-						<div class="icon placeholder" ng-show="einkauf.wertstellung|empty"></div>
+						<div class="icon gezahlt"
+						     title="Gezahlt"
+						     ng-hide="einkauf.wertstellung|empty"></div>
+						<div class="icon placeholder"
+						     ng-show="einkauf.wertstellung|empty"></div>
 						
 						<div class="icon placeholder" ng-show="einkauf.geliefert == 0"></div>
-						<div class="icon versand_teilweise" ng-show="einkauf.geliefert > 0 && einkauf.geliefert < 1"></div>
-						<div class="icon versand" ng-show="einkauf.geliefert == 1"></div>
+						<div class="icon versand_teilweise"
+						     title="Teilweise Versand"
+						     ng-show="einkauf.geliefert > 0 && einkauf.geliefert < 1"></div>
+						<div class="icon versand"
+						     title="Versand"
+						     ng-show="einkauf.geliefert == 1"></div>
 					</td>
 
 				</tr>
