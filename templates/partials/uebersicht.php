@@ -158,12 +158,12 @@
 
 					<td class="status">
 						<div class="icon gezahlt"
-						     title="Gezahlt"
+						     title="Wertstellung"
 						     ng-hide="verkauf.wertstellung|empty"></div>
 						<div class="icon placeholder" ng-show="verkauf.wertstellung|empty"></div>
 						
 						<div class="icon rechnung"
-						     title="Rechnung"
+						     title="Beleg"
 						     ng-hide="verkauf.rechnungsnummer|empty"></div>
 						<div class="icon placeholder" ng-show="verkauf.rechnungsnummer|empty"></div>
 						
@@ -242,7 +242,7 @@
 
 					<td class="status">
 						<div class="icon gezahlt"
-						     title="Gezahlt"
+						     title="Wertstellung"
 						     ng-hide="einkauf.wertstellung|empty"></div>
 						<div class="icon placeholder"
 						     ng-show="einkauf.wertstellung|empty"></div>
