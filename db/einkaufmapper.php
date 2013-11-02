@@ -196,7 +196,11 @@ class EinkaufMapper extends Mapper {
 		
 		$params = array($before);
 		
-		$where = '`' . $this->getTableName() . '`.`wertstellung` < ?';
+		$where = '(
+			`' . $this->getTableName() . '`.`wertstellung` < ?
+			AND 
+			`' . $this->getTableName() . '`.`geliefert` < 1
+		)';
 		
 		return $this->overview($userid, $where, $params);
 	}
