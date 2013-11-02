@@ -1,16 +1,10 @@
 <div id="uebersicht">
-
+	<h1>Übersicht aktueller Monat</h1>
 	<form>
 	<div class="centered">
 		<div>
-			
-			<div style="float:left; width:100%;">
-				<div style="margin-right: 330px;">
-			<textarea class="notes" ng-model="notes" ng-change="saveNotes()"></textarea>
-				</div>
-			</div>
-			
-			<table style="float: left; width: 300px; margin-left: -300px;" class="overview">
+
+			<table style="float: left; width: 300px; margin-right: -300px;" class="overview">
 				<tr>
 					<th></th>
 					<th>Brutto</th>
@@ -36,13 +30,18 @@
 					<td style="text-align: right;">[[vkNetto-ekNetto|number_de]] €</td>
 				</tr>
 			</table>
+			<div style="float:right; width:100%;">
+				<div style="margin-left: 330px;padding-right: 20px;">
+					<textarea class="notes" ng-model="notes" ng-change="saveNotes()"></textarea>
+				</div>
+			</div>
 		</div>
 		
 		<hr/>
 
 		<div class="uebersicht">
 		
-			<h2>Verkäufe im aktuellen Monat</h2>
+			<h2>Verkäufe</h2>
 			
 			<table id="verkaeufe">
 				<tr>
@@ -210,7 +209,7 @@
 		
 		<div class="uebersicht">
 		
-			<h2>Einkäufe im aktuellen Monat</h2>
+			<h2>Einkäufe</h2>
 			
 			<table id="einkaeufe">
 				<tr>
