@@ -310,7 +310,7 @@ class VerkaufMapper extends Mapper {
 		$where = '(
 			`' . $this->getTableName() . '`.`wertstellung` < ?
 			AND (
-			`' . $this->getTableName() . '`.`geliefert` < 1
+			`geliefert` < 1
 			OR `' . $this->getTableName() . '`.`rechnungsnummer` IS NULL
 			)
 		)';
