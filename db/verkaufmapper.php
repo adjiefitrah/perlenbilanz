@@ -177,9 +177,10 @@ class VerkaufMapper extends Mapper {
 		$nextInvoiceIds = array();
 		
 		// get free invoice ids
-		$sql = 'SELECT `rechnungsnummer`
+		$sql = 'SELECT cast(`rechnungsnummer` AS UNSIGNED) AS `rechnungsnummer`
 				FROM `*PREFIX*pb_vk_freeinvoiceno`
 				WHERE `userid` = ?
+					AND `rechnungsnummer` != \'keine\'
 					AND `rechnungsjahr` = ?
 				ORDER BY `rechnungsnummer` ASC';
 
@@ -191,9 +192,10 @@ class VerkaufMapper extends Mapper {
 		}
 		
 		// get current max id +1
-		$sql = 'SELECT max(`rechnungsnummer`)+1 AS `nextInvoiceId`, count(`rechnungsnummer`) AS `count`
+		$sql = 'SELECT MAX(CAST(`rechnungsnummer` AS UNSIGNED))+1 AS `nextInvoiceId`, count(`rechnungsnummer`) AS `count`
 				FROM `' . $this->getTableName() . '`
 				WHERE `userid` = ?
+					AND `rechnungsnummer` != \'keine\'
 					AND `rechnungsjahr` = ?';
 
 		$result = $this->execute($sql, array($userid, $year));
