@@ -257,16 +257,16 @@ class VerkaufMapper extends Mapper {
 	/**
 	 * @return []
 	 */
-	public function missingWertstellung($userid){
+	public function missingWertstellung($userid) {
 
 		$sql = 'SELECT `' . $this->getTableName() .'`.*,
-					SUM(`stueck`*`brutto`) AS `brutto_total`
-				FROM `' . $this->getTableName() .'`
-				JOIN `*PREFIX*pb_vk_positionen`
-					ON `' . $this->getTableName() . '`.`id`=`*PREFIX*pb_vk_positionen`.`vk_id`
-				WHERE `' . $this->getTableName() . '`.`wertstellung` IS NULL
-					AND `' . $this->getTableName() . '`.`userid` = ?
-				GROUP BY `' . $this->getTableName() . '`.`id`';
+				SUM(`stueck`*`brutto`) AS `brutto_total`
+			FROM `' . $this->getTableName() .'`
+			JOIN `*PREFIX*pb_vk_positionen`
+				ON `' . $this->getTableName() . '`.`id`=`*PREFIX*pb_vk_positionen`.`vk_id`
+			WHERE `' . $this->getTableName() . '`.`wertstellung` IS NULL
+				AND `' . $this->getTableName() . '`.`userid` = ?
+			GROUP BY `' . $this->getTableName() . '`.`id`';
 
 		$result = $this->execute($sql, array($userid));
 
@@ -282,7 +282,7 @@ class VerkaufMapper extends Mapper {
 	/**
 	 * @return []
 	 */
-	public function current($userid){
+	public function current($userid) {
 
 		$start = date('Y-m-01');
 		$d = new \DateTime( $start );
@@ -301,7 +301,7 @@ class VerkaufMapper extends Mapper {
 	/**
 	 * @return []
 	 */
-	public function overdue($userid){
+	public function overdue($userid) {
 
 		$before = date('Y-m-01');
 
@@ -320,32 +320,58 @@ class VerkaufMapper extends Mapper {
 	/**
 	 * @return []
 	 */
-	private function overview($userid, $where, $params){
+	public function searchByAccount($userid, $query) {
+
+		$query = '%' . $query . '%';
+
+		$params = array($query);
+		
+		$where = '`' . $this->getTableName() . '`.`account` LIKE ?';
+		
+		return $this->overview($userid, $where, $params);
+	}
+	/**
+	 * @return []
+	 */
+	public function searchByName($userid, $query) {
+
+		$query = '%' . $query . '%';
+
+		$params = array($query);
+		
+		$where = '`' . $this->getTableName() . '`.`name` LIKE ?';
+		
+		return $this->overview($userid, $where, $params);
+	}
+	/**
+	 * @return []
+	 */
+	private function overview($userid, $where, $params) {
 		
 		$sql = 'SELECT `' . $this->getTableName() .'`.`id`,
-					`' . $this->getTableName() .'`.`userid`,
-					`' . $this->getTableName() .'`.`wertstellung`,
-					`' . $this->getTableName() .'`.`plattform`,
-					`' . $this->getTableName() .'`.`account`,
-					`' . $this->getTableName() .'`.`name`,
-					`' . $this->getTableName() .'`.`zahlweise`,
-					`' . $this->getTableName() .'`.`rechnungsjahr`,
-					`' . $this->getTableName() .'`.`rechnungsnummer`,
-					`' . $this->getTableName() .'`.`faultyreason`,
-					AVG(`geliefert`) AS `geliefert`,
-					SUM(`stueck`*`brutto`) AS `brutto`,
-					SUM(`mwst`) AS `mwst`,
-					SUM(`netto`) AS `netto`
-				FROM `' . $this->getTableName() .'`
-				JOIN `*PREFIX*pb_vk_positionen`
-					ON `' . $this->getTableName() . '`.`id`=`*PREFIX*pb_vk_positionen`.`vk_id`
-				WHERE `' . $this->getTableName() . '`.`userid` = ?
-					AND '. $where .'
-				GROUP BY `' . $this->getTableName() . '`.`id`
-				ORDER BY `' . $this->getTableName() . '`.`id` DESC';
+				`' . $this->getTableName() .'`.`userid`,
+				`' . $this->getTableName() .'`.`wertstellung`,
+				`' . $this->getTableName() .'`.`plattform`,
+				`' . $this->getTableName() .'`.`account`,
+				`' . $this->getTableName() .'`.`name`,
+				`' . $this->getTableName() .'`.`zahlweise`,
+				`' . $this->getTableName() .'`.`rechnungsjahr`,
+				`' . $this->getTableName() .'`.`rechnungsnummer`,
+				`' . $this->getTableName() .'`.`faultyreason`,
+				AVG(`geliefert`) AS `geliefert`,
+				SUM(`stueck`*`brutto`) AS `brutto`,
+				SUM(`mwst`) AS `mwst`,
+				SUM(`netto`) AS `netto`
+			FROM `' . $this->getTableName() .'`
+			JOIN `*PREFIX*pb_vk_positionen`
+				ON `' . $this->getTableName() . '`.`id`=`*PREFIX*pb_vk_positionen`.`vk_id`
+			WHERE `' . $this->getTableName() . '`.`userid` = ?
+				AND '. $where .'
+			GROUP BY `' . $this->getTableName() . '`.`id`
+			ORDER BY `' . $this->getTableName() . '`.`id` DESC';
 
 		$result = $this->execute($sql, array_merge( array($userid), $params) );
-
+		
 		$entityList = array();
 		while($row = $result->fetchRow()){
 			$entity = new Verkauf();

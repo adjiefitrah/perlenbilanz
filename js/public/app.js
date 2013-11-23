@@ -2,7 +2,7 @@
 
 /* App Module */
 
-angular.module('perlenbilanz', ['perlenbilanzServices', 'ui.directives']).
+angular.module('perlenbilanz', ['ngRoute','perlenbilanzServices', 'ui.directives']).
 	config(['$interpolateProvider', '$routeProvider', function ($interpolateProvider, $routeProvider) {
 		$interpolateProvider.startSymbol('[[');
 		$interpolateProvider.endSymbol(']]');
@@ -15,6 +15,7 @@ angular.module('perlenbilanz', ['perlenbilanzServices', 'ui.directives']).
 			when('/einkaeufe', {templateUrl: 'templates/partials/offeneeinkaeufe.php', controller: EinkaufPositionCtrl}).
 			when('/verkaeufe', {templateUrl: 'templates/partials/offeneverkaeufe.php', controller: VerkaeufeCtrl}).
 			when('/wertstellungen', {templateUrl: 'templates/partials/wertstellungen.php', controller: WertstellungenCtrl}).
+			when('/suche', {templateUrl: 'templates/partials/suche.php', controller: SucheCtrl}).
 			otherwise({redirectTo: '/'});
 	}]);
 
@@ -513,6 +514,30 @@ function WertstellungenCtrl($scope, $location, $filter, $routeParams, VerkaufRes
 		alert('Gespeichert');
 		$scope.einkaeufe = EinkaufResource.query({wertstellung:null});
 		$scope.verkaeufe = VerkaufResource.query({wertstellung:null});
+	};
+}
+
+function SucheCtrl($scope, VerkaufResource, EinkaufResource) {
+	$scope.table = "einkaeufe";
+	$scope.column = {};
+	$scope.column.position = true;
+	var dummyResults = [{
+		account:'dummy acc',
+		name:'dummy name',
+		positionen:[
+			{bezeichnung:'dummy pos'}
+		]
+	},{
+		account:'dummy acc2',
+		name:'dummy name2',
+		positionen:[
+			{bezeichnung:'dummy pos2'}
+		]
+	}];
+	$scope.results=dummyResults;
+	$scope.search = function () {
+		$scope.einkaeufe = EinkaufResource.query({search:'account',query:$scope.query});
+		//$scope.verkaeufe = VerkaufResource.query({search:'account',query:$scope.query});
 	};
 }
 

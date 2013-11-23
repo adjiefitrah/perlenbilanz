@@ -5,7 +5,7 @@
 		<div>
 			<div style="float:left;">
 				<fieldset>
-					<legend>Kanal:</legend>
+					<legend>Plattform:</legend>
 					<input type="radio" id="plattform_fancywork" value="fancywork" ng-model="verkauf.plattform">
 					<label for="plattform_fancywork">fancywork</label>
 					</br>

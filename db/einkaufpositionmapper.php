@@ -43,12 +43,12 @@ class EinkaufPositionMapper extends Mapper {
 	 */
 	public function findAll($ekId, $userid){
 
-		$sql = 'SELECT `' . $this->getTableName() .'`.*'
-			. ' FROM `' . $this->getTableName() .'`'
-			. ' JOIN `*PREFIX*pb_ek_einkaeufe`'
-			. ' ON `' . $this->getTableName() . '`.`ek_id`=`*PREFIX*pb_ek_einkaeufe`.`id`'
-			. ' WHERE `' . $this->getTableName() . '`.`ek_id` = ?'
-			. ' AND `*PREFIX*pb_ek_einkaeufe`.`userid` = ?';
+		$sql = 'SELECT `' . $this->getTableName() .'`.*
+			FROM `' . $this->getTableName() .'`
+			JOIN `*PREFIX*pb_ek_einkaeufe`
+			ON `' . $this->getTableName() . '`.`ek_id`=`*PREFIX*pb_ek_einkaeufe`.`id`
+			WHERE `' . $this->getTableName() . '`.`ek_id` = ?
+			AND `*PREFIX*pb_ek_einkaeufe`.`userid` = ?';
 
 		$result = $this->execute($sql,array($ekId, $userid));
 

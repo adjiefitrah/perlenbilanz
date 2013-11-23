@@ -1,6 +1,7 @@
-{{ script('vendor/angular/angular', 'appframework') }}
+{{ script('vendor/angular-1.2.1/angular') }}
+{{ script('vendor/angular-1.2.1/angular-resource') }}
+{{ script('vendor/angular-1.2.1/angular-route') }}
 {{ script('public/app', 'appframework') }}
-{{ script('vendor/angular/angular-resource') }}
 {{ script('vendor/angular-ui/angular-ui') }}
 {{ script('vendor/select2/select2') }}
 {{ script('public/app') }}
@@ -23,6 +24,10 @@
 		<a class="button" href="#/einkaeufe">EK schließen</a>
 		<a class="button" href="#/verkaeufe">VK schließen</a>
 		<a class="button" href="#/wertstellungen">Wertstellungen</a>
+		
+		&nbsp;&nbsp; | &nbsp;&nbsp;
+
+		<a class="button" href="#/suche">Suche</a>
 		
 		&nbsp;&nbsp; | &nbsp;&nbsp;
 

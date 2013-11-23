@@ -114,10 +114,10 @@ class VerkaufController extends Controller {
 		} else if (isset($params['overview'])) {
 			if ($params['overview'] === 'current') {
 				$list = $this->mapper->current($this->api->getUserId());
-				return $this->renderRawJSON($list);
+				return $this->renderRawJSON($list,null);
 			} else if ($params['overview'] === 'overdue') {
 				$list = $this->mapper->overdue($this->api->getUserId());
-				return $this->renderRawJSON($list);
+				return $this->renderRawJSON($list,null);
 			} //TODO year and month. then without wertstellung = null
 		}
 		return new NotFoundResponse();

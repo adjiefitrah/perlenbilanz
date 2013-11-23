@@ -207,6 +207,32 @@ class EinkaufMapper extends Mapper {
 	/**
 	 * @return []
 	 */
+	public function searchByAccount($userid, $query){
+
+		$query = '%' . $query . '%';
+
+		$params = array($query);
+		
+		$where = '`' . $this->getTableName() . '`.`account` LIKE ?';
+		
+		return $this->overview($userid, $where, $params);
+	}
+	/**
+	 * @return []
+	 */
+	public function searchByName($userid, $query){
+
+		$query = '%' . $query . '%';
+
+		$params = array($query);
+		
+		$where = '`' . $this->getTableName() . '`.`name` LIKE ?';
+		
+		return $this->overview($userid, $where, $params);
+	}
+	/**
+	 * @return []
+	 */
 	private function overview($userid, $where, $params){
 		
 		$sql = 'SELECT `' . $this->getTableName() .'`.`id`,
@@ -228,7 +254,7 @@ class EinkaufMapper extends Mapper {
 			ORDER BY `' . $this->getTableName() . '`.`id` DESC';
 
 		$result = $this->execute($sql, array_merge( array($userid), $params) );
-
+		
 		$entityList = array();
 		while($row = $result->fetchRow()){
 			$entity = new Einkauf();

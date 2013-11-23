@@ -46,11 +46,14 @@ class Template extends \OC_Template {
 	{
 		// Check if the app is in the app folder or in the root
 		if( \OC\Files\Filesystem::is_file($path) ) {
+			//$this->template = \OC\Files\Filesystem::file_get_contents($path);
+			
 			$sh = \OC\Files\Filesystem::fopen($path, 'r');
 			$th = fopen($this->template, 'w');
 			\OCP\Files::streamCopy($sh, $th);
 			fclose($sh);
 			fclose($th);
+			
 		}else{
 			echo('template not found: template:'.$path
 				.' webroot:'.OC::$WEBROOT.' serverroot:'.OC::$SERVERROOT);
@@ -108,6 +111,7 @@ class Template extends \OC_Template {
 
 		// Execute the template
 		ob_start();
+		//include 'data://text/plain;,'. urlencode($this->template); // <-- we have to use include because we pass $_!
 		include $this->template; // <-- we have to use include because we pass $_!
 		$data = ob_get_contents();
 		@ob_end_clean();

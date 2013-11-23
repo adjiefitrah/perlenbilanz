@@ -178,29 +178,6 @@
 					</td>
 					
 				</tr>
-
-				
-				<tr class="sum">
-
-					<td class="id"></td>
-
-					<td class="plattform"></td>
-
-					<td class="account"></td>
-
-					<td class="name" style="text-align: right;">Summe:</td>
-
-					<td class="brutto">[[calcBruttoSum(overdueVerkaeufe)|number_de]] €</td>
-					
-					<td class="brutto">[[calcMwStSum(overdueVerkaeufe)|number_de]] €</td>
-					
-					<td class="brutto">[[calcNettoSum(overdueVerkaeufe)|number_de]] €</td>
-
-					<td class="zahlweise"></td>
-					
-					<td class="status"></td>
-
-				</tr>
 				
 			</table>
 		</div>
@@ -338,28 +315,6 @@
 
 				</tr>
 
-				<tr class="sum">
-
-					<td class="id"></td>
-
-					<td class="plattform"></td>
-
-					<td class="account"></td>
-
-					<td class="name" style="text-align: right;">Summe:</td>
-
-					<td class="brutto">[[calcBruttoSum(overdueEinkaeufe)|number_de]] €</td>
-
-					<td class="mwst">[[calcMwStSum(overdueEinkaeufe)|number_de]] €</td>
-
-					<td class="netto">[[calcNettoSum(overdueEinkaeufe)|number_de]] €</td>
-
-					<td class="zahlweise"></td>
-
-					<td class="status"></td>
-
-				</tr>
-				
 			</table>
 		</div>
 		

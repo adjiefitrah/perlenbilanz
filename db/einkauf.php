@@ -28,12 +28,12 @@ use OCA\AppFramework\Db\Entity;
 
 class Einkauf extends Entity {
 
-    public $userid;
+	public $userid;
 	public $wertstellung;
-    public $plattform;
-    public $account;
-    public $name;
-    public $zahlweise;
+	public $plattform;
+	public $account;
+	public $name;
+	public $zahlweise;
 
 	/**
 	 * @param $json

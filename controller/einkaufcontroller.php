@@ -99,13 +99,19 @@ class EinkaufController extends Controller {
 		} else if (isset($params['wertstellung'])) {
 			$list = $this->mapper->missingWertstellung($this->api->getUserId());
 			return $this->renderRawJSON($list);
+		} else if (isset($params['search']) && $params['search'] === 'account' && isset($params['query'])) {
+			$list = $this->mapper->searchByAccount($this->api->getUserId(), $params['query']);
+			return $this->renderRawJSON($list,null);
+		} else if (isset($params['search']) && $params['search'] === 'name' && isset($params['query'])) {
+			$list = $this->mapper->searchByName($this->api->getUserId(), $params['query']);
+			return $this->renderRawJSON($list,null);
 		} else if (isset($params['overview'])) {
 			if ($params['overview'] === 'current') {
 				$list = $this->mapper->current($this->api->getUserId());
-				return $this->renderRawJSON($list);
+				return $this->renderRawJSON($list,null);
 			} else if ($params['overview'] === 'overdue') {
 				$list = $this->mapper->overdue($this->api->getUserId());
-				return $this->renderRawJSON($list);
+				return $this->renderRawJSON($list,null);
 			} //TODO year and month. then without wertstellung = null
 		}
 		return new NotFoundResponse();
