@@ -22,25 +22,25 @@
 			</tr>
 			<tr ng-repeat="einkauf in einkaeufe">
 
-				<td class="nr">[[$index+1]]</td>
+				<td class="nr">{{$index+1}}</td>
 
-				<td class="plattform">[[einkauf.plattform]]</td>
+				<td class="plattform">{{einkauf.plattform}}</td>
 
-				<td class="account">[[einkauf.account]]</td>
+				<td class="account">{{einkauf.account}}</td>
 
 				<td class="name"><input type="text" ng-model="einkauf.name" /></td>
 
-				<td class="brutto">[[einkauf.bruttoTotal|number_de]] €</td>
+				<td class="brutto">{{einkauf.bruttoTotal|number_de}} €</td>
 
-				<td class="zahlweise">[[einkauf.zahlweise]]</td>
+				<td class="zahlweise">{{einkauf.zahlweise}}</td>
 
 				<td class="wertstellung">
 					<input type="text" ng-model="einkauf.wertstellung"
-						   value="[[ verkauf.wertstellung | date:'dd.MM.yyyy' ]]"
+						   value="{{ verkauf.wertstellung | date:'dd.MM.yyyy' }}"
 						   ui-date="{ dateFormat: 'dd.mm.yy' }" ui-date-format="yy-mm-dd" /><br/>
 				</td>
 
-				<td><a class="button" href="#/einkauf/[[einkauf.id]]">zum Einkauf</a></td>
+				<td><a class="button" href="#/einkauf/{{einkauf.id}}">zum Einkauf</a></td>
 
 			</tr>
 
@@ -63,25 +63,25 @@
 			</tr>
 			<tr ng-repeat="verkauf in verkaeufe">
 
-				<td class="nr">[[$index+1]]</td>
+				<td class="nr">{{$index+1}}</td>
 
-				<td class="plattform">[[verkauf.plattform]]</td>
+				<td class="plattform">{{verkauf.plattform}}</td>
 
-				<td class="account">[[verkauf.account]]</td>
+				<td class="account">{{verkauf.account}}</td>
 
 				<td class="name"><input type="text" ng-model="verkauf.name" /></td>
 
-				<td class="brutto">[[verkauf.bruttoTotal|number_de]] €</td>
+				<td class="brutto">{{verkauf.bruttoTotal|number_de}} €</td>
 
-				<td class="zahlweise">[[verkauf.zahlweise]]</td>
+				<td class="zahlweise">{{verkauf.zahlweise}}</td>
 				
 				<td class="wertstellung">
 					<input type="text" ng-model="verkauf.wertstellung"
-						   value="[[ verkauf.wertstellung | date:'dd.MM.yyyy' ]]"
+						   value="{{ verkauf.wertstellung | date:'dd.MM.yyyy' }}"
 						   ui-date="{ dateFormat: 'dd.mm.yy' }" ui-date-format="yy-mm-dd" /><br/>
 				</td>
 
-				<td><a class="button" href="#/verkauf/[[verkauf.id]]">zum Verkauf</a></td>
+				<td><a class="button" href="#/verkauf/{{verkauf.id}}">zum Verkauf</a></td>
 
 			</tr>
 

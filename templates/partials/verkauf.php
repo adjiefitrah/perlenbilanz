@@ -84,7 +84,7 @@
 			<div style="float:left; margin-left: 15px;">
 				<label for="wertstellung" style="font-variant: small-caps; text-decoration: underline;">Wertstellung:</label><br/>
 				<input type="text" id="wertstellung" ng-model="verkauf.wertstellung"
-					   value="[[ verkauf.wertstellung | date:'dd.MM.yyyy' ]]"
+					   value="{{ verkauf.wertstellung | date:'dd.MM.yyyy' }}"
 					   ui-date="{ dateFormat: 'dd.mm.yy' }" ui-date-format="yy-mm-dd"
 					><br/>
 				<label for="rechnungsnummer" style="font-variant: small-caps; text-decoration: underline;">Rechnungsnummer:</label><br/>
@@ -123,7 +123,7 @@
 						<input type="text" id="rechnungsjahr" integer ng-model="verkauf.rechnungsjahr"
 							on-cursor-up="verkauf.rechnungsjahr=verkauf.rechnungsjahr+1"
 							on-cursor-down="verkauf.rechnungsjahr=verkauf.rechnungsjahr-1">
-						frei: <button ng-repeat="nextInvoiceID in nextInvoiceIDs" ng-click="generateInvoice(nextInvoiceID)">[[nextInvoiceID]]</button>
+						frei: <button ng-repeat="nextInvoiceID in nextInvoiceIDs" ng-click="generateInvoice(nextInvoiceID)">{{nextInvoiceID}}</button>
 					</span>
 					<span ng-show="verkauf.rechnungsnummer" style="margin-left: 5px;">
 						<!-- button für jede freie id zeigen
@@ -138,7 +138,7 @@
 						<!--
 						<a class="icon generate" ng-click="generateInvoice(verkauf)" title="generieren"></a>
 						-->
-						[[verkauf.rechnungsjahr]]-[[verkauf.rechnungsnummer|prependZero]]:
+						{{verkauf.rechnungsjahr}}-{{verkauf.rechnungsnummer|prependZero}}:
 						<a class="icon download"   ng-hide="verkauf.faultyreason|notnull" ng-click="downloadInvoice()" title="herunterladen"></a>
 						<a class="icon faulty"     ng-show="verkauf.faultyreason|notnull" ng-click="downloadInvoice()" title="herunterladen"></a>
 						<!--<a class="icon preview"    ng-click="previewInvoice()"  title="vorschau"></a> same as edit? -->
@@ -158,10 +158,10 @@
 			</div>
 			<div style="float: left; margin-left: 15px; min-width: 120px;">
 				<div style="margin-bottom: 9px; font-variant: small-caps; text-decoration: underline;">Brutto:</div>
-				<div style="margin-left: 5px; font-size: 40px; height:30px;">[[bruttoTotal|number_de]] €</div>
+				<div style="margin-left: 5px; font-size: 40px; height:30px;">{{bruttoTotal|number_de}} €</div>
 				
-				<div style="margin-left: 5px;" ng-repeat="mwst in mwstGroups">MwSt ([[mwst.mwstProzent]]%):<span style="float:right;">[[mwst.mwst|number_de]] €</span></div>
-				<div style="margin-left: 5px;">Netto: <span style="float:right;">[[nettoTotal|number_de]] €</span></div>
+				<div style="margin-left: 5px;" ng-repeat="mwst in mwstGroups">MwSt ({{mwst.mwstProzent}}%):<span style="float:right;">{{mwst.mwst|number_de}} €</span></div>
+				<div style="margin-left: 5px;">Netto: <span style="float:right;">{{nettoTotal|number_de}} €</span></div>
 			</div>
 			<div style="clear: both; border-bottom: 1px solid #ddd; width: 100%; height:6px;"></div>
 		</div>
@@ -186,7 +186,7 @@
 
 				<td class="datum">
 					<input type="text" ng-model="position.datum" required
-						 value="[[ position.datum | date:'dd.MM.yyyy' ]]"
+						 value="{{ position.datum | date:'dd.MM.yyyy' }}"
 						 ui-date="{ dateFormat: 'dd.mm.yy' }"
 						 ui-date-format="yy-mm-dd">
 				</td>
@@ -199,7 +199,7 @@
 				<td class="type">
 					<select ui-select2 ng-model="position.typ" data-placeholder="-- Typ --" style="width:110px;">
 						<option></option>
-						<option ng-repeat="type in types" value="[[type.id]]">[[type.text]]</option>
+						<option ng-repeat="type in types" value="{{type.id}}">{{type.text}}</option>
 					</select>
 				</td>
 
@@ -211,13 +211,13 @@
 
 				<td class="brutto"><input type="text" currency-input ng-model="position.brutto" ng-change="updateBrutto(position)"/></td>
 				<!--
-				<td class="mwst_prozent"><span>[[position.mwst_prozent]] %</span></td>
+				<td class="mwst_prozent"><span>{{position.mwst_prozent}} %</span></td>
 				-->
-				<td class="bruttoSum"><span>[[position.bruttoSum|number_de]] €</span></td>
+				<td class="bruttoSum"><span>{{position.bruttoSum|number_de}} €</span></td>
 				
-				<td class="mwst"><span>[[position.mwst|number_de]] €</span></td>
+				<td class="mwst"><span>{{position.mwst|number_de}} €</span></td>
 
-				<td class="netto"><span>[[position.netto|number_de]] €</span></td>
+				<td class="netto"><span>{{position.netto|number_de}} €</span></td>
 
 				<td><button ng-click="addPosition($index)">+</button> <button ng-click="removePosition($index)">-</button></td>
 

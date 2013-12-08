@@ -23,7 +23,7 @@
 
 namespace OCA\Perlenbilanz;
 
-use \OCA\AppFramework\App;
+use \OCA\Perlenbilanz\AppFramework\App;
 
 use \OCA\Perlenbilanz\DependencyInjection\DIContainer;
 

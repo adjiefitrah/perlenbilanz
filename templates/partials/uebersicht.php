@@ -13,21 +13,21 @@
 				</tr>
 				<tr>
 					<td>Verkäufe</td>
-					<td style="text-align: right;">[[vkBrutto|number_de]] €</td>
-					<td style="text-align: right;">[[vkMwSt|number_de]] €</td>
-					<td style="text-align: right;">[[vkNetto|number_de]] €</td>
+					<td style="text-align: right;">{{vkBrutto|number_de}} €</td>
+					<td style="text-align: right;">{{vkMwSt|number_de}} €</td>
+					<td style="text-align: right;">{{vkNetto|number_de}} €</td>
 				</tr>
 				<tr>
 					<td>Einkäufe</td>
-					<td style="text-align: right;">[[ekBrutto|number_de]] €</td>
-					<td style="text-align: right;">[[ekMwSt|number_de]] €</td>
-					<td style="text-align: right;">[[ekNetto|number_de]] €</td>
+					<td style="text-align: right;">{{ekBrutto|number_de}} €</td>
+					<td style="text-align: right;">{{ekMwSt|number_de}} €</td>
+					<td style="text-align: right;">{{ekNetto|number_de}} €</td>
 				</tr>
 				<tr class="sum">
 					<td>+/-</td>
-					<td style="text-align: right;">[[vkBrutto-ekBrutto|number_de]] €</td>
-					<td style="text-align: right;">[[vkMwSt-ekMwSt|number_de]] €</td>
-					<td style="text-align: right;">[[vkNetto-ekNetto|number_de]] €</td>
+					<td style="text-align: right;">{{vkBrutto-ekBrutto|number_de}} €</td>
+					<td style="text-align: right;">{{vkMwSt-ekMwSt|number_de}} €</td>
+					<td style="text-align: right;">{{vkNetto-ekNetto|number_de}} €</td>
 				</tr>
 			</table>
 			<div style="float:right; width:100%;">
@@ -57,21 +57,21 @@
 				</tr>
 				<tr ng-repeat="verkauf in verkaeufe" ng-click="editVerkauf(verkauf.id)">
 
-					<td class="id">[[verkauf.id]]</td>
+					<td class="id">{{verkauf.id}}</td>
 
-					<td class="plattform">[[verkauf.plattform]]</td>
+					<td class="plattform">{{verkauf.plattform}}</td>
 
-					<td class="account">[[verkauf.account]]</td>
+					<td class="account">{{verkauf.account}}</td>
 
-					<td class="name">[[verkauf.name]]</td>
+					<td class="name">{{verkauf.name}}</td>
 
-					<td class="brutto">[[verkauf.brutto|number_de]] €</td>
+					<td class="brutto">{{verkauf.brutto|number_de}} €</td>
 
-					<td class="mwst">[[verkauf.mwst|number_de]] €</td>
+					<td class="mwst">{{verkauf.mwst|number_de}} €</td>
 
-					<td class="netto">[[verkauf.netto|number_de]] €</td>
+					<td class="netto">{{verkauf.netto|number_de}} €</td>
 
-					<td class="zahlweise">[[verkauf.zahlweise]]</td>
+					<td class="zahlweise">{{verkauf.zahlweise}}</td>
 
 					<td class="status">
 						<div class="icon gezahlt"
@@ -106,11 +106,11 @@
 
 					<td class="name" style="text-align: right;">Summe:</td>
 
-					<td class="brutto">[[calcBruttoSum(verkaeufe)|number_de]] €</td>
+					<td class="brutto">{{calcBruttoSum(verkaeufe)|number_de}} €</td>
 					
-					<td class="brutto">[[calcMwStSum(verkaeufe)|number_de]] €</td>
+					<td class="brutto">{{calcMwStSum(verkaeufe)|number_de}} €</td>
 					
-					<td class="brutto">[[calcNettoSum(verkaeufe)|number_de]] €</td>
+					<td class="brutto">{{calcNettoSum(verkaeufe)|number_de}} €</td>
 
 					<td class="zahlweise"></td>
 					
@@ -141,21 +141,21 @@
 				</tr>
 				<tr ng-repeat="verkauf in overdueVerkaeufe" ng-click="editVerkauf(verkauf.id)">
 
-					<td class="id">[[verkauf.id]]</td>
+					<td class="id">{{verkauf.id}}</td>
 
-					<td class="plattform">[[verkauf.plattform]]</td>
+					<td class="plattform">{{verkauf.plattform}}</td>
 
-					<td class="account">[[verkauf.account]]</td>
+					<td class="account">{{verkauf.account}}</td>
 
-					<td class="name">[[verkauf.name]]</td>
+					<td class="name">{{verkauf.name}}</td>
 
-					<td class="brutto">[[verkauf.brutto|number_de]] €</td>
+					<td class="brutto">{{verkauf.brutto|number_de}} €</td>
 
-					<td class="mwst">[[verkauf.mwst|number_de]] €</td>
+					<td class="mwst">{{verkauf.mwst|number_de}} €</td>
 
-					<td class="netto">[[verkauf.netto|number_de]] €</td>
+					<td class="netto">{{verkauf.netto|number_de}} €</td>
 
-					<td class="zahlweise">[[verkauf.zahlweise]]</td>
+					<td class="zahlweise">{{verkauf.zahlweise}}</td>
 
 					<td class="status">
 						<div class="icon gezahlt"
@@ -202,21 +202,21 @@
 				</tr>
 				<tr ng-repeat="einkauf in einkaeufe" ng-click="editEinkauf(einkauf.id)">
 
-					<td class="id">[[einkauf.id]]</td>
+					<td class="id">{{einkauf.id}}</td>
 
-					<td class="plattform">[[einkauf.plattform]]</td>
+					<td class="plattform">{{einkauf.plattform}}</td>
 
-					<td class="account">[[einkauf.account]]</td>
+					<td class="account">{{einkauf.account}}</td>
 
-					<td class="name">[[einkauf.name]]</td>
+					<td class="name">{{einkauf.name}}</td>
 
-					<td class="brutto">[[einkauf.brutto|number_de]] €</td>
+					<td class="brutto">{{einkauf.brutto|number_de}} €</td>
 
-					<td class="mwst">[[einkauf.mwst|number_de]] €</td>
+					<td class="mwst">{{einkauf.mwst|number_de}} €</td>
 
-					<td class="netto">[[einkauf.netto|number_de]] €</td>
+					<td class="netto">{{einkauf.netto|number_de}} €</td>
 
-					<td class="zahlweise">[[einkauf.zahlweise]]</td>
+					<td class="zahlweise">{{einkauf.zahlweise}}</td>
 
 					<td class="status">
 						<div class="icon gezahlt"
@@ -246,11 +246,11 @@
 
 					<td class="name" style="text-align: right;">Summe:</td>
 
-					<td class="brutto">[[calcBruttoSum(einkaeufe)|number_de]] €</td>
+					<td class="brutto">{{calcBruttoSum(einkaeufe)|number_de}} €</td>
 
-					<td class="mwst">[[calcMwStSum(einkaeufe)|number_de]] €</td>
+					<td class="mwst">{{calcMwStSum(einkaeufe)|number_de}} €</td>
 
-					<td class="netto">[[calcNettoSum(einkaeufe)|number_de]] €</td>
+					<td class="netto">{{calcNettoSum(einkaeufe)|number_de}} €</td>
 
 					<td class="zahlweise"></td>
 
@@ -281,21 +281,21 @@
 				</tr>
 				<tr ng-repeat="einkauf in overdueEinkaeufe" ng-click="editEinkauf(einkauf.id)">
 
-					<td class="id">[[einkauf.id]]</td>
+					<td class="id">{{einkauf.id}}</td>
 
-					<td class="plattform">[[einkauf.plattform]]</td>
+					<td class="plattform">{{einkauf.plattform}}</td>
 
-					<td class="account">[[einkauf.account]]</td>
+					<td class="account">{{einkauf.account}}</td>
 
-					<td class="name">[[einkauf.name]]</td>
+					<td class="name">{{einkauf.name}}</td>
 
-					<td class="brutto">[[einkauf.brutto|number_de]] €</td>
+					<td class="brutto">{{einkauf.brutto|number_de}} €</td>
 
-					<td class="mwst">[[einkauf.mwst|number_de]] €</td>
+					<td class="mwst">{{einkauf.mwst|number_de}} €</td>
 
-					<td class="netto">[[einkauf.netto|number_de]] €</td>
+					<td class="netto">{{einkauf.netto|number_de}} €</td>
 
-					<td class="zahlweise">[[einkauf.zahlweise]]</td>
+					<td class="zahlweise">{{einkauf.zahlweise}}</td>
 
 					<td class="status">
 						<div class="icon gezahlt"

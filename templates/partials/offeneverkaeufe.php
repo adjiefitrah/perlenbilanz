@@ -14,17 +14,17 @@
 			</tr>
 			<tr ng-repeat="verkauf in verkaeufe" ng-click="editVerkauf(verkauf.vkId)">
 
-				<td class="nr">[[$index+1]]</td>
+				<td class="nr">{{$index+1}}</td>
 
-				<td class="plattform">[[verkauf.plattform]]</td>
+				<td class="plattform">{{verkauf.plattform}}</td>
 
-				<td class="account">[[verkauf.account]]</td>
+				<td class="account">{{verkauf.account}}</td>
 
-				<td class="name">[[verkauf.name]]</td>
+				<td class="name">{{verkauf.name}}</td>
 
-				<td class="brutto">[[verkauf.bruttoTotal|number_de]] €</td>
+				<td class="brutto">{{verkauf.bruttoTotal|number_de}} €</td>
 
-				<td class="wertstellung">[[ verkauf.wertstellung | date:'dd.MM.yyyy' ]]</td>
+				<td class="wertstellung">{{ verkauf.wertstellung | date:'dd.MM.yyyy' }}</td>
 
 			</tr>
 

@@ -22,15 +22,15 @@
 			</tr>
 			<tr ng-repeat="position in positionen">
 
-				<td class="nr">[[$index+1]]</td>
+				<td class="nr">{{$index+1}}</td>
 
-				<td class="datum">[[position.datum]]</td>
+				<td class="datum">{{position.datum}}</td>
 
-				<td class="plattform">[[position.plattform]]</td>
+				<td class="plattform">{{position.plattform}}</td>
 
-				<td class="type">[[position.typ]]</td>
+				<td class="type">{{position.typ}}</td>
 
-				<td class="description">[[position.bezeichnung]]</td>
+				<td class="description">{{position.bezeichnung}}</td>
 
 				<td class="delivered">
 					<label><input ng-value="true" type="radio" ng-model="position.geliefert"/>ja</label><br/>
@@ -48,11 +48,11 @@
 					<input type="text" ng-show="position.mwstProzent|notnull" currency-input ng-model="position.mwstProzent" ng-change="updateMwSt(position)"/>
 				</td>
 
-				<td class="mwst"><span ng-show="position.mwstProzent|notnull">[[position.mwst|number_de]] €</span><input type="text" ng-hide="position.mwstProzent|notnull" currency-input ng-model="position.mwst"/></td>
+				<td class="mwst"><span ng-show="position.mwstProzent|notnull">{{position.mwst|number_de}} €</span><input type="text" ng-hide="position.mwstProzent|notnull" currency-input ng-model="position.mwst"/></td>
 
-				<td class="netto"><span ng-show="position.mwstProzent|notnull">[[position.netto|number_de]] €</span><input type="text" ng-hide="position.mwstProzent|notnull" currency-input ng-model="position.netto"/></td>
+				<td class="netto"><span ng-show="position.mwstProzent|notnull">{{position.netto|number_de}} €</span><input type="text" ng-hide="position.mwstProzent|notnull" currency-input ng-model="position.netto"/></td>
 
-				<td><a class="button" href="#/einkauf/[[position.ekId]]">zum Einkauf</a></td>
+				<td><a class="button" href="#/einkauf/{{position.ekId}}">zum Einkauf</a></td>
 
 			</tr>
 

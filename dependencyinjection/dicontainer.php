@@ -57,7 +57,7 @@ class DIContainer extends BaseContainer {
 		 * Delete the following twig config to use ownClouds default templates
 		 */
 		// use this to specify the template directory
-		$this['TwigTemplateDirectory'] = __DIR__ . '/../templates';
+		//$this['TwigTemplateDirectory'] = __DIR__ . '/../templates';
 
 		// if you want to cache the template directory in yourapp/cache
 		// uncomment this line. Remember to give your webserver access rights

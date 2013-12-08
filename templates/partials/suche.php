@@ -56,20 +56,21 @@
 
 						<td style="background-color: white; width:15px;">
 							<input type="checkbox" ng-model="result.show"><!-- hide / show --></td>
-						<td class="id">[[result.id]]</td>
-						<td class="plattform">[[result.plattform]]</td>
-						<td class="account">[[result.account]]</td>
-						<td class="name">[[result.name]]</td>
-						<td class="brutto">[[result.brutto|number_de]] €</td>
-						<td class="mwst">[[result.mwst|number_de]] €</td>
-						<td class="netto">[[result.netto|number_de]] €</td>
-						<td class="zahlweise">[[result.zahlweise]]</td>
+						<td class="id">{{result.id}}</td>
+						<td class="plattform">{{result.plattform}}</td>
+						<td class="account">{{result.account}}</td>
+						<td class="name">{{result.name}}</td>
+						<td class="brutto">{{result.brutto|number_de}} €</td>
+						<td class="mwst">{{result.mwst|number_de}} €</td>
+						<td class="netto">{{result.netto|number_de}} €</td>
+						<td class="zahlweise">{{result.zahlweise}}</td>
 
 					</tr>
-					<tr ng-repeat-end ng-show="result.show || ( result.positionen | filter:query ).length">
+					<tr ng-repeat-end ng-show="result.show || ( result.positionen | filter:query ).length"
+						style="background-color:white;">
 						<td style="background-color: white; width:15px;"></td>
-						<td colspan="8">
-							<table class="positionen" style="width:80%; margin-top: 1px;" >
+						<td colspan="8" style="padding:0;">
+							<table class="positionen" style="width:100%; margin-top: 1px; margin-bottom: 1px;">
 								<tr>
 									<th style="background-color: white; width:15px;"><!-- hide / show --></th>
 									<th>Datum</th>
@@ -83,19 +84,19 @@
 									<th>Netto</th>
 								</tr>
 								<tr ng-repeat="position in result.positionen"
-									ng-show="result.show || ( result.positionen | filter:query ).length">
+									ng-show="result.show || ( [position] | filter:query ).length">
 									<td style="background-color: white; width:15px;"><!-- hide / show --></td>
-									<td class="datum">[[ position.datum | date:'dd.MM.yyyy' ]]</td>
-									<td class="count">[[position.stueck]]</td>
-									<td class="type">[[position.typ]]</td>
-									<td class="description">[[position.bezeichnung]]</td>
+									<td class="datum">{{ position.datum | date:'dd.MM.yyyy' }}</td>
+									<td class="count">{{position.stueck}}</td>
+									<td class="type">{{position.typ}}</td>
+									<td class="description">{{position.bezeichnung}}</td>
 									<td class="delivered">
 										<input type="checkbox" ng-model="position.geliefert" disabled="disabled"/>
 									</td>
-									<td class="brutto">[[position.brutto|number_de]]</td>
-									<td class="bruttoSum"><span>[[position.bruttoSum|number_de]] €</span></td>
-									<td class="mwst"><span>[[position.mwst|number_de]] €</span></td>
-									<td class="netto"><span>[[position.netto|number_de]] €</span></td>
+									<td class="brutto">{{position.brutto|number_de}}</td>
+									<td class="bruttoSum"><span>{{position.bruttoSum|number_de}} €</span></td>
+									<td class="mwst"><span>{{position.mwst|number_de}} €</span></td>
+									<td class="netto"><span>{{position.netto|number_de}} €</span></td>
 								</tr>
 							</table>
 						</td>

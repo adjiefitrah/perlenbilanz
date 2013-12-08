@@ -51,15 +51,15 @@
 			<div style="float:left; margin-left: 15px;">
 				<label for="wertstellung" style="font-variant: small-caps; text-decoration: underline;">Wertstellung:</label><br/>
 				<input id="wertstellung" ng-model="einkauf.wertstellung"
-					   type="text" value="[[ einkauf.wertstellung | date:'dd.MM.yyyy' ]]"
+					   type="text" value="{{ einkauf.wertstellung | date:'dd.MM.yyyy' }}"
 					   ui-date="{ dateFormat: 'dd.mm.yy' }" ui-date-format="yy-mm-dd">
 			</div>
 			<div style="float: left; margin-left: 15px; min-width: 120px;">
 				<div style="margin-bottom: 9px; font-variant: small-caps; text-decoration: underline;">Brutto:</div>
-				<div style="margin-left: 5px; font-size: 40px; height:30px;">[[bruttoTotal|number_de]] €</div>
+				<div style="margin-left: 5px; font-size: 40px; height:30px;">{{bruttoTotal|number_de}} €</div>
 				
-				<div style="margin-left: 5px;" ng-repeat="mwst in mwstGroups">MwSt ([[mwst.mwstProzent]]%):<span style="float:right;">[[mwst.mwst|number_de]] €</span></div>
-				<div style="margin-left: 5px;">Netto: <span style="float:right;">[[nettoTotal|number_de]] €</span></div>
+				<div style="margin-left: 5px;" ng-repeat="mwst in mwstGroups">MwSt ({{mwst.mwstProzent}}%):<span style="float:right;">{{mwst.mwst|number_de}} €</span></div>
+				<div style="margin-left: 5px;">Netto: <span style="float:right;">{{nettoTotal|number_de}} €</span></div>
 			</div>
 			<div style="clear: both; border-bottom: 1px solid #ddd; width: 100%; height:6px;"></div>
 		</div>
@@ -82,7 +82,7 @@
 
 				<td class="datum">
 					<input type="text" ng-model="position.datum" required
-						 value="[[ position.datum | date:'dd.MM.yyyy' ]]"
+						 value="{{ position.datum | date:'dd.MM.yyyy' }}"
 						 ui-date="{ dateFormat: 'dd.mm.yy' }"
 						   ui-date-format="yy-mm-dd">
 				</td>
@@ -90,7 +90,7 @@
 				<td class="type">
 					<select ui-select2 ng-model="position.typ" data-placeholder="-- Typ --" style="width:170px;">
 						<option></option>
-						<option ng-repeat="type in types" value="[[type.id]]">[[type.text]]</option>
+						<option ng-repeat="type in types" value="{{type.id}}">{{type.text}}</option>
 					</select>
 				</td>
 
@@ -111,9 +111,9 @@
 					<input type="text" ng-show="position.mwstStatus" integer ng-model="position.mwstProzent" ng-change="updateMwStProzent(position)"/>
 				</td>
 				
-				<td class="mwst"><span ng-hide="position.mwstProzent|empty">[[position.mwst|number_de]] €</span><input type="text" ng-show="position.mwstProzent|empty" currency-input ng-model="position.mwst"/></td>
+				<td class="mwst"><span ng-hide="position.mwstProzent|empty">{{position.mwst|number_de}} €</span><input type="text" ng-show="position.mwstProzent|empty" currency-input ng-model="position.mwst"/></td>
 
-				<td class="netto"><span>[[position.netto|number_de]] €</span></td>
+				<td class="netto"><span>{{position.netto|number_de}} €</span></td>
 
 				<td><button ng-click="addPosition($index)">+</button> <button ng-click="removePosition($index)">-</button></td>
 
