@@ -157,10 +157,6 @@ table .type select {
 	background: #ffff91;
 }
 
-#perlenbilanz .select2-container .select2-choice span {
-	margin-right: 40px;
-}
-
 #perlenbilanz .select2-container .select2-choice abbr {
 	right: 23px;
 	top: 7px;

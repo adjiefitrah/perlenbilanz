@@ -35,7 +35,8 @@ angular.module('Perlenbilanz', [
 		'ngRoute',
 		'ngResource',
 		'ui.date',
-		'ui.select2'
+		'ui.select2',
+		'ui.autocomplete'
 	]).
 	config(['$interpolateProvider', '$routeProvider',
 		function ($interpolateProvider, $routeProvider) {

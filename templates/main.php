@@ -5,6 +5,7 @@
 \OCP\Util::addScript('perlenbilanz', 'vendor/ui-date-0.0.3/src/date');
 \OCP\Util::addScript('perlenbilanz', 'vendor/ui-select2-0.0.4/src/select2');
 \OCP\Util::addScript('perlenbilanz', 'vendor/select2-3.4.5/select2');
+\OCP\Util::addScript('perlenbilanz', 'vendor/ui-autocomplete/autocomplete');
 \OCP\Util::addScript('perlenbilanz', 'public/app');
 
 \OCP\Util::addStyle('perlenbilanz', 'style');
