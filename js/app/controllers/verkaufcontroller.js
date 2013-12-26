@@ -14,52 +14,72 @@ angular.module('Perlenbilanz').controller('VerkaufCtrl',
 		{id:"Sonstige",text:"Sonstige"}
 	];
 	$scope.accountOptions = {
-		query: function (query) {
-			var data = {results: []};
-			var items = $scope.accounts;
-			if ($scope.guessedAccounts) {
-				items = $scope.guessedAccounts;
+		options: {
+			html: false,
+			focusOpen: true,
+			onlySelect: false,
+			source: function (request, response) {
+				var data = [];
+
+				angular.forEach($scope.guessedAccounts, function(s) {
+					if (typeof s === 'string') {
+						data.push(s);
+					}
+				});
+				
+				if (data.length === 0) {
+					angular.forEach($scope.accounts, function(s) {
+						if (typeof s === 'string') {
+							data.push(s);
+						}
+					});
+				}	
+
+				data = $scope.accountOptions.methods.filter(data, request.term);
+
+				response(data);
 			}
-			angular.forEach(items, function(item, key){
-				if (query.term.toUpperCase() === item.text.substring(0, query.term.length).toUpperCase()) {
-					data.results.push(item);
-				}
-			});
-			query.callback(data);
 		},
-		createSearchChoice: function (term) {
-			return {id:term,text:term};
-		},
-		initSelection : function (element, callback) {
-			var data = {id: element.val(), text: element.val()};
-			callback(data);
-		},
-		placeholder: "",
-		allowClear: true
+		methods: {},
+		events : {
+			change: function( event, ui ) {
+				$scope.guessNames();
+			}	
+		}
 	};
 	$scope.nameOptions = {
-		query: function (query) {
-			var data = {results: []};
-			var items = $scope.names;
-			if ($scope.guessedNames) {
-				items = $scope.guessedNames;
+		options: {
+			html: false,
+			focusOpen: true,
+			onlySelect: false,
+			source: function (request, response) {
+				var data = [];
+
+				angular.forEach($scope.guessedNames, function(s) {
+					if (typeof s === 'string') {
+						data.push(s);
+					}
+				});
+				
+				if (data.length === 0) {
+					angular.forEach($scope.names, function(s) {
+						if (typeof s === 'string') {
+							data.push(s);
+						}
+					});
+				}	
+
+				data = $scope.nameOptions.methods.filter(data, request.term);
+
+				response(data);
 			}
-			angular.forEach(items, function(item, key){
-				if (query.term.toUpperCase() === item.text.substring(0, query.term.length).toUpperCase()) {
-					data.results.push(item);
-				}
-			});
-			query.callback(data);
 		},
-		createSearchChoice: function (term) {
-			return {id:term,text:term};
-		},
-		initSelection : function (element, callback) {
-			var data = {id: element.val(), text: element.val()};
-			callback(data);
-		},
-		placeholder: "",
-		allowClear: true
+		methods: {},
+		events : {
+			change: function( event, ui ) {
+				$scope.guessAccounts();
+			}	
+		}
 	};
 	$scope.invoice = null;
 	$scope.guessAccounts = function() {

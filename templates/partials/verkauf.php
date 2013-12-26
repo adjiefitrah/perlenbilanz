@@ -26,13 +26,17 @@
 					</div>
 					<div style="margin-left: 5px;">
 						<label style="vertical-align: bottom; margin-bottom: 7px;" for="account">Account:</label>
-						<input id="account" type="hidden" ui-select2="accountOptions"
-							   ng-model="verkauf.account" ng-change="guessNames()">
+						<input id="account" type="text"
+							   ng-model="verkauf.account"
+							   ng-change="guessNames()"
+							   ui-autocomplete="accountOptions">
 					</div>
 					<div style="margin-left: 5px;">
 						<label style="vertical-align: bottom; margin-bottom: 7px;" for="name">Name:</label>
-						<input id="name" type="hidden" ui-select2="nameOptions"
-							   ng-model="verkauf.name" ng-change="guessAccounts()">
+						<input id="name" type="text"
+							   ng-model="verkauf.name"
+							   ng-change="guessAccounts()"
+							   ui-autocomplete="nameOptions">
 					</div>
 				</fieldset>
 			</div>
