@@ -24,6 +24,8 @@ angular.module('Perlenbilanz').filter('number_de', function() {
 				}
 				intDiv--;
 			}
+		} else if (intPart.length === 0) {
+			intPart = '0';
 		}
 
 		if (decPart === undefined) {

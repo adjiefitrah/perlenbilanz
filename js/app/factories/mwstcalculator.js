@@ -7,7 +7,7 @@ angular.module('Perlenbilanz').
 			if (positions) {
 				$.each(positions, function (i, position) {
 					var brutto = position.brutto;
-					if (typeof brutto === 'undefined') {
+					if (typeof brutto === 'undefined' || brutto === null) {
 						brutto = 0;
 					}
 
@@ -17,7 +17,7 @@ angular.module('Perlenbilanz').
 					}
 
 					var stueck = position.stueck;
-					if (stueck === null) {
+					if (typeof stueck === 'undefined' || stueck === null) {
 						stueck = 1;
 					}
 					brutto = brutto * stueck;
@@ -85,14 +85,14 @@ angular.module('Perlenbilanz').
 		};
 		mwstCalculator.updateBrutto = function(position) {
 			var brutto = position.brutto;
-			if (brutto === null) {
+			if (typeof brutto === 'undefined' || brutto === null) {
 				brutto = 0;
 			}
 			if (typeof brutto === 'number') {
 				var mwstProzent = 0;
 				var netto = 0;
 				var stueck = position.stueck;
-				if (stueck === null) {
+				if (typeof stueck === 'undefined' || stueck === null) {
 					stueck = 1;
 				}
 				brutto = brutto * stueck;
@@ -118,12 +118,12 @@ angular.module('Perlenbilanz').
 		};
 		mwstCalculator.updateMwSt = function(position) {
 			var brutto = position.brutto;
-			if (brutto === null) {
+			if (typeof brutto === 'undefined' || brutto === null) {
 				brutto = 0;
 			}
 			if (typeof brutto === 'number') {
 				var stueck = position.stueck;
-				if (stueck === null) {
+				if (typeof stueck === 'undefined' || stueck === null) {
 					stueck = 1;
 				}
 				brutto = brutto * stueck;
@@ -148,12 +148,12 @@ angular.module('Perlenbilanz').
 		};
 		mwstCalculator.updateMwStProzent = function(position) {
 			var brutto = position.brutto;
-			if (brutto === null) {
+			if (typeof brutto === 'undefined' || brutto === null) {
 				brutto = 0;
 			}
 			if (typeof brutto === 'number') {
 				var stueck = position.stueck;
-				if (stueck === null) {
+				if (typeof stueck === 'undefined' || stueck === null) {
 					stueck = 1;
 				}
 				brutto = brutto * stueck;
