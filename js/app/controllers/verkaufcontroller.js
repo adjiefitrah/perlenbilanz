@@ -13,6 +13,7 @@ angular.module('Perlenbilanz').controller('VerkaufCtrl',
 		{id:"Rabatt",text:"Rabatt"},
 		{id:"Sonstige",text:"Sonstige"}
 	];
+	$scope.now = new Date();
 	$scope.accountOptions = {
 		options: {
 			html: false,
