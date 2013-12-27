@@ -112,7 +112,7 @@ class Template extends \OC_Template {
 		// Execute the template
 		ob_start();
 		//include 'data://text/plain;,'. urlencode($this->template); // <-- we have to use include because we pass $_!
-		include $this->template; // <-- we have to use include because we pass $_!
+		require $this->template; // <-- we have to use include because we pass $_!
 		$data = ob_get_contents();
 		@ob_end_clean();
 
