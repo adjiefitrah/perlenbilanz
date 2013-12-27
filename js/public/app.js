@@ -304,6 +304,7 @@ angular.module('Perlenbilanz').controller('UebersichtCtrl',
 	['$scope', '$location', 'NotesResource', '$timeout', 'VerkaufResource', 'EinkaufResource',
 	function ($scope, $location, NotesResource, $timeout, VerkaufResource, EinkaufResource) {
 
+	$scope.now = new Date();
 	$scope.verkaeufe = VerkaufResource.query({overview:'current'},function(response){
 		$scope.vkBrutto = 0;
 		$scope.vkMwSt = 0;
