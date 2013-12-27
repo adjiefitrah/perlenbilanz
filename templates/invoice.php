@@ -5,10 +5,10 @@
 			margin-left:2.5cm;
 		}
 	</style>
-	<title><?php if ($_['verkauf']->plattform): p($_['verkauf']->plattform); ?> - <? endif; ?>Rechnung Nr. <?php p($_['verkauf']->rechnungsnummer) ?></title></head>
+	<title><?php if ($_['verkauf']->plattform): p($_['verkauf']->plattform); ?> - <?php endif; ?>Rechnung Nr. <?php p($_['verkauf']->rechnungsnummer) ?></title></head>
 <body>
 <span style="font-family: sans; font-size: 7px;">
-	<?php if ($_['verkauf']->plattform): p($_['verkauf']->plattform); ?> - <? endif; ?>
+	<?php if ($_['verkauf']->plattform): p($_['verkauf']->plattform); ?> - <?php endif; ?>
 	Nina Obermeyer, Am Ginsterbusch 51, 30459 Hannover<br/>
 </span><br/>
 <table width="100%">
@@ -59,9 +59,11 @@ für Ihre Bestellung<?php if ($_['verkauf']->bestellnummer): ?>
 	<tr>
 		<th style="border-right:1px solid black; border-bottom:2px solid black;">Ware / Leistung</th>
 		<th style="border-right:1px solid black; border-bottom:2px solid black;">Menge</th>
-		<th style="border-right:1px solid black; border-bottom:2px solid black;">Einzelpreis brutto</th>
-		<th style="border-right:1px solid black; border-bottom:2px solid black;">Gesamt</th>
+		<th style="border-right:1px solid black; border-bottom:2px solid black;">Einzelpreis<?php if($_['verkauf']->rechnungsjahr < 2014): ?> brutto<?php endif; ?></th>
+		<th style="border-bottom:2px solid black;<?php if($_['verkauf']->rechnungsjahr < 2014): ?> border-right:1px solid black;<?php endif; ?>">Gesamt</th>
+		<?php if($_['verkauf']->rechnungsjahr < 2014): ?>
 		<th style="border-bottom:2px solid black;">Steuersatz</th>
+		<?php endif; ?>
 	</tr>
 	</thead>
 	<!-- Positionen -->
@@ -79,17 +81,20 @@ für Ihre Bestellung<?php if ($_['verkauf']->bestellnummer): ?>
 			<?php p($position->stueck); ?>
 		</td>
 		<td style="border-right:1px solid black; border-bottom:1px solid black;" align="right">
-			<?php p(number_format($position->brutto,2,',','.')); ?> €
+			<?php p(number_format($position->brutto, 2, ',', '.')); ?> €
 		</td>
-		<td style="border-right:1px solid black; border-bottom:1px solid black;" align="right">
-			<?php p(number_format($position->stueck * $position->brutto,2,',','.')); ?> €
+		<td style="border-bottom:1px solid black;<?php if($_['verkauf']->rechnungsjahr < 2014): ?> border-right:1px solid black;<?php endif; ?>" align="right">
+			<?php p(number_format($position->stueck * $position->brutto, 2, ',', '.')); ?> €
 		</td>
+		<?php if($_['verkauf']->rechnungsjahr < 2014): ?>
 		<td style="border-bottom:1px solid black;" align="right">
 			<?php p($position->mwstProzent); ?>%
 		</td>
+		<?php endif; ?>
 	</tr>
 	<?php } ?>
 	<!-- summenzeile -->
+	<?php if($_['verkauf']->rechnungsjahr < 2014): ?>
 	<tr>
 		<td style="border-right:1px solid black;" colspan="3" align="right">Rechnungsbetrag netto</td>
 		<td style="border-right:1px solid black;" align="right"><?php p(number_format($_['verkauf']->netto,2,',','.')) ?> €</td>
@@ -100,10 +105,13 @@ für Ihre Bestellung<?php if ($_['verkauf']->bestellnummer): ?>
 		<td style="border-right:1px solid black;" align="right"><?php p(number_format($_['verkauf']->mwst,2,',','.')) ?> €</td>
 		<td></td>
 	</tr>
+	<?php endif; ?>
 	<tr>
-		<td style="border-top:3px double black; border-right:1px solid black;" colspan="3" align="right"><b>Rechnungsbetrag brutto</b></td>
-		<td style="border-top:3px double black; border-right:1px solid black;" align="right"><b><?php p(number_format($_['verkauf']->brutto,2,',','.')) ?> €</b></td>
+		<td style="border-top:3px double black; border-right:1px solid black;" colspan="3" align="right"><b>Rechnungsbetrag<?php if($_['verkauf']->rechnungsjahr < 2014): ?> brutto<?php endif; ?></b></td>
+		<td style="border-top:3px double black;<?php if($_['verkauf']->rechnungsjahr < 2014): ?> border-right:1px solid black;<?php endif; ?>" align="right"><b><?php p(number_format($_['verkauf']->brutto,2,',','.')) ?> €</b></td>
+		<?php if($_['verkauf']->rechnungsjahr < 2014): ?>
 		<td style="border-top:3px double black;"></td>
+		<?php endif; ?>
 	</tr>
 	</tbody>
 </table>
@@ -111,9 +119,12 @@ für Ihre Bestellung<?php if ($_['verkauf']->bestellnummer): ?>
 <?php if ($_['verkauf']->wertstellung): ?>
 Die Zahlung des Rechnungsbetrages ist mit Wertstellung zum <?php p($_['verkauf']->wertstellung) ?> per <?php p($_['verkauf']->zahlweise) ?> erfolgt.<br/>
 <?php endif ?>
+<?php if($_['verkauf']->rechnungsjahr < 2014): ?>
+<br/>
+TODO !!!! Wichtiger satz !!!!<br/>
+<?php endif; ?>
 <br/>
 Das Rechnungsdatum entspricht dem Versanddatum.<br/>
-<br/>
 <br/>
 <br/>
 <br/>
