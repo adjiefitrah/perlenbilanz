@@ -201,7 +201,10 @@
 										 ng-change="updateBrutto(position)"/></td>
 
 				<td class="type">
-					<select ui-select2 ng-model="position.typ" data-placeholder="-- Typ --" style="width:110px;">
+					<select data-placeholder="-- Typ --" style="width:110px;"
+							ui-select2
+							ng-model="position.typ"
+							ng-change="updateBrutto(position)">
 						<option></option>
 						<option ng-repeat="type in types" value="{{type.id}}">{{type.text}}</option>
 					</select>

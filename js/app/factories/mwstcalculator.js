@@ -88,6 +88,10 @@ angular.module('Perlenbilanz').
 			if (typeof brutto === 'undefined' || brutto === null) {
 				brutto = 0;
 			}
+			if (position.typ === 'Rabatt' && brutto > 0) {
+				brutto = brutto * -1;
+				position.brutto = brutto;
+			}
 			if (typeof brutto === 'number') {
 				var mwstProzent = 0;
 				var netto = 0;
@@ -121,6 +125,10 @@ angular.module('Perlenbilanz').
 			if (typeof brutto === 'undefined' || brutto === null) {
 				brutto = 0;
 			}
+			if (position.typ === 'Rabatt' && brutto > 0) {
+				brutto = brutto * -1;
+				position.brutto = brutto;
+			}
 			if (typeof brutto === 'number') {
 				var stueck = position.stueck;
 				if (typeof stueck === 'undefined' || stueck === null) {
@@ -150,6 +158,10 @@ angular.module('Perlenbilanz').
 			var brutto = position.brutto;
 			if (typeof brutto === 'undefined' || brutto === null) {
 				brutto = 0;
+			}
+			if (position.typ === 'Rabatt' && brutto > 0) {
+				brutto = brutto * -1;
+				position.brutto = brutto;
 			}
 			if (typeof brutto === 'number') {
 				var stueck = position.stueck;
