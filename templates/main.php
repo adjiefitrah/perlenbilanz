@@ -34,7 +34,9 @@
 		&nbsp;&nbsp; | &nbsp;&nbsp;
 
 		<a class="button" ng-click="generateReport()">Bericht</a>
-		<div style="display:inline-block;" ui-date="{ defaultDate: '-1m', onChangeMonthYear: updateReportDate }" ></div>
+		<!-- intialize date with previous month as in menucontroller.js -->
+		<div style="display:inline-block;"
+			 ui-date="{ defaultDate: '-1m', dateFormat: 'dd.mm.yy', onChangeMonthYear: updateReportDate }" ></div>
 
 	</div>
 	
