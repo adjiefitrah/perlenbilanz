@@ -215,7 +215,8 @@ angular.module('Perlenbilanz').controller('VerkaufCtrl',
 		$scope.verkauf.faultyreason = '';
 	};
 	$scope.deleteInvoice = function() {
-		$scope.verkauf = VerkaufResource.deleteInvoice($scope.verkauf, function(){
+		VerkaufResource.deleteInvoice($scope.verkauf, function(data){
+			$scope.verkauf = data;
 			$scope.getNextInvoiceIDs();
 		});
 	};
