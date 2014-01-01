@@ -62,8 +62,11 @@
 				<div style="margin-bottom: 9px; font-variant: small-caps; text-decoration: underline;">Brutto:</div>
 				<div style="margin-left: 5px; font-size: 40px; height:30px;">{{bruttoTotal|number_de}} €</div>
 				
-				<div ng-hide="einkauf.wertstellung | date:'yyyy' > 2013" style="margin-left: 5px;" ng-repeat="mwst in mwstGroups">MwSt ({{mwst.mwstProzent}}%):<span style="float:right;">{{mwst.mwst|number_de}} €</span></div>
-				<div ng-hide="einkauf.wertstellung | date:'yyyy' > 2013" style="margin-left: 5px;">Netto: <span style="float:right;">{{nettoTotal|number_de}} €</span></div>
+				<div ng-show="((einkauf.wertstellung | empty) && ( now | date:'yyyy') < 2014) || ((einkauf.wertstellung | notnull) && (einkauf.wertstellung | date:'yyyy') < 2014)"
+					 ng-repeat="mwst in mwstGroups"
+					 style="margin-left: 5px;">MwSt ({{mwst.mwstProzent}}%):<span style="float:right;">{{mwst.mwst|number_de}} €</span></div>
+				<div ng-show="((einkauf.wertstellung | empty) && ( now | date:'yyyy') < 2014) || ((einkauf.wertstellung | notnull) && (einkauf.wertstellung | date:'yyyy') < 2014)"
+					 style="margin-left: 5px;">Netto: <span style="float:right;">{{nettoTotal|number_de}} €</span></div>
 			</div>
 			<div style="clear: both; border-bottom: 1px solid #ddd; width: 100%; height:6px;"></div>
 		</div>
@@ -77,9 +80,9 @@
 				<th>Positionsbezeichnung</th>
 				<th>Geliefert</th>
 				<th>Brutto</th>
-				<th ng-show="((einkauf.wertstellung | empty) && ( now | date:'yyyy') < 2014) || (einkauf.wertstellung | date:'yyyy') < 2014">MwSt %</th>
-				<th ng-show="((einkauf.wertstellung | empty) && ( now | date:'yyyy') < 2014) || (einkauf.wertstellung | date:'yyyy') < 2014">MwSt</th>
-				<th ng-show="((einkauf.wertstellung | empty) && ( now | date:'yyyy') < 2014) || (einkauf.wertstellung | date:'yyyy') < 2014">Netto</th>
+				<th ng-show="((einkauf.wertstellung | empty) && ( now | date:'yyyy') < 2014) || ((einkauf.wertstellung | notnull) && (einkauf.wertstellung | date:'yyyy') < 2014)">MwSt %</th>
+				<th ng-show="((einkauf.wertstellung | empty) && ( now | date:'yyyy') < 2014) || ((einkauf.wertstellung | notnull) && (einkauf.wertstellung | date:'yyyy') < 2014)">MwSt</th>
+				<th ng-show="((einkauf.wertstellung | empty) && ( now | date:'yyyy') < 2014) || ((einkauf.wertstellung | notnull) && (einkauf.wertstellung | date:'yyyy') < 2014)">Netto</th>
 				<th><!-- action --></th>
 			</tr>
 			<tr ng-repeat="position in positionen">
@@ -106,7 +109,7 @@
 
 				<td class="brutto"><input type="text" currency-input ng-model="position.brutto" ng-change="updateBrutto(position)"/></td>
 
-				<td ng-show="((einkauf.wertstellung | empty) && ( now | date:'yyyy') < 2014) || (einkauf.wertstellung | date:'yyyy') < 2014" class="mwst_prozent">
+				<td ng-show="((einkauf.wertstellung | empty) && ( now | date:'yyyy') < 2014) || ((einkauf.wertstellung | notnull) && (einkauf.wertstellung | date:'yyyy') < 2014)" class="mwst_prozent">
 					<div class="mwst_status">
 						<label><input ng-value="true" type="radio" ng-model="position.mwstStatus" ng-change="updateMwSt(position)"/>ja</label><br/>
 						<label><input ng-value="false" type="radio" ng-model="position.mwstStatus" ng-change="updateMwSt(position)"/>nein</label><br/>
@@ -115,9 +118,9 @@
 					<input type="text" ng-show="position.mwstStatus" integer ng-model="position.mwstProzent" ng-change="updateMwStProzent(position)"/>
 				</td>
 				
-				<td ng-show="((einkauf.wertstellung | empty) && ( now | date:'yyyy') < 2014) || (einkauf.wertstellung | date:'yyyy') < 2014" class="mwst"><span ng-hide="position.mwstProzent|empty">{{position.mwst|number_de}} €</span><input type="text" ng-show="position.mwstProzent|empty" currency-input ng-model="position.mwst"/></td>
+				<td ng-show="((einkauf.wertstellung | empty) && ( now | date:'yyyy') < 2014) || ((einkauf.wertstellung | notnull) && (einkauf.wertstellung | date:'yyyy') < 2014)" class="mwst"><span ng-hide="position.mwstProzent|empty">{{position.mwst|number_de}} €</span><input type="text" ng-show="position.mwstProzent|empty" currency-input ng-model="position.mwst"/></td>
 
-				<td ng-show="((einkauf.wertstellung | empty) && ( now | date:'yyyy') < 2014) || (einkauf.wertstellung | date:'yyyy') < 2014" class="netto"><span>{{position.netto|number_de}} €</span></td>
+				<td ng-show="((einkauf.wertstellung | empty) && ( now | date:'yyyy') < 2014) || ((einkauf.wertstellung | notnull) && (einkauf.wertstellung | date:'yyyy') < 2014)" class="netto"><span>{{position.netto|number_de}} €</span></td>
 
 				<td><button ng-click="addPosition($index)">+</button> <button ng-click="removePosition($index)">-</button></td>
 
