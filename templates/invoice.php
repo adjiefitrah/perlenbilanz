@@ -119,9 +119,9 @@ für Ihre Bestellung<?php if ($_['verkauf']->bestellnummer): ?>
 <?php if ($_['verkauf']->wertstellung): ?>
 Die Zahlung des Rechnungsbetrages ist mit Wertstellung zum <?php p($_['verkauf']->wertstellung) ?> per <?php p($_['verkauf']->zahlweise) ?> erfolgt.<br/>
 <?php endif ?>
-<?php if($_['verkauf']->rechnungsjahr < 2014): ?>
+<?php if($_['verkauf']->rechnungsjahr > 2013): ?>
 <br/>
-TODO !!!! Wichtiger satz !!!!<br/>
+Kein Ausweis der Umsatzsteuer, da Kleinunternehmer nach §19 UstG.<br/>
 <?php endif; ?>
 <br/>
 Das Rechnungsdatum entspricht dem Versanddatum.<br/>
