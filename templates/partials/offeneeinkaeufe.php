@@ -15,9 +15,9 @@
 				<th>Positionsbezeichnung</th>
 				<th>Geliefert</th>
 				<th>Brutto</th>
-				<th>MwSt?</th>
-				<th>MwSt</th>
-				<th>Netto</th>
+				<th ng-show="((position.datum | empty) && ( now | date:'yyyy') < 2014) || ((position.datum | notnull) && (position.datum | date:'yyyy') < 2014)">MwSt?</th>
+				<th ng-show="((position.datum | empty) && ( now | date:'yyyy') < 2014) || ((position.datum | notnull) && (position.datum | date:'yyyy') < 2014)">MwSt</th>
+				<th ng-show="((position.datum | empty) && ( now | date:'yyyy') < 2014) || ((position.datum | notnull) && (position.datum | date:'yyyy') < 2014)">Netto</th>
 				<th></th>
 			</tr>
 			<tr ng-repeat="position in positionen">
@@ -39,7 +39,7 @@
 
 				<td class="brutto"><input type="text" currency-input ng-model="position.brutto" ng-change="updateMwSt(position)"/></td>
 
-				<td class="mwst_prozent">
+				<td ng-show="((position.datum | empty) && ( now | date:'yyyy') < 2014) || ((position.datum | notnull) && (position.datum | date:'yyyy') < 2014)" class="mwst_prozent">
 					<div class="mwst_status" ng-hide="position.mwstProzent">
 						<label><input ng-value="true" type="radio" ng-model="position.mwstStatus" ng-change="updateMwSt(position)"/>ja</label><br/>
 						<label><input ng-value="false" type="radio" ng-model="position.mwstStatus" ng-change="updateMwSt(position)"/>nein</label><br/>
@@ -48,9 +48,9 @@
 					<input type="text" ng-show="position.mwstProzent|notnull" currency-input ng-model="position.mwstProzent" ng-change="updateMwSt(position)"/>
 				</td>
 
-				<td class="mwst"><span ng-show="position.mwstProzent|notnull">{{position.mwst|number_de}} €</span><input type="text" ng-hide="position.mwstProzent|notnull" currency-input ng-model="position.mwst"/></td>
+				<td ng-show="((position.datum | empty) && ( now | date:'yyyy') < 2014) || ((position.datum | notnull) && (position.datum | date:'yyyy') < 2014)" class="mwst"><span ng-show="position.mwstProzent|notnull">{{position.mwst|number_de}} €</span><input type="text" ng-hide="position.mwstProzent|notnull" currency-input ng-model="position.mwst"/></td>
 
-				<td class="netto"><span ng-show="position.mwstProzent|notnull">{{position.netto|number_de}} €</span><input type="text" ng-hide="position.mwstProzent|notnull" currency-input ng-model="position.netto"/></td>
+				<td ng-show="((position.datum | empty) && ( now | date:'yyyy') < 2014) || ((position.datum | notnull) && (position.datum | date:'yyyy') < 2014)" class="netto"><span ng-show="position.mwstProzent|notnull">{{position.netto|number_de}} €</span><input type="text" ng-hide="position.mwstProzent|notnull" currency-input ng-model="position.netto"/></td>
 
 				<td><a class="button" href="#/einkauf/{{position.ekId}}">zum Einkauf</a></td>
 

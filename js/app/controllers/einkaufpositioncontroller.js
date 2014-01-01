@@ -2,6 +2,7 @@ angular.module('Perlenbilanz').controller('EinkaufPositionCtrl',
 	['$scope', '$location', '$filter', '$routeParams', 'EinkaufResource', 'EinkaufPositionResource', 'mwstCalculator',
 	function ($scope, $location, $filter, $routeParams, EinkaufResource, EinkaufPositionResource, mwstCalculator) {
 
+	$scope.now = new Date();
 	$scope.positionen = EinkaufPositionResource.query({geliefert:false}, function (positionen) {
 		//fetch plattform
 		angular.forEach(positionen, function(position) {

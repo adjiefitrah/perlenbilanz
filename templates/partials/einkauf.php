@@ -2,134 +2,133 @@
 
 	<h1 class="heading">Einkauf erfassen</h1>
 
-	<form>
-		<div>
-			<div style="float:left;">
-				<fieldset>
-					<legend>Kanal:</legend>
-					<input id="plattform_ebay" type="radio" value="eBay" ng-model="einkauf.plattform">
-					<label for="plattform_ebay">eBay</label>
-					</br>
-					<input id="plattform_dawanda" type="radio" value="DaWanda" ng-model="einkauf.plattform">
-					<label for="plattform_dawanda">DaWanda</label>
-					</br>
-					<input id="plattform_amazon" type="radio" value="Amazon" ng-model="einkauf.plattform">
-					<label for="plattform_amazon">Amazon</label>
-					</br>
-					<input id="plattform_sonstige" type="radio" value="Sonstige" ng-model="einkauf.plattform">
-					<label for="plattform_sonstige">Sonstige</label>
-				</fieldset>
-			</div>
-			<div style="float:left; margin-left: 15px; border-left: 1px solid lightgrey; padding-left: 15px; height: 105px;" class="col2">
-				<fieldset>
-					<legend>Verkäufer:</legend>
-					<div style="margin-left: 5px;">
-						<label style="vertical-align: bottom; margin-bottom: 7px;" for="account">Account:</label>
-						<input id="account" type="text"
-							   ng-model="einkauf.account"
-							   ng-change="guessNames()"
-							   ui-autocomplete="accountOptions">
-					</div>
-					<div style="margin-left: 5px;">
-						<label style="vertical-align: bottom; margin-bottom: 7px;" for="name">Name:</label>
-						<input id="name" type="text"
-							   ng-model="einkauf.name"
-							   ng-change="guessAccounts()"
-							   ui-autocomplete="nameOptions">
-					</div>
-				</fieldset>
-			</div>
-			<div style="float:left; margin-left: 15px; border-left: 1px solid lightgrey; padding-left: 15px; height: 105px;">
-				<fieldset>
-					<legend>Zahlweise:</legend>
-					<input id="zahlweise_paypal" type="radio" value="PayPal" ng-model="einkauf.zahlweise">
-					<label for="zahlweise_paypal">PayPal</label>
-					</br>
-					<input id="zahlweise_konto" type="radio" value="Konto" ng-model="einkauf.zahlweise">
-					<label for="zahlweise_konto">Konto</label>
-					</br>
-					<input id="zahlweise_bar" type="radio" value="Bar" ng-model="einkauf.zahlweise">
-					<label for="zahlweise_bar">Bar</label>
-				</fieldset>
-			</div>
-			<div style="float:left; margin-left: 15px;">
-				<label for="wertstellung" style="font-variant: small-caps; text-decoration: underline;">Wertstellung:</label><br/>
-				<input id="wertstellung" ng-model="einkauf.wertstellung"
-					   type="text" value="{{ einkauf.wertstellung | date:'dd.MM.yyyy' }}"
-					   ui-date="{ dateFormat: 'dd.mm.yy' }" ui-date-format="yy-mm-dd">
-			</div>
-			<div style="float: left; margin-left: 15px; min-width: 120px;">
-				<div style="margin-bottom: 9px; font-variant: small-caps; text-decoration: underline;">Brutto:</div>
-				<div style="margin-left: 5px; font-size: 40px; height:30px;">{{bruttoTotal|number_de}} €</div>
-				
-				<div ng-show="((einkauf.wertstellung | empty) && ( now | date:'yyyy') < 2014) || ((einkauf.wertstellung | notnull) && (einkauf.wertstellung | date:'yyyy') < 2014)"
-					 ng-repeat="mwst in mwstGroups"
-					 style="margin-left: 5px;">MwSt ({{mwst.mwstProzent}}%):<span style="float:right;">{{mwst.mwst|number_de}} €</span></div>
-				<div ng-show="((einkauf.wertstellung | empty) && ( now | date:'yyyy') < 2014) || ((einkauf.wertstellung | notnull) && (einkauf.wertstellung | date:'yyyy') < 2014)"
-					 style="margin-left: 5px;">Netto: <span style="float:right;">{{nettoTotal|number_de}} €</span></div>
-			</div>
-			<div style="clear: both; border-bottom: 1px solid #ddd; width: 100%; height:6px;"></div>
+	<div>
+		<div style="float:left;">
+			<fieldset>
+				<legend>Kanal:</legend>
+				<input id="plattform_ebay" type="radio" value="eBay" ng-model="einkauf.plattform">
+				<label for="plattform_ebay">eBay</label>
+				</br>
+				<input id="plattform_dawanda" type="radio" value="DaWanda" ng-model="einkauf.plattform">
+				<label for="plattform_dawanda">DaWanda</label>
+				</br>
+				<input id="plattform_amazon" type="radio" value="Amazon" ng-model="einkauf.plattform">
+				<label for="plattform_amazon">Amazon</label>
+				</br>
+				<input id="plattform_sonstige" type="radio" value="Sonstige" ng-model="einkauf.plattform">
+				<label for="plattform_sonstige">Sonstige</label>
+			</fieldset>
 		</div>
+		<div style="float:left; margin-left: 15px; border-left: 1px solid lightgrey; padding-left: 15px; height: 105px;" class="col2">
+			<fieldset>
+				<legend>Verkäufer:</legend>
+				<div style="margin-left: 5px;">
+					<label style="vertical-align: bottom; margin-bottom: 7px;" for="account">Account:</label>
+					<input id="account" type="text"
+						   ng-model="einkauf.account"
+						   ng-change="guessNames()"
+						   ui-autocomplete="accountOptions">
+				</div>
+				<div style="margin-left: 5px;">
+					<label style="vertical-align: bottom; margin-bottom: 7px;" for="name">Name:</label>
+					<input id="name" type="text"
+						   ng-model="einkauf.name"
+						   ng-change="guessAccounts()"
+						   ui-autocomplete="nameOptions">
+				</div>
+			</fieldset>
+		</div>
+		<div style="float:left; margin-left: 15px; border-left: 1px solid lightgrey; padding-left: 15px; height: 105px;">
+			<fieldset>
+				<legend>Zahlweise:</legend>
+				<input id="zahlweise_paypal" type="radio" value="PayPal" ng-model="einkauf.zahlweise">
+				<label for="zahlweise_paypal">PayPal</label>
+				</br>
+				<input id="zahlweise_konto" type="radio" value="Konto" ng-model="einkauf.zahlweise">
+				<label for="zahlweise_konto">Konto</label>
+				</br>
+				<input id="zahlweise_bar" type="radio" value="Bar" ng-model="einkauf.zahlweise">
+				<label for="zahlweise_bar">Bar</label>
+			</fieldset>
+		</div>
+		<div style="float:left; margin-left: 15px;">
+			<label for="wertstellung" style="font-variant: small-caps; text-decoration: underline;">Wertstellung:</label><br/>
+			<input id="wertstellung" ng-model="einkauf.wertstellung"
+				   type="text" value="{{ einkauf.wertstellung | date:'dd.MM.yyyy' }}"
+				   ui-date="{ dateFormat: 'dd.mm.yy' }" ui-date-format="yy-mm-dd">
+		</div>
+		<div style="float: left; margin-left: 15px; min-width: 120px;">
+			<div style="margin-bottom: 9px; font-variant: small-caps; text-decoration: underline;">Brutto:</div>
+			<div style="margin-left: 5px; font-size: 40px; height:30px;">{{bruttoTotal|number_de}} €</div>
 
-		<br/>
-		
-		<table id="positionen">
-			<tr>
-				<th>Einkaufsdatum</th>
-				<th>Positionstyp</th>
-				<th>Positionsbezeichnung</th>
-				<th>Geliefert</th>
-				<th>Brutto</th>
-				<th ng-show="((einkauf.wertstellung | empty) && ( now | date:'yyyy') < 2014) || ((einkauf.wertstellung | notnull) && (einkauf.wertstellung | date:'yyyy') < 2014)">MwSt %</th>
-				<th ng-show="((einkauf.wertstellung | empty) && ( now | date:'yyyy') < 2014) || ((einkauf.wertstellung | notnull) && (einkauf.wertstellung | date:'yyyy') < 2014)">MwSt</th>
-				<th ng-show="((einkauf.wertstellung | empty) && ( now | date:'yyyy') < 2014) || ((einkauf.wertstellung | notnull) && (einkauf.wertstellung | date:'yyyy') < 2014)">Netto</th>
-				<th><!-- action --></th>
-			</tr>
-			<tr ng-repeat="position in positionen">
+			<div ng-show="((einkauf.wertstellung | empty) && ( now | date:'yyyy') < 2014) || ((einkauf.wertstellung | notnull) && (einkauf.wertstellung | date:'yyyy') < 2014)"
+				 ng-repeat="mwst in mwstGroups"
+				 style="margin-left: 5px;">MwSt ({{mwst.mwstProzent}}%):<span style="float:right;">{{mwst.mwst|number_de}} €</span></div>
+			<div ng-show="((einkauf.wertstellung | empty) && ( now | date:'yyyy') < 2014) || ((einkauf.wertstellung | notnull) && (einkauf.wertstellung | date:'yyyy') < 2014)"
+				 style="margin-left: 5px;">Netto: <span style="float:right;">{{nettoTotal|number_de}} €</span></div>
+		</div>
+		<div style="clear: both; border-bottom: 1px solid #ddd; width: 100%; height:6px;"></div>
+	</div>
 
-				<td class="datum">
-					<input type="text" ng-model="position.datum" required
-						 value="{{ position.datum | date:'dd.MM.yyyy' }}"
-						 ui-date="{ dateFormat: 'dd.mm.yy' }"
-						   ui-date-format="yy-mm-dd">
-				</td>
+	<br/>
 
-				<td class="type">
-					<select ui-select2 ng-model="position.typ" data-placeholder="-- Typ --" style="width:170px;">
-						<option></option>
-						<option ng-repeat="type in types" value="{{type.id}}">{{type.text}}</option>
-					</select>
-				</td>
+	<table id="positionen">
+		<tr>
+			<th>Einkaufsdatum</th>
+			<th>Positionstyp</th>
+			<th>Positionsbezeichnung</th>
+			<th>Geliefert</th>
+			<th>Brutto</th>
+			<th ng-show="((einkauf.wertstellung | empty) && ( now | date:'yyyy') < 2014) || ((einkauf.wertstellung | notnull) && (einkauf.wertstellung | date:'yyyy') < 2014)">MwSt %</th>
+			<th ng-show="((einkauf.wertstellung | empty) && ( now | date:'yyyy') < 2014) || ((einkauf.wertstellung | notnull) && (einkauf.wertstellung | date:'yyyy') < 2014)">MwSt</th>
+			<th ng-show="((einkauf.wertstellung | empty) && ( now | date:'yyyy') < 2014) || ((einkauf.wertstellung | notnull) && (einkauf.wertstellung | date:'yyyy') < 2014)">Netto</th>
+			<th><!-- action --></th>
+		</tr>
+		<tr ng-repeat="position in positionen">
 
-				<td class="description"><textarea ng-model="position.bezeichnung"></textarea></td>
+			<td class="datum">
+				<input type="text" ng-model="position.datum" required
+					 value="{{ position.datum | date:'dd.MM.yyyy' }}"
+					 ui-date="{ dateFormat: 'dd.mm.yy' }"
+					   ui-date-format="yy-mm-dd">
+			</td>
 
-				<td class="delivered">
-					<input type="checkbox" ng-model="position.geliefert" />
-				</td>
+			<td class="type">
+				<select ui-select2 ng-model="position.typ" data-placeholder="-- Typ --" style="width:170px;">
+					<option></option>
+					<option ng-repeat="type in types" value="{{type.id}}">{{type.text}}</option>
+				</select>
+			</td>
 
-				<td class="brutto"><input type="text" currency-input ng-model="position.brutto" ng-change="updateBrutto(position)"/></td>
+			<td class="description"><textarea ng-model="position.bezeichnung"></textarea></td>
 
-				<td ng-show="((einkauf.wertstellung | empty) && ( now | date:'yyyy') < 2014) || ((einkauf.wertstellung | notnull) && (einkauf.wertstellung | date:'yyyy') < 2014)" class="mwst_prozent">
-					<div class="mwst_status">
-						<label><input ng-value="true" type="radio" ng-model="position.mwstStatus" ng-change="updateMwSt(position)"/>ja</label><br/>
-						<label><input ng-value="false" type="radio" ng-model="position.mwstStatus" ng-change="updateMwSt(position)"/>nein</label><br/>
-						<label><input ng-value="null" type="radio" ng-model="position.mwstStatus" ng-change="updateMwSt(position)"/>offen</label>
-					</div>
-					<input type="text" ng-show="position.mwstStatus" integer ng-model="position.mwstProzent" ng-change="updateMwStProzent(position)"/>
-				</td>
-				
-				<td ng-show="((einkauf.wertstellung | empty) && ( now | date:'yyyy') < 2014) || ((einkauf.wertstellung | notnull) && (einkauf.wertstellung | date:'yyyy') < 2014)" class="mwst"><span ng-hide="position.mwstProzent|empty">{{position.mwst|number_de}} €</span><input type="text" ng-show="position.mwstProzent|empty" currency-input ng-model="position.mwst"/></td>
+			<td class="delivered">
+				<input type="checkbox" ng-model="position.geliefert" />
+			</td>
 
-				<td ng-show="((einkauf.wertstellung | empty) && ( now | date:'yyyy') < 2014) || ((einkauf.wertstellung | notnull) && (einkauf.wertstellung | date:'yyyy') < 2014)" class="netto"><span>{{position.netto|number_de}} €</span></td>
+			<td class="brutto"><input type="text" currency-input ng-model="position.brutto" ng-change="updateBrutto(position)"/></td>
 
-				<td><button ng-click="addPosition($index)">+</button> <button ng-click="removePosition($index)">-</button></td>
+			<td ng-show="((einkauf.wertstellung | empty) && ( now | date:'yyyy') < 2014) || ((einkauf.wertstellung | notnull) && (einkauf.wertstellung | date:'yyyy') < 2014)" class="mwst_prozent">
+				<div class="mwst_status">
+					<label><input ng-value="true" type="radio" ng-model="position.mwstStatus" ng-change="updateMwSt(position)"/>ja</label><br/>
+					<label><input ng-value="false" type="radio" ng-model="position.mwstStatus" ng-change="updateMwSt(position)"/>nein</label><br/>
+					<label><input ng-value="null" type="radio" ng-model="position.mwstStatus" ng-change="updateMwSt(position)"/>offen</label>
+				</div>
+				<input type="text" ng-show="position.mwstStatus" integer ng-model="position.mwstProzent" ng-change="updateMwStProzent(position)"/>
+			</td>
 
-			</tr>
+			<td ng-show="((einkauf.wertstellung | empty) && ( now | date:'yyyy') < 2014) || ((einkauf.wertstellung | notnull) && (einkauf.wertstellung | date:'yyyy') < 2014)" class="mwst"><span ng-hide="position.mwstProzent|empty">{{position.mwst|number_de}} €</span><input type="text" ng-show="position.mwstProzent|empty" currency-input ng-model="position.mwst"/></td>
 
-		</table>
+			<td ng-show="((einkauf.wertstellung | empty) && ( now | date:'yyyy') < 2014) || ((einkauf.wertstellung | notnull) && (einkauf.wertstellung | date:'yyyy') < 2014)" class="netto"><span>{{position.netto|number_de}} €</span></td>
 
-		<button style="margin-top: 18px;" ng-click="saveEinkauf(einkauf)">Speichern</button>
-	</form>
+			<td><button ng-click="addPosition($index)">+</button> <button ng-click="removePosition($index)">-</button></td>
+
+		</tr>
+
+	</table>
+
+	<button style="margin-top: 18px;" ng-click="saveEinkauf(einkauf)">Speichern</button>
+
 </div>
 
 
