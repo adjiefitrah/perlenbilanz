@@ -98,7 +98,7 @@ class EinkaufController extends Controller {
 			return $this->renderRawJSON($list);
 		} else if (isset($params['wertstellung'])) {
 			$list = $this->mapper->missingWertstellung($this->api->getUserId());
-			return $this->renderRawJSON($list);
+			return $this->renderRawJSON($list,null);
 		} else if (isset($params['search']) && $params['search'] === 'account' && isset($params['query'])) {
 			$list = $this->mapper->searchByAccount($this->api->getUserId(), $params['query']);
 			return $this->renderRawJSON($list,null);
