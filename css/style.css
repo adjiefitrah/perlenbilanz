@@ -149,7 +149,7 @@ table .type select {
 
 #perlenbilanz .notes {
 	width: 100%;
-	height: 65px;
+	height: 100%;
 	margin: 0;
 }
 
@@ -188,10 +188,6 @@ table .type select {
 #perlenbilanz .sum td {
 	border-top: black double;
 	font-weight: bold;
-}
-#perlenbilanz .uebersicht table {
-	margin-left: auto;
-	margin-right: auto;
 }
 
 #perlenbilanz .uebersicht-vk table .status {
