@@ -164,11 +164,9 @@
 				<div style="margin-bottom: 9px; font-variant: small-caps; text-decoration: underline;">Brutto:</div>
 				<div style="margin-left: 5px; font-size: 40px; height:30px;">{{bruttoTotal|number_de}} €</div>
 
-				<div ng-show="((verkauf.wertstellung | empty) && ( now | date:'yyyy') < 2014) || ((verkauf.wertstellung | notnull) && (verkauf.wertstellung | date:'yyyy') < 2014)"
-					 ng-repeat="mwst in mwstGroups"
+				<div ng-repeat="mwst in mwstGroups"
 					 style="margin-left: 5px;">MwSt ({{mwst.mwstProzent}}%):<span style="float:right;">{{mwst.mwst|number_de}} €</span></div>
-				<div ng-show="((verkauf.wertstellung | empty) && ( now | date:'yyyy') < 2014) || ((verkauf.wertstellung | notnull) && (verkauf.wertstellung | date:'yyyy') < 2014)"
-					 style="margin-left: 5px;">Netto: <span style="float:right;">{{nettoTotal|number_de}} €</span></div>
+				<div style="margin-left: 5px;">Netto: <span style="float:right;">{{nettoTotal|number_de}} €</span></div>
 			</div>
 			<div style="clear: both; border-bottom: 1px solid #ddd; width: 100%; height:6px;"></div>
 		</div>
@@ -183,10 +181,10 @@
 				<th>Positionsbezeichnung</th>
 				<th>Geliefert</th>
 				<th>Brutto</th>
-				<th ng-show="((verkauf.wertstellung | empty) && ( now | date:'yyyy') < 2014) || ((verkauf.wertstellung | notnull) && (verkauf.wertstellung | date:'yyyy') < 2014)">Brutto ∑</th>
+				<th>Brutto ∑</th>
 				<!--th>MwSt%</th-->
-				<th ng-show="((verkauf.wertstellung | empty) && ( now | date:'yyyy') < 2014) || ((verkauf.wertstellung | notnull) && (verkauf.wertstellung | date:'yyyy') < 2014)">MwSt</th>
-				<th ng-show="((verkauf.wertstellung | empty) && ( now | date:'yyyy') < 2014) || ((verkauf.wertstellung | notnull) && (verkauf.wertstellung | date:'yyyy') < 2014)">Netto</th>
+				<th>MwSt</th>
+				<th>Netto</th>
 				<th><!-- action --></th>
 			</tr>
 			<tr ng-repeat="position in positionen" ng-hide="position.deleted">
@@ -223,11 +221,11 @@
 				<!--
 				<td class="mwst_prozent"><span>{{position.mwst_prozent}} %</span></td>
 				-->
-				<td ng-show="((verkauf.wertstellung | empty) && ( now | date:'yyyy') < 2014) || ((verkauf.wertstellung | notnull) && (verkauf.wertstellung | date:'yyyy') < 2014)" class="bruttoSum"><span>{{position.bruttoSum|number_de}} €</span></td>
+				<td class="bruttoSum"><span>{{position.bruttoSum|number_de}} €</span></td>
 				
-				<td ng-show="((verkauf.wertstellung | empty) && ( now | date:'yyyy') < 2014) || ((verkauf.wertstellung | notnull) && (verkauf.wertstellung | date:'yyyy') < 2014)" class="mwst"><span>{{position.mwst|number_de}} €</span></td>
+				<td class="mwst"><span>{{position.mwst|number_de}} €</span></td>
 
-				<td ng-show="((verkauf.wertstellung | empty) && ( now | date:'yyyy') < 2014) || ((verkauf.wertstellung | notnull) && (verkauf.wertstellung | date:'yyyy') < 2014)" class="netto"><span>{{position.netto|number_de}} €</span></td>
+				<td class="netto"><span>{{position.netto|number_de}} €</span></td>
 
 				<td><button ng-click="addPosition($index)">+</button> <button ng-click="removePosition($index)">-</button></td>
 

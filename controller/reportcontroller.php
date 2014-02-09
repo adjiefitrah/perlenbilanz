@@ -46,16 +46,14 @@ class ReportController extends Controller {
 	}
 
 	private function addRow($sheet, $row, $e, $year) {
-		
-		$showMwStAndNetto = $year < 2014;
-		
+
 		//EK
 		if ($e instanceof Einkauf) {
 			$e->brutto=$e->brutto * -1;
 			$e->mwst=$e->mwst * -1;
 			$e->netto=$e->netto * -1;
 		}
-		
+
 		$col = 1; //start at B
 		// Refnr., Zahlweise, Wertstellung, Name, Positionstyp, Brutto, MwSt, Netto 
 		$sheet->SetCellValue($this->columns[$col++].$row, $e->zahlweise);
@@ -64,12 +62,10 @@ class ReportController extends Controller {
 		$sheet->SetCellValue($this->columns[$col++].$row, $e->typ); //FIXME
 		$sheet->SetCellValue($this->columns[$col].$row, $e->brutto);
 		$sheet->getStyle($this->columns[$col++].$row)->getNumberFormat()->setFormatCode('#,##0.00€');
-		if($showMwStAndNetto) {
-			$sheet->SetCellValue($this->columns[$col].$row, $e->mwst);
-			$sheet->getStyle($this->columns[$col++].$row)->getNumberFormat()->setFormatCode('#,##0.00€');
-			$sheet->SetCellValue($this->columns[$col].$row, $e->netto);
-			$sheet->getStyle($this->columns[$col++].$row)->getNumberFormat()->setFormatCode('#,##0.00€');
-		}
+		$sheet->SetCellValue($this->columns[$col].$row, $e->mwst);
+		$sheet->getStyle($this->columns[$col++].$row)->getNumberFormat()->setFormatCode('#,##0.00€');
+		$sheet->SetCellValue($this->columns[$col].$row, $e->netto);
+		$sheet->getStyle($this->columns[$col++].$row)->getNumberFormat()->setFormatCode('#,##0.00€');
 		
 		// VK
 		if ($e instanceof Verkauf) {
@@ -95,9 +91,7 @@ class ReportController extends Controller {
 	 * @param int $year
 	 */
 	private function addSection ($sheet, &$row, $entities, $year) {
-		
-		$showMwStAndNetto = $year < 2014;
-		
+
 		//sortieren nach wertstellung, zahlweise
 		usort($entities, function ($a, $b) {
 			if ($a->wertstellung == $b->wertstellung) {
@@ -119,10 +113,9 @@ class ReportController extends Controller {
 		$sheet->SetCellValue($this->columns[$col++].$row, 'Name');
 		$sheet->SetCellValue($this->columns[$col++].$row, 'Positionstyp');
 		$sheet->SetCellValue($this->columns[$col++].$row, 'Brutto');
-		if($showMwStAndNetto) {
-			$sheet->SetCellValue($this->columns[$col++].$row, 'MwSt');
-			$sheet->SetCellValue($this->columns[$col++].$row, 'Netto');
-		}
+		$sheet->SetCellValue($this->columns[$col++].$row, 'MwSt');
+		$sheet->SetCellValue($this->columns[$col++].$row, 'Netto');
+
 		// VK
 		if (isset($entities[0]) && $entities[0] instanceof Verkauf) {
 			$sheet->SetCellValue($this->columns[$col].$row, 'Rechnung');
@@ -148,7 +141,7 @@ class ReportController extends Controller {
 			$this->addRow($sheet, $row++, $entity, $year);
 		}
 	}
-	
+
 	/**
 	 * @IsAdminExemption
 	 * @IsSubAdminExemption
@@ -159,8 +152,6 @@ class ReportController extends Controller {
 		$user = $this->api->getUserId();
 		
 		$year = $params['year'];
-		
-		$showMwStAndNetto = $year < 2014;
 		
 		$month = $params['month'];
 
@@ -185,13 +176,11 @@ class ReportController extends Controller {
 		$objPHPExcel->getProperties()->setSubject('Buchungsbericht '.$year.'-'.$month);
 		$objPHPExcel->getProperties()->setDescription('Buchhaltungsbericht basierend auf '.$year.'-'.$month);
 
-
 		$start = $year.'-'.$month.'-01';
 		$d = new \DateTime( $start );
 		$end = $d->format( 'Y-m-t' );
 		$row = 1;
-		
-		
+
 		//get Einkäufe from DB
 		//$verkaeufe = $this->verkaufMapper->report($start, $end, $this->api->getUserId());
 		//$einkaeufe = $this->einkaufMapper->report($start, $end, 'ninaobermeyer');
@@ -221,14 +210,13 @@ class ReportController extends Controller {
 			$sheet->SetCellValue('F'.$row, '=SUM(F'.$sumstartrow.':F'.$sumendrow.')');
 			$sheet->getStyle('F'.$row)->getNumberFormat()->setFormatCode('#,##0.00€');
 			$sheet->getStyle('F'.$row)->getFont()->setBold(true);
-			if($showMwStAndNetto) {
-				$sheet->SetCellValue('G'.$row, '=SUM(G'.$sumstartrow.':G'.$sumendrow.')');
-				$sheet->getStyle('G'.$row)->getNumberFormat()->setFormatCode('#,##0.00€');
-				$sheet->getStyle('G'.$row)->getFont()->setBold(true);
-				$sheet->SetCellValue('H'.$row, '=SUM(H'.$sumstartrow.':H'.$sumendrow.')');
-				$sheet->getStyle('H'.$row)->getNumberFormat()->setFormatCode('#,##0.00€');
-				$sheet->getStyle('H'.$row)->getFont()->setBold(true);
-			}
+			$sheet->SetCellValue('G'.$row, '=SUM(G'.$sumstartrow.':G'.$sumendrow.')');
+			$sheet->getStyle('G'.$row)->getNumberFormat()->setFormatCode('#,##0.00€');
+			$sheet->getStyle('G'.$row)->getFont()->setBold(true);
+			$sheet->SetCellValue('H'.$row, '=SUM(H'.$sumstartrow.':H'.$sumendrow.')');
+			$sheet->getStyle('H'.$row)->getNumberFormat()->setFormatCode('#,##0.00€');
+			$sheet->getStyle('H'.$row)->getFont()->setBold(true);
+			
 		} else {
 			$sheet->SetCellValue('A'.$row, 'Keine Einkäufe');
 		}
@@ -258,15 +246,13 @@ class ReportController extends Controller {
 			$sheet->SetCellValue('F'.$row, '=SUM(F'.$sumstartrow.':F'.$sumendrow.')');
 			$sheet->getStyle('F'.$row)->getNumberFormat()->setFormatCode('#,##0.00€');
 			$sheet->getStyle('F'.$row)->getFont()->setBold(true);
-			if($showMwStAndNetto) {
-				$sheet->SetCellValue('G'.$row, '=SUM(G'.$sumstartrow.':G'.$sumendrow.')');
-				$sheet->getStyle('G'.$row)->getNumberFormat()->setFormatCode('#,##0.00€');
-				$sheet->getStyle('G'.$row)->getFont()->setBold(true);
-				$sheet->SetCellValue('H'.$row, '=SUM(H'.$sumstartrow.':H'.$sumendrow.')');
-				$sheet->getStyle('H'.$row)->getNumberFormat()->setFormatCode('#,##0.00€');
-				$sheet->getStyle('H'.$row)->getFont()->setBold(true);
-			}
-		
+			$sheet->SetCellValue('G'.$row, '=SUM(G'.$sumstartrow.':G'.$sumendrow.')');
+			$sheet->getStyle('G'.$row)->getNumberFormat()->setFormatCode('#,##0.00€');
+			$sheet->getStyle('G'.$row)->getFont()->setBold(true);
+			$sheet->SetCellValue('H'.$row, '=SUM(H'.$sumstartrow.':H'.$sumendrow.')');
+			$sheet->getStyle('H'.$row)->getNumberFormat()->setFormatCode('#,##0.00€');
+			$sheet->getStyle('H'.$row)->getFont()->setBold(true);
+
 		} else {
 			$sheet->SetCellValue('A'.$row, 'Keine Verkäufe');
 		}

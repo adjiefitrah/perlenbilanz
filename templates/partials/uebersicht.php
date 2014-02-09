@@ -8,26 +8,26 @@
 				<tr>
 					<th></th>
 					<th>Brutto</th>
-					<th ng-show="( now | date:'yyyy') < 2014">MwSt.</th>
-					<th ng-show="( now | date:'yyyy') < 2014">Netto</th>
+					<th>MwSt.</th>
+					<th>Netto</th>
 				</tr>
 				<tr>
 					<td>Verkäufe</td>
 					<td style="text-align: right;">{{vkBrutto|number_de}} €</td>
-					<td ng-show="( now | date:'yyyy') < 2014" style="text-align: right;">{{vkMwSt|number_de}} €</td>
-					<td ng-show="( now | date:'yyyy') < 2014" style="text-align: right;">{{vkNetto|number_de}} €</td>
+					<td style="text-align: right;">{{vkMwSt|number_de}} €</td>
+					<td style="text-align: right;">{{vkNetto|number_de}} €</td>
 				</tr>
 				<tr>
 					<td>Einkäufe</td>
 					<td style="text-align: right;">{{ekBrutto|number_de}} €</td>
-					<td ng-show="( now | date:'yyyy') < 2014" style="text-align: right;">{{ekMwSt|number_de}} €</td>
-					<td ng-show="( now | date:'yyyy') < 2014" style="text-align: right;">{{ekNetto|number_de}} €</td>
+					<td style="text-align: right;">{{ekMwSt|number_de}} €</td>
+					<td style="text-align: right;">{{ekNetto|number_de}} €</td>
 				</tr>
 				<tr class="sum">
 					<td>+/-</td>
 					<td style="text-align: right;">{{vkBrutto-ekBrutto|number_de}} €</td>
-					<td ng-show="( now | date:'yyyy') < 2014" style="text-align: right;">{{vkMwSt-ekMwSt|number_de}} €</td>
-					<td ng-show="( now | date:'yyyy') < 2014" style="text-align: right;">{{vkNetto-ekNetto|number_de}} €</td>
+					<td style="text-align: right;">{{vkMwSt-ekMwSt|number_de}} €</td>
+					<td style="text-align: right;">{{vkNetto-ekNetto|number_de}} €</td>
 				</tr>
 			</table>
 			<br/>
@@ -50,8 +50,8 @@
 							<th>Account</th>
 							<th>Name</th>
 							<th>Brutto</th>
-							<th ng-show="( now | date:'yyyy') < 2014">MwSt</th>
-							<th ng-show="( now | date:'yyyy') < 2014">Netto</th>
+							<th>MwSt</th>
+							<th>Netto</th>
 							<th>Zahlweise</th>
 							<th></th>
 						</tr>
@@ -67,9 +67,9 @@
 
 							<td class="brutto">{{verkauf.brutto|number_de}} €</td>
 
-							<td ng-show="( now | date:'yyyy') < 2014" class="mwst">{{verkauf.mwst|number_de}} €</td>
+							<td class="mwst">{{verkauf.mwst|number_de}} €</td>
 
-							<td ng-show="( now | date:'yyyy') < 2014" class="netto">{{verkauf.netto|number_de}} €</td>
+							<td class="netto">{{verkauf.netto|number_de}} €</td>
 
 							<td class="zahlweise">{{verkauf.zahlweise}}</td>
 
@@ -108,9 +108,9 @@
 
 							<td class="brutto">{{calcBruttoSum(verkaeufe)|number_de}} €</td>
 
-							<td ng-show="( now | date:'yyyy') < 2014" class="brutto">{{calcMwStSum(verkaeufe)|number_de}} €</td>
+							<td class="brutto">{{calcMwStSum(verkaeufe)|number_de}} €</td>
 
-							<td ng-show="( now | date:'yyyy') < 2014" class="brutto">{{calcNettoSum(verkaeufe)|number_de}} €</td>
+							<td class="brutto">{{calcNettoSum(verkaeufe)|number_de}} €</td>
 
 							<td class="zahlweise"></td>
 
@@ -134,8 +134,8 @@
 							<th>Account</th>
 							<th>Name</th>
 							<th>Brutto</th>
-							<th ng-show="( now | date:'yyyy') < 2014">MwSt</th>
-							<th ng-show="( now | date:'yyyy') < 2014">Netto</th>
+							<th>MwSt</th>
+							<th>Netto</th>
 							<th>Zahlweise</th>
 							<th></th>
 						</tr>
@@ -151,9 +151,9 @@
 
 							<td class="brutto">{{verkauf.brutto|number_de}} €</td>
 
-							<td ng-show="( now | date:'yyyy') < 2014" class="mwst">{{verkauf.mwst|number_de}} €</td>
+							<td class="mwst">{{verkauf.mwst|number_de}} €</td>
 
-							<td ng-show="( now | date:'yyyy') < 2014" class="netto">{{verkauf.netto|number_de}} €</td>
+							<td class="netto">{{verkauf.netto|number_de}} €</td>
 
 							<td class="zahlweise">{{verkauf.zahlweise}}</td>
 
@@ -195,8 +195,8 @@
 							<th>Account</th>
 							<th>Name</th>
 							<th>Brutto</th>
-							<th ng-show="( now | date:'yyyy') < 2014">MwSt</th>
-							<th ng-show="( now | date:'yyyy') < 2014">Netto</th>
+							<th>MwSt</th>
+							<th>Netto</th>
 							<th>Zahlweise</th>
 							<th></th>
 						</tr>
@@ -212,9 +212,9 @@
 
 							<td class="brutto">{{einkauf.brutto|number_de}} €</td>
 
-							<td ng-show="( now | date:'yyyy') < 2014" class="mwst">{{einkauf.mwst|number_de}} €</td>
+							<td class="mwst">{{einkauf.mwst|number_de}} €</td>
 
-							<td ng-show="( now | date:'yyyy') < 2014" class="netto">{{einkauf.netto|number_de}} €</td>
+							<td class="netto">{{einkauf.netto|number_de}} €</td>
 
 							<td class="zahlweise">{{einkauf.zahlweise}}</td>
 
@@ -248,9 +248,9 @@
 
 							<td class="brutto">{{calcBruttoSum(einkaeufe)|number_de}} €</td>
 
-							<td ng-show="( now | date:'yyyy') < 2014" class="mwst">{{calcMwStSum(einkaeufe)|number_de}} €</td>
+							<td class="mwst">{{calcMwStSum(einkaeufe)|number_de}} €</td>
 
-							<td ng-show="( now | date:'yyyy') < 2014" class="netto">{{calcNettoSum(einkaeufe)|number_de}} €</td>
+							<td class="netto">{{calcNettoSum(einkaeufe)|number_de}} €</td>
 
 							<td class="zahlweise"></td>
 
@@ -274,8 +274,8 @@
 							<th>Account</th>
 							<th>Name</th>
 							<th>Brutto</th>
-							<th ng-show="( now | date:'yyyy') < 2014">MwSt</th>
-							<th ng-show="( now | date:'yyyy') < 2014">Netto</th>
+							<th>MwSt</th>
+							<th>Netto</th>
 							<th>Zahlweise</th>
 							<th></th>
 						</tr>
@@ -291,9 +291,9 @@
 
 							<td class="brutto">{{einkauf.brutto|number_de}} €</td>
 
-							<td ng-show="( now | date:'yyyy') < 2014" class="mwst">{{einkauf.mwst|number_de}} €</td>
+							<td class="mwst">{{einkauf.mwst|number_de}} €</td>
 
-							<td ng-show="( now | date:'yyyy') < 2014" class="netto">{{einkauf.netto|number_de}} €</td>
+							<td class="netto">{{einkauf.netto|number_de}} €</td>
 
 							<td class="zahlweise">{{einkauf.zahlweise}}</td>
 
