@@ -117,7 +117,7 @@ für Ihre Bestellung<?php if ($_['verkauf']->bestellnummer): ?>
 </table>
 <?php if($_['verkauf']->rechnungsjahr > 2013): ?>
 <br/>
-Kein Ausweis der Umsatzsteuer, da Kleinunternehmer nach §19 UstG.<br/>
+Kein Ausweis der Umsatzsteuer, da Kleinunternehmer nach §19 UStG.<br/>
 <?php endif; ?>
 <?php if ($_['verkauf']->wertstellung): ?>
 <br/>
