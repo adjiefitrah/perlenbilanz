@@ -23,7 +23,7 @@
 
 namespace OCA\Perlenbilanz\Db;
 
-use OCA\AppFramework\Db\Entity;
+use OCA\Perlenbilanz\AppFramework\Db\Entity;
 
 
 class Einkauf extends Entity {

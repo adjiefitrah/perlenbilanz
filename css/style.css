@@ -213,16 +213,16 @@ table .type select {
 	background-image: none;
 }
 #perlenbilanz table .icon.gezahlt {
-	background-image: url('%appswebroot%/perlenbilanz/img/icons/gezahlt.png');
+	background-image: url('../img/icons/gezahlt.png');
 }
 #perlenbilanz table .icon.rechnung {
-	background-image: url('%appswebroot%/perlenbilanz/img/icons/rechnung.png');
+	background-image: url('../img/icons/rechnung.png');
 }
 #perlenbilanz table .icon.versand {
-	background-image: url('%appswebroot%/perlenbilanz/img/icons/versand.png');
+	background-image: url('../img/icons/versand.png');
 }
 #perlenbilanz table .icon.versand_teilweise {
-	background-image: url('%appswebroot%/perlenbilanz/img/icons/versand_teilweise.png');
+	background-image: url('../img/icons/versand_teilweise.png');
 }
 #perlenbilanz #rechnungsnummer {
 	width: 25px;
@@ -260,23 +260,23 @@ table .type select {
 }
 
 #perlenbilanz #verkauf .icon.generate {
-	background-image: url('%appswebroot%/perlenbilanz/img/icons/cog.png');
+	background-image: url('../img/icons/cog.png');
 }
 #perlenbilanz #verkauf .icon.download {
-	background-image: url('%appswebroot%/perlenbilanz/img/icons/download.png');
+	background-image: url('../img/icons/download.png');
 }
 #perlenbilanz #verkauf .icon.edit {
-	background-image: url('%appswebroot%/perlenbilanz/img/icons/pen_alt_fill.png');
+	background-image: url('../img/icons/pen_alt_fill.png');
 }
 #perlenbilanz #verkauf .icon.faulty {
-	background-image: url('%appswebroot%/perlenbilanz/img/icons/document_denied.png');
+	background-image: url('../img/icons/document_denied.png');
 }
 #perlenbilanz #verkauf .icon.markfaulty {
-	background-image: url('%appswebroot%/perlenbilanz/img/icons/denied.png');
+	background-image: url('../img/icons/denied.png');
 }
 #perlenbilanz #verkauf .icon.delete {
-	background-image: url('%appswebroot%/perlenbilanz/img/icons/trash_fill.png');
+	background-image: url('../img/icons/trash_fill.png');
 }
 #perlenbilanz #verkauf .icon.preview {
-	background-image: url('%appswebroot%/perlenbilanz/img/icons/eye.png');
+	background-image: url('../img/icons/eye.png');
 }

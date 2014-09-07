@@ -23,13 +23,17 @@
 
 namespace OCA\Perlenbilanz\Controller;
 
-use OCA\AppFramework\Controller\Controller;
-use OCA\AppFramework\Core\API;
-use OCA\AppFramework\Http\Request;
+use OCA\Perlenbilanz\AppFramework\Controller\Controller;
+use OCA\Perlenbilanz\AppFramework\Core\API;
+use OCA\Perlenbilanz\AppFramework\Http\Http;
+use OCA\Perlenbilanz\AppFramework\Http\Request;
+use \OCA\Perlenbilanz\AppFramework\Db\DoesNotExistException;
 
+use OCA\Perlenbilanz\Db\Verkauf;
 use OCA\Perlenbilanz\Db\VerkaufMapper;
 use OCA\Perlenbilanz\Db\VerkaufPositionMapper;
 use OCA\Perlenbilanz\Http\JSONResponse;
+use OCA\Perlenbilanz\Http\Template;
 
 
 class InvoiceController extends Controller {
@@ -43,10 +47,10 @@ class InvoiceController extends Controller {
 		$this->verkaufPositionenMapper = $verkaufPositionenMapper;
 	}
 
-	public function getRechnungsname(\OCA\Perlenbilanz\Db\Verkauf $verkauf) {
+	public function getRechnungsname(Verkauf $verkauf) {
 		return 'Rechnung '.$verkauf->rechnungsjahr.'-'.sprintf("%03s", $verkauf->rechnungsnummer);
 	}
-	public function getRechnungspath(\OCA\Perlenbilanz\Db\Verkauf $verkauf = null) {
+	public function getRechnungspath(Verkauf $verkauf = null) {
 		return '/Perlenbilanz/Rechnungen';
 	}
 	
@@ -66,9 +70,9 @@ class InvoiceController extends Controller {
 			$verkauf = $this->verkaufMapper->find($json['vkid'], $this->api->getUserId());
 
 			$positionen = $this->verkaufPositionenMapper->findAll($verkauf->id,$verkauf->userid);
-		} catch (\OCA\AppFramework\Db\DoesNotExistException $e) {
-			$response = new \OCA\Perlenbilanz\Http\JSONResponse();
-			$response->setStatus(\OCA\AppFramework\Http\Http::STATUS_NOT_FOUND);
+		} catch (DoesNotExistException $e) {
+			$response = new JSONResponse();
+			$response->setStatus(Http::STATUS_NOT_FOUND);
 			return $response;
 		}
 		
@@ -114,7 +118,7 @@ class InvoiceController extends Controller {
 			\OC\Files\Filesystem::file_put_contents($this->getRechnungspath().'/Vorlage.php', $template);
 		}
 		
-		$invoiceTemplate = new \OCA\Perlenbilanz\Http\Template($this->getRechnungspath().'/Vorlage.php');
+		$invoiceTemplate = new Template($this->getRechnungspath().'/Vorlage.php');
 		$invoiceTemplate->assign('datum', $date);
 		$invoiceTemplate->assign('verkauf', $verkauf);
 		$invoiceTemplate->assign('positionen', $positionen);
@@ -145,9 +149,9 @@ class InvoiceController extends Controller {
 		//TODO check valid params?
 		try {
 			$verkauf = $this->verkaufMapper->find($json['id'], $this->api->getUserId());
-		} catch (\OCA\AppFramework\Db\DoesNotExistException $e) {
-			$response = new \OCA\Perlenbilanz\Http\JSONResponse();
-			$response->setStatus(\OCA\AppFramework\Http\Http::STATUS_NOT_FOUND);
+		} catch (DoesNotExistException $e) {
+			$response = new JSONResponse();
+			$response->setStatus(Http::STATUS_NOT_FOUND);
 			return $response;
 		}
 		
@@ -172,7 +176,7 @@ class InvoiceController extends Controller {
 	 * use a minimal JSONResponse implementation that renders the $data as JSON
 	 * Unlike the AppFramework JSONResponse it is not wrapped in {'status':'success','data':$data}
 	 * @param array $data will be rendered as JSON with JSON_FORCE_OBJECT
-	 * @return \OCA\AppFramework\Http\JSONResponse|JSONResponse
+	 * @return JSONResponse
 	 */
 	public function renderRawJSON($data=array(), $options = JSON_FORCE_OBJECT){
 		$response = new JSONResponse();

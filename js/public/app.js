@@ -584,7 +584,7 @@ angular.module('Perlenbilanz').controller('VerkaufCtrl',
 		number = (number < 100)?((!(parseInt(number/10)))? "00"+number : "0"+number) : number;
 		var dir = '/Perlenbilanz/Rechnungen';
 		var filename = 'Rechnung '+$scope.verkauf.rechnungsjahr+'-'+number+'.pdf';
-		$window.open(OC.Router.generate('download',{file:dir+'/'+filename}));
+		$window.open(OC.generateUrl('apps/files/ajax/download.php?dir={dir}&files={file}',{dir:dir,file:filename}));
 		//$window.open(OC.linkTo('files_pdfviewer', 'viewer.php')+'?dir='+encodeURIComponent(dir).replace(/%2F/g, '/')+'&file='+encodeURIComponent(filename.replace('&', '%26')));
 	};
 	$scope.editInvoice = function () {

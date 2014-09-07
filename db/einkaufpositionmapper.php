@@ -23,9 +23,8 @@
 
 namespace OCA\Perlenbilanz\Db;
 
-use \OCA\AppFramework\Core\API;
-use \OCA\AppFramework\Db\Mapper;
-use \OCA\AppFramework\Db\DoesNotExistException;
+use \OCA\Perlenbilanz\AppFramework\Core\API;
+use \OCA\Perlenbilanz\AppFramework\Db\Mapper;
 
 
 class EinkaufPositionMapper extends Mapper {

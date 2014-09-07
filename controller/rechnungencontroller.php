@@ -23,9 +23,9 @@
 
 namespace OCA\Perlenbilanz\Controller;
 
-use OCA\AppFramework\Controller\Controller;
-use OCA\AppFramework\Core\API;
-use OCA\AppFramework\Http\Request;
+use OCA\Perlenbilanz\AppFramework\Controller\Controller;
+use OCA\Perlenbilanz\AppFramework\Core\API;
+use OCA\Perlenbilanz\AppFramework\Http\Request;
 
 use OCA\Perlenbilanz\Db\Einkauf;
 use OCA\Perlenbilanz\Db\EinkaufMapper;

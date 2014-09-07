@@ -3,7 +3,7 @@
 
 namespace OCA\Perlenbilanz\Http;
 
-use OCA\AppFramework\Http\Response;
+use OCA\Perlenbilanz\AppFramework\Http\Response;
 
 /**
  * A renderer for JSON calls

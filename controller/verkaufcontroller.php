@@ -23,11 +23,11 @@
 
 namespace OCA\Perlenbilanz\Controller;
 
-use OCA\AppFramework\Controller\Controller;
-use OCA\AppFramework\Db\DoesNotExistException;
-use OCA\AppFramework\Core\API;
-use OCA\AppFramework\Http\NotFoundResponse;
-use OCA\AppFramework\Http\Request;
+use OCA\Perlenbilanz\AppFramework\Controller\Controller;
+use OCA\Perlenbilanz\AppFramework\Db\DoesNotExistException;
+use OCA\Perlenbilanz\AppFramework\Core\API;
+use OCA\Perlenbilanz\AppFramework\Http\NotFoundResponse;
+use OCA\Perlenbilanz\AppFramework\Http\Request;
 
 use OCA\Perlenbilanz\Db\Verkauf;
 use OCA\Perlenbilanz\Db\VerkaufMapper;
@@ -55,7 +55,7 @@ class VerkaufController extends Controller {
 	 * use a minimal JSONResponse implementation that renders the $data as JSON
 	 * Unlike the AppFramework JSONResponse it is not wrapped in {'status':'success','data':$data}
 	 * @param array $data will be rendered as JSON with JSON_FORCE_OBJECT
-	 * @return \OCA\AppFramework\Http\JSONResponse|JSONResponse
+	 * @return \OCA\Perlenbilanz\AppFramework\Http\JSONResponse
 	 */
 	public function renderRawJSON($data=array(), $options = JSON_FORCE_OBJECT){
 		$response = new JSONResponse();
