@@ -89,7 +89,7 @@
 				<label for="wertstellung" style="font-variant: small-caps; text-decoration: underline;">Wertstellung:</label><br/>
 				<input type="text" id="wertstellung" ng-model="verkauf.wertstellung"
 					   value="{{ verkauf.wertstellung | date:'dd.MM.yyyy' }}"
-					   ui-date="{ dateFormat: 'dd.mm.yy' }" ui-date-format="yy-mm-dd"
+					   ui-date="{ dateFormat: 'dd.mm.yy', minDate: '-10Y' }" ui-date-format="yy-mm-dd"
 					><br/>
 				<label for="rechnungsnummer" style="font-variant: small-caps; text-decoration: underline;">Rechnungsnummer:</label><br/>
 				<!-- input type="text" id="rechnungsnummer" ng-model="verkauf.rechnungsnummer" -->
@@ -192,7 +192,7 @@
 				<td class="datum">
 					<input type="text" ng-model="position.datum" required
 						 value="{{ position.datum | date:'dd.MM.yyyy' }}"
-						 ui-date="{ dateFormat: 'dd.mm.yy' }"
+						 ui-date="{ dateFormat: 'dd.mm.yy', minDate: '-10Y' }"
 						 ui-date-format="yy-mm-dd">
 				</td>
 

@@ -55,7 +55,7 @@
 			<label for="wertstellung" style="font-variant: small-caps; text-decoration: underline;">Wertstellung:</label><br/>
 			<input id="wertstellung" ng-model="einkauf.wertstellung"
 				   type="text" value="{{ einkauf.wertstellung | date:'dd.MM.yyyy' }}"
-				   ui-date="{ dateFormat: 'dd.mm.yy' }" ui-date-format="yy-mm-dd">
+				   ui-date="{ dateFormat: 'dd.mm.yy', minDate: '-10Y' }" ui-date-format="yy-mm-dd">
 		</div>
 		<div style="float: left; margin-left: 15px; min-width: 120px;">
 			<div style="margin-bottom: 9px; font-variant: small-caps; text-decoration: underline;">Brutto:</div>
@@ -87,7 +87,7 @@
 			<td class="datum">
 				<input type="text" ng-model="position.datum" required
 					 value="{{ position.datum | date:'dd.MM.yyyy' }}"
-					 ui-date="{ dateFormat: 'dd.mm.yy' }"
+					 ui-date="{ dateFormat: 'dd.mm.yy', minDate: '-10Y' }"
 					   ui-date-format="yy-mm-dd">
 			</td>
 

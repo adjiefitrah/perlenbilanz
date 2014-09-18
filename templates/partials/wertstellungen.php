@@ -37,7 +37,7 @@
 				<td class="wertstellung">
 					<input type="text" ng-model="einkauf.wertstellung"
 						   value="{{ verkauf.wertstellung | date:'dd.MM.yyyy' }}"
-						   ui-date="{ dateFormat: 'dd.mm.yy' }" ui-date-format="yy-mm-dd" /><br/>
+						   ui-date="{ dateFormat: 'dd.mm.yy', minDate: '-10Y' }" ui-date-format="yy-mm-dd" /><br/>
 				</td>
 
 				<td><a class="button" href="#/einkauf/{{einkauf.id}}">zum Einkauf</a></td>
@@ -78,7 +78,7 @@
 				<td class="wertstellung">
 					<input type="text" ng-model="verkauf.wertstellung"
 						   value="{{ verkauf.wertstellung | date:'dd.MM.yyyy' }}"
-						   ui-date="{ dateFormat: 'dd.mm.yy' }" ui-date-format="yy-mm-dd" /><br/>
+						   ui-date="{ dateFormat: 'dd.mm.yy', minDate: '-10Y' }" ui-date-format="yy-mm-dd" /><br/>
 				</td>
 
 				<td><a class="button" href="#/verkauf/{{verkauf.id}}">zum Verkauf</a></td>
