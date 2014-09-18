@@ -21,7 +21,6 @@
 				<default></default>
 				<notnull>true</notnull>
 				<length>255</length>
-				<was>user</was>
 			</field>
 			<field>
 				<name>wertstellung</name>
@@ -135,7 +134,6 @@
 				<default></default>
 				<notnull>true</notnull>
 				<length>255</length>
-				<was>user</was>
 			</field>
 			<field>
 				<name>rechnungsjahr</name>
